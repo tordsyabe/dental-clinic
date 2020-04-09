@@ -21,11 +21,17 @@ const formatWeekDay = (dates) => {
 		const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 				
 				const formattedDate = new Date(day.textContent);
-				const today = new Date();
+				const dateToday = new Date();
+
+				const todayYear = dateToday.getFullYear();
+				const todayMonth = dateToday.getMonth() > 9 ? dateToday.getMonth() + 1 : `0${dateToday.getMonth() + 1}`;
+				const todayDay = dateToday.getDate();
+
+
+
+				const today = `${todayYear}-${todayMonth}-${todayDay}`;
 				
-				console.log(today.getDay())
-				
-				if(today.getDay() === formattedDate.getDay()) {
+				if(today === day.textContent) {
 					day.innerText = "Today";
 				} else {
 					day.innerText = dayNames[formattedDate.getDay()];

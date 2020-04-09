@@ -23,6 +23,11 @@ table, .table-hover tbody tr:hover {
    color: white !important;
  }
 
+.table thead th {
+    border-bottom: 1px;
+}
+
+
  .clickable-row {
     cursor: pointer;
   }
