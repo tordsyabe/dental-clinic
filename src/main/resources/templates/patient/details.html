@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Dental Clinic</title>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+
+<script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+
+<script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+
+
+<link rel="stylesheet"
+	th:href="@{/webjars/bootswatch-darkly/4.2.1/bootstrap.min.css}" />
+
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" />
+
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+
+
+
+<body>
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<!-- SIDEBAR -->
+			<div th:replace="fragments/sidebar :: sidebar"></div>
+			<!-- MAIN CONTENT -->
+			<div class="col-11 offset-1 my-4 pl-0 pr-5">
+				<!-- MAIN CONTENT HEADER -->
+				<div class="row" th:if="${patient.firstName != null}">
+					<div class="col-sm-1">
+						<h5 class="text-muted">Patient<span class="ml-2">/</span> </h5>
+					</div>
+					<div class="col-sm ml-0 pl-0"><h5 th:text="${patient.firstName + ' ' + patient.lastName}" ></h5></div>
+				</div>
+
+
+				<div class="row" th:if="${patient.firstName == null}">
+					<div class="col-sm-1">
+						<h5 class="text-muted">Patient<span class="ml-2">/</span> </h5>
+					</div>
+					<div class="col-sm ml-0 pl-0"><h5>Add Patient</h5></div>
+				</div>
+
+
+				<div th:replace="fragments/contentnav :: contentnav"></div>
+
+				<div class="dropdown-divider"></div>
+				<!-- END MAIN CONTENT HEADER -->
+
+				<!-- MAIN CONTENT DETAILS -->
+
+				<div class="row mt-4">
+					<!-- PATIENT DETAILS -->
+
+					<div class="col-sm-3">
+						<form th:object="${patient}" th:action="@{/patient/}">
+						<h5 class="mb-4 text-muted">Patient Details</h5>
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-4">
+								<img
+									src="https://image.shutterstock.com/image-photo/passport-picture-asian-young-woman-260nw-789673348.jpg"
+									class="avatar" alt="...">
+
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-8 mt-1">
+								<div class="form-group input-group-sm">
+									<label class="text-muted" for="firstName"><small>First
+											Name</small></label> <input type="text" class="form-control"
+										placeholder="First Name" th:value="${patient.firstName}"
+										id="firstName" name="firstName" th:field="*{firstName}">
+
+								</div>
+								<div class="form-group input-group-sm">
+									<label class="text-muted" for="lastName"><small>Last
+											Name</small></label> <input type="text" class="form-control"
+										placeholder="Last Name" th:value="${patient.lastName}"
+										id="lastName" name="lastName" th:field="*{lastName}">
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="form-group input-group-sm">
+							<label class="text-muted" for="birthDate"><small>Birth Date</small></label>
+							<input type="date" class="form-control" th:field="*{birthDate}"
+								 id="birthDate" name="birthDate">
+							<input type="hidden" th:value="${patient.birthDate}" id="hiddenBirthDAte">
+						</div>
+
+						<div class="form-group input-group-sm">
+							<label class="text-muted" for="gender"><small>Gender</small></label>
+							<select class="custom-select form-control" id="gender">
+
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+
+							</select>
+						</div>
+
+						<div class="form-group input-group-sm">
+							<label class="text-muted" for="email"><small>Email</small></label>
+							<input type="email" class="form-control"
+								id="email" name="email" th:field="*{email}">
+
+						</div>
+
+						<div class="form-group input-group-sm">
+							<label class="text-muted" for="phone"><small>Phone</small></label>
+							<input type="text" class="form-control"
+								th:value="${patient.phone}" id="phone" name="phone" th:field="*{phone}">
+
+						</div>
+						<div class="form-group input-group-sm">
+							<label class="text-muted" for="address"><small>Address</small></label>
+							<input type="text" class="form-control"
+								th:value="${patient.address}" id="address" name="address" th:field="*{address}">
+
+						</div>
+
+
+						<div class="form-group input-group-sm">
+							<label class="text-muted" for="city"><small>City</small></label>
+							<input type="text" class="form-control"
+								   th:value="${patient.city}" id="city" name="city" th:field="*{city}">
+
+						</div>
+
+						<div class="form-group input-group-sm">
+							<label class="text-muted" for="province"><small>State
+									/ Province / Region</small></label> <input type="text" class="form-control"
+								th:value="${patient.province}" id="province" name="province" th:field="*{province}">
+
+						</div>
+
+
+
+
+						<button type="submit" class="btn btn-info">Save</button>
+						</form>
+					</div>
+
+					<!-- END PATIENT DETAILS -->
+
+					<!-- PATIENT PROCEDURES -->
+					<div class="col">
+						<h5 class="mb-4 text-muted">Latest Procedures</h5>
+						<div class="card mb-4 procedure-card">
+							<div class="card-body">
+
+								<div class="row" th:each="visit : ${patient.visits}" th:if="${patient.visits.size() > 0}">
+
+
+									<div class="col-sm-2">
+										<span th:text="${visit.date}" id="visitDay">Today</span><br>
+										<small class="text-muted" th:text="${visit.date}"
+											id="visitDate">April 4, 2020</small>
+									</div>
+
+									<div class="col-sm-10 text-center">
+										<div class="card mb-3"
+											th:each="procedure : ${visit.procedures}">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-1">
+														<i
+															th:class="${procedure.paid == true ? 'fa fa-check-circle fa-lg' : 'fa fa-circle fa-lg'}"
+															th:style="${procedure.paid == false ? 'color: #222' : 'color: #007bff'}"></i>
+													</div>
+
+
+													<div class="col-7">
+														<div class="row" th:text="${procedure.description}">Description
+															will go here</div>
+
+														<div class="row">
+															<small class="text-muted" th:text="${procedure.category}">Category
+																here</small>
+
+														</div>
+													</div>
+
+													<div class="col-4" th:if="${!procedure.paid}">
+														<button type="button" class="btn btn-info">Create
+															Invoice</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+
+								</div>
+
+								<div th:unless="${!patient.visits.isEmpty()}">
+									<h5 class="text-muted">No Procedures</h5>
+									<a class="btn btn-info mt-1" th:href="@{'/patient/procedures/' + ${patient.id}}" id="addProcedures" >Add Procedures</a>
+								</div>
+
+
+
+
+							</div>
+
+
+						</div>
+
+						<!-- END PATIENT PROCEDURES -->
+
+						<!-- PATIENT HEALTH NOTES -->
+						<div class="card procedure-card">
+
+							<div class="card-body">
+								<ul class="nav nav-pills">
+									<li class="nav-item"><a class="nav-link active" href="#">Health
+											Notes</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">Documents</a>
+									</li>
+
+								</ul>
+								<div class="dropdown-divider"></div>
+								<div class="row mt-4">
+									<div class="col-sm-7">
+										<h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
+										<div class="card mt-3">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-sm-8"></div>
+													<div class="col-sm-4"></div>
+												</div>
+												There was a headache due to Septanest<br> <small
+													class="text-muted">01/19/2020</small>
+											</div>
+										</div>
+
+										<div class="card mt-3">
+											<div class="card-body">
+												Long anesthesia<br> <small class="text-muted">01/19/2020</small>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="col-sm-5">
+										<h5 class="card-subtitle mb-2 text-muted">Allergies</h5>
+										<p class="text-muted mt-3">No Allergies</p>
+
+
+									</div>
+
+								</div>
+
+
+
+
+
+							</div>
+						</div>
+
+						<!-- END PATIENT HEALTH NOTES -->
+
+					</div>
+				</div>
+
+
+
+				<!-- END MAIN CONTENT DETAILS -->
+			</div>
+			<!-- MAIN CONTENT -->
+		</div>
+
+	</div>
+
+	<script th:src="@{/js/main.js}"></script>
+	<script>
+		const visitDates = document.querySelectorAll("#visitDate");
+		const visitDays = document.querySelectorAll("#visitDay");
+
+
+		const hiddenBirthDAte = document.getElementById("hiddenBirthDAte").value;
+
+		document.getElementById("birthDate").value = hiddenBirthDAte;
+
+		formatWeekDay(visitDays);
+		formatNamedDate(visitDates);
+
+
+
+	</script>
+</body>
+</html>

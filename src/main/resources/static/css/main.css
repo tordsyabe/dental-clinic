@@ -1,0 +1,73 @@
+#sticky-sidebar {
+	background-color: #303030;
+	height: 100vh;
+	max-width: 5%;
+	position: fixed;
+}
+
+#sticky-sidebar > a {
+    color: #fff !important;
+}
+
+.active, button {
+	background-color: #007bff !important;
+	
+}
+
+a.btn {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+td > a > i {
+	color: #303030 !important;
+}
+
+button.btn-info {
+	border-color:  #007bff !important;
+}
+
+.avatar {
+	vertical-align: middle;
+	width: 95px;
+	height: 95px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.form-control {
+	background-color: #303030 !important;
+	color: #fff !important;
+}
+
+.form-control:focus {
+	border-color: #007bff !important;
+}
+
+.procedure-card {
+	background: #222 !important;
+	overflow-y: auto !important;
+	height: 380px !important;
+	border: 1px solid #444 !important;
+}
+
+html {
+  --scrollbarBG: #222;
+  --thumbBG: #303030;
+}
+
+.card::-webkit-scrollbar {
+  width: 11px;
+}
+.card {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+.card::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+.card::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 20px;
+  border: 3px solid var(--scrollbarBG);
+}

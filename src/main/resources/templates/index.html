@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Dental Clinic</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+
+    <script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+
+
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootswatch-darkly/4.2.1/bootstrap.min.css}" />
+
+    <link rel="stylesheet"
+          th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/sidebar :: sidebar"></div>
+            <div class="col-11 offset-1 my-4 pl-0 pr-5"><h2>Welcome to Detal Clinic Application</h2></div>
+        </div>
+    </div>
+
+<script th:src="@{/js/main.js}"></script>
+<script>
+	const birthDates = document.querySelectorAll("#birthDate");
+
+	formatDate(birthDates);
+	</script>
+</body>
+</html>
