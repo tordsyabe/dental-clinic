@@ -57,7 +57,15 @@ navLinks.forEach(navLink => {
 });
 
 
+const clickableRows = document.querySelectorAll('.clickable-row');
 
+		clickableRows.forEach(clickableRow => {
+			const link = clickableRow.getAttribute("data-href");
+
+			clickableRow.addEventListener('click', function() {
+				window.location = link;
+			});
+		});
 
 
 

@@ -1,0 +1,16 @@
+<div th:fragment="patientName">
+    <div class="row" th:if="${patient.firstName != null}">
+        <div class="col-sm-1">
+            <h5 class="text-muted">Patient<span class="ml-2">/</span> </h5>
+        </div>
+        <div class="col-sm ml-0 pl-0"><h5 th:text="${patient.firstName + ' ' + patient.lastName}" ></h5></div>
+    </div>
+
+
+    <div class="row" th:if="${patient.firstName == null}">
+        <div class="col-sm-1">
+            <h5 class="text-muted">Patient<span class="ml-2">/</span> </h5>
+        </div>
+        <div class="col-sm ml-0 pl-0"><h5>Add Patient</h5></div>
+    </div>
+</div>

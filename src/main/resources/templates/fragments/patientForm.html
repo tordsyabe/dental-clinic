@@ -1,0 +1,86 @@
+<form th:object="${patient}" th:action="@{/patient/}" th:fragment="patientForm">
+    <h5 class="mb-4 text-muted">Patient Details</h5>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <img
+                    src="https://image.shutterstock.com/image-photo/passport-picture-asian-young-woman-260nw-789673348.jpg"
+                    class="avatar" alt="...">
+
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-8 mt-1">
+            <input type="hidden" th:value="${patient.id}">
+            <div class="form-group input-group-sm">
+                <label class="text-muted" for="firstName"><small>First
+                    Name</small></label> <input type="text" class="form-control"
+                                                placeholder="First Name" th:value="${patient.firstName}"
+                                                id="firstName" name="firstName" th:field="*{firstName}">
+
+            </div>
+            <div class="form-group input-group-sm">
+                <label class="text-muted" for="lastName"><small>Last
+                    Name</small></label> <input type="text" class="form-control"
+                                                placeholder="Last Name" th:value="${patient.lastName}"
+                                                id="lastName" name="lastName" th:field="*{lastName}">
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="birthDate"><small>Birth Date</small></label>
+        <input type="date" class="form-control" th:field="*{birthDate}"
+               id="birthDate" name="birthDate">
+        <input type="hidden" th:value="${patient.birthDate}" id="hiddenBirthDAte">
+    </div>
+
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="gender"><small>Gender</small></label>
+        <select class="custom-select form-control" id="gender">
+
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+
+        </select>
+    </div>
+
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="email"><small>Email</small></label>
+        <input type="email" class="form-control"
+               id="email" name="email" th:field="*{email}">
+
+    </div>
+
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="phone"><small>Phone</small></label>
+        <input type="text" class="form-control"
+               th:value="${patient.phone}" id="phone" name="phone" th:field="*{phone}">
+
+    </div>
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="address"><small>Address</small></label>
+        <input type="text" class="form-control"
+               th:value="${patient.address}" id="address" name="address" th:field="*{address}">
+
+    </div>
+
+
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="city"><small>City</small></label>
+        <input type="text" class="form-control"
+               th:value="${patient.city}" id="city" name="city" th:field="*{city}">
+
+    </div>
+
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="province"><small>State
+            / Province / Region</small></label> <input type="text" class="form-control"
+                                                       th:value="${patient.province}" id="province" name="province" th:field="*{province}">
+
+    </div>
+
+
+
+
+    <button type="submit" class="btn btn-info">Save</button>
+</form>

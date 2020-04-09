@@ -39,11 +39,9 @@
 			<!-- MAIN CONTENT -->
 			<div class="col-11 offset-1 my-4 pl-0 pr-5">
 				<!-- MAIN CONTENT HEADER -->
-				<h5 th:text="${patient.firstName + ' ' + patient.lastName}">
-					<span class="text-muted">Patient / </span>
-				</h5>
+				<div th:replace="fragments/patientName :: patientName"></div>
 				
-				<div th:replace="fragments/contentnav :: contentnav"></div>
+				<div th:replace="fragments/contentNav :: contentNav"></div>
 				
 				<div class="dropdown-divider"></div>
 				<!-- END MAIN CONTENT HEADER -->

@@ -62,7 +62,7 @@
 				<!-- END MAIN CONTENT HEADER -->
 
 				<!-- MAIN CONTENT DETAILS -->
-				<table class="table mt-4" style="color: white;">
+				<table class="table table-hover mt-4">
 					<thead>
 						<tr>
 							<th scope="col"><fieldset class="form-group">
@@ -84,7 +84,7 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="patient : ${patients}">
+						<tr th:each="patient : ${patients}" class="clickable-row" th:data-href="${'/patient/details/' + patient.id}">
 							<th scope="row"><fieldset class="form-group">
 
 									<div class="form-check">
@@ -99,9 +99,8 @@
 							<td th:text="${patient.phone}">09213481203</td>
 							<td th:text="${patient.email}">01/19/2020</td>
 							<td th:text="${patient.age}">Permanent tooth extraction</td>
-							<td><a href="#"
-								th:href="@{'/patient/details/' + ${patient.id}}"><i
-									class="fa fa-info-circle fa-lg"></i></a></td>
+							<td></td>
+							<td></td>
 
 						</tr>
 					<tbody>
@@ -115,6 +114,9 @@
 
 	<script th:src="@{/js/main.js}"></script>
 	<script>
+
+
+
 
 	</script>
 </body>
