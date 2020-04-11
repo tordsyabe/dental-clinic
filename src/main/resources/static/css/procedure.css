@@ -1,0 +1,82 @@
+.categories {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-gap: 1rem;
+}
+
+// Small devices (landscape phones, 576px and down)
+@media only screen and(max-width: 576px) {
+     .categories {
+             grid-template-columns: repeat(2, 1fr);
+     }
+ }
+
+// Medium devices (tablets, 768px and up)
+@media only screen and(max-width: 768px) {
+     .categories {
+             grid-template-columns: repeat(5, 1fr);
+     }
+}
+
+// Large devices (desktops, 992px and up)
+@media only screen and(max-width: 992px) {
+     .categories {
+             grid-template-columns: repeat(9, 1fr);
+     }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media only screen and(max-width: 1200px) {
+         .categories {
+                 grid-template-columns: repeat(9, 1fr);
+         }
+}
+
+.category-toggle {
+    display: none;
+}
+
+.category-toggle:checked + label .card {
+    background-color: var(--primary-color);
+}
+
+.categories label .card {
+    min-height: 7rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+input[type=radio].with-font ~ label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f1db";
+    font-size: 1.333333em;
+    color: red;
+    margin-right: 1rem;
+}
+
+input[type=radio].with-font {
+    display: none;
+}
+
+input[type=radio].with-font ~ label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f111";
+    font-size: 1.2em;
+    color: #151515;
+}
+
+input[type=radio].with-font:checked ~ label:before {
+    content: "\f058";
+    font-size: 1.2em;
+    color: var(--primary-color);
+}
+
+input[type=radio].with-font:focus ~ label:before,
+input[type=radio].with-font:focus ~ label,
+{
+    color: var(--primary-color);
+}
+
+

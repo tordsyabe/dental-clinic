@@ -1,3 +1,11 @@
+:root {
+    --primary-color: #007bff;
+}
+
+body {
+font-size: 0.875rem;
+}
+
 #sticky-sidebar {
 	background-color: #303030;
 	height: 100vh;
