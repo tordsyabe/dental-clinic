@@ -27,15 +27,10 @@
     <div class="container-fluid">
         <div class="row">
             <div th:replace="fragments/sidebar :: sidebar"></div>
-            <div class="col-11 offset-1 my-4 pl-0 pr-5"><h2>Welcome to Detal Clinic Application</h2></div>
+            <div class="col-11 offset-1 my-4 pl-0 pr-5"><h5>Welcome to Detal Clinic Application</h5></div>
         </div>
     </div>
 
 <script th:src="@{/js/main.js}"></script>
-<script>
-	const birthDates = document.querySelectorAll("#birthDate");
-
-	formatDate(birthDates);
-	</script>
 </body>
 </html>

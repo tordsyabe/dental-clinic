@@ -1,26 +1,32 @@
-<form th:object="${patient}" th:action="@{/patient/}" th:fragment="patientForm">
+<form class="needs-validation" novalidate th:object="${patient}" th:action="@{/patient/}" th:fragment="patientForm" method="post">
     <h5 class="mb-4 text-muted">Patient Details</h5>
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-4">
+    <div class="form-row">
+        <div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column align-items-center justify-content-center">
             <img
                     src="https://image.shutterstock.com/image-photo/passport-picture-asian-young-woman-260nw-789673348.jpg"
                     class="avatar" alt="...">
-
+            <p class="text-muted"><small>Age: 26</small></p>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-8 mt-1">
-            <input type="hidden" th:value="${patient.id}">
+            <input type="hidden" th:value="${patient.id}" th:field="*{id}">
             <div class="form-group input-group-sm">
                 <label class="text-muted" for="firstName"><small>First
-                    Name</small></label> <input type="text" class="form-control"
+                    Name</small></label> <input type="text" class="form-control" required
                                                 placeholder="First Name" th:value="${patient.firstName}"
                                                 id="firstName" name="firstName" th:field="*{firstName}">
+                <div class="invalid-feedback">
+                    First name is required.
+                </div>
 
             </div>
             <div class="form-group input-group-sm">
                 <label class="text-muted" for="lastName"><small>Last
-                    Name</small></label> <input type="text" class="form-control"
+                    Name</small></label> <input type="text" class="form-control" required
                                                 placeholder="Last Name" th:value="${patient.lastName}"
                                                 id="lastName" name="lastName" th:field="*{lastName}">
+                <div class="invalid-feedback">
+                    Last name is required.
+                </div>
             </div>
 
         </div>
@@ -29,26 +35,34 @@
 
     <div class="form-group input-group-sm">
         <label class="text-muted" for="birthDate"><small>Birth Date</small></label>
-        <input type="date" class="form-control" th:field="*{birthDate}"
+        <input type="date" class="form-control" required th:field="*{birthDate}"
                id="birthDate" name="birthDate">
+        <div class="invalid-feedback">
+            Birth date is required.
+        </div>
         <input type="hidden" th:value="${patient.birthDate}" id="hiddenBirthDAte">
     </div>
 
     <div class="form-group input-group-sm">
         <label class="text-muted" for="gender"><small>Gender</small></label>
-        <select class="custom-select form-control" id="gender">
+        <select class="custom-select form-control" id="gender" th:field="*{gender}" required>
 
             <option value="male">Male</option>
             <option value="female">Female</option>
 
         </select>
+        <div class="invalid-feedback">
+            Gender is required.
+        </div>
     </div>
 
     <div class="form-group input-group-sm">
         <label class="text-muted" for="email"><small>Email</small></label>
         <input type="email" class="form-control"
                id="email" name="email" th:field="*{email}">
-
+        <div class="invalid-feedback">
+            Please provide a valid email.
+        </div>
     </div>
 
     <div class="form-group input-group-sm">
@@ -75,11 +89,10 @@
     <div class="form-group input-group-sm">
         <label class="text-muted" for="province"><small>State
             / Province / Region</small></label> <input type="text" class="form-control"
-                                                       th:value="${patient.province}" id="province" name="province" th:field="*{province}">
+                                                       th:value="${patient.province}" id="province" name="province"
+                                                       th:field="*{province}">
 
     </div>
-
-
 
 
     <button type="submit" class="btn btn-info">Save</button>

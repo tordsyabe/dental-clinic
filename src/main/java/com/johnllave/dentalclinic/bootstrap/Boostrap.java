@@ -67,7 +67,6 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		hillary.setFirstName("Hillary Joevette");
 		hillary.setLastName("Tan");
 		hillary.setBirthDate(LocalDate.of(1996, 3, 29));
-		hillary.setAge(26);
 		hillary.setGender("female");
 		hillary.setPhone("09211232323");
 		hillary.setEmail("hillary@gmail.com");
@@ -80,7 +79,6 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		john.setFirstName("John");
 		john.setLastName("Llave");
 		john.setBirthDate(LocalDate.of(1990, Month.SEPTEMBER, 14));
-		john.setAge(29);
 		john.setGender("male");
 		john.setPhone("09211232323");
 		john.setEmail("john@gmail.com");

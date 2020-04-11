@@ -5,6 +5,7 @@ import com.johnllave.dentalclinic.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.services.PatientService;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Controller
@@ -52,9 +54,9 @@ public class PatientController {
 	@RequestMapping("patient")
 	public String savePatient(@ModelAttribute PatientDto patientDto) {
 
-		PatientDto savePatient = patientService.savePatient(patientDto);
+		PatientDto savedPatient = patientService.savePatient(patientDto);
 
-		return "redirect:/patient/details/" + savePatient.getId();
+		return "redirect:/patient/details/" + savedPatient.getId();
 	}
 
 	@RequestMapping("/patient/details/{id}")

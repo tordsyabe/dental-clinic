@@ -21,7 +21,6 @@ public class Patient extends Person {
 	@Lob
 	private String image;
 	private LocalDate birthDate;
-	private Integer age;
 	private String gender;
 	private String phone;
 	private String email;

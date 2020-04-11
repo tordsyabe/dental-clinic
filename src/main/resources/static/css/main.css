@@ -11,13 +11,27 @@
 
 .active, button {
 	background-color: #007bff !important;
-	
+	border-color: #007bff !important;
+}
+
+.btn-info:hover {
+	background-color: #0259ff  !important;
+	border-color: #0259ff  !important;
+}
+
+.active-icon {
+    color: #007bff;
+}
+
+.active-icon: {
+    color: #007bff;
 }
 
 a.btn {
     background-color: #007bff !important;
     border-color: #007bff !important;
 }
+
 
 table, .table-hover tbody tr:hover {
    color: white !important;
@@ -41,9 +55,6 @@ td > a > i {
 	color: #303030 !important;
 }
 
-button.btn-info {
-	border-color:  #007bff !important;
-}
 
 .avatar {
 	vertical-align: middle;

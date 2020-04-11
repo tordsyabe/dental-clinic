@@ -1,194 +1,189 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Dental Clinic</title>
+    <meta charset="ISO-8859-1">
+    <title>Dental Clinic</title>
 
-<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
-	rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+          rel="stylesheet">
 
-<link rel="stylesheet"
-	th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
 
-<script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
 
-<script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+    <script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 
 
-<link rel="stylesheet"
-	th:href="@{/webjars/bootswatch-darkly/4.2.1/bootstrap.min.css}" />
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootswatch-darkly/4.2.1/bootstrap.min.css}"/>
 
-<link rel="stylesheet"
-	th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" />
+    <link rel="stylesheet"
+          th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
 
-<link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
-
-
 
 
 <body>
 
 
-	<div class="container-fluid">
+<div class="container-fluid">
 
-		<div class="row">
+    <div class="row">
 
-			<!-- SIDEBAR -->
-			<div th:replace="fragments/sidebar :: sidebar"></div>
-			<!-- MAIN CONTENT -->
-			<div class="col-11 offset-1 my-4 pl-0 pr-5">
-				<!-- MAIN CONTENT HEADER -->
-				<div th:replace="fragments/patientName :: patientName"></div>
+        <!-- SIDEBAR -->
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <!-- MAIN CONTENT -->
+        <div class="col-11 offset-1 my-4 pl-0 pr-5">
+            <!-- MAIN CONTENT HEADER -->
+            <div th:replace="fragments/patientName :: patientName"></div>
 
-				<div th:replace="fragments/contentNav :: contentNav"></div>
+            <div th:replace="fragments/contentNav :: contentNav"></div>
 
-				<div class="dropdown-divider"></div>
-				<!-- END MAIN CONTENT HEADER -->
+            <div class="dropdown-divider"></div>
+            <!-- END MAIN CONTENT HEADER -->
 
-				<!-- MAIN CONTENT DETAILS -->
+            <!-- MAIN CONTENT DETAILS -->
 
-				<div class="row mt-4">
-					<!-- PATIENT DETAILS -->
+            <div class="row mt-4">
+                <!-- PATIENT DETAILS -->
 
-					<div class="col-sm-3">
-						<div th:replace="fragments/patientForm :: patientForm"></div>
-					</div>
+                <div class="col-sm-3">
+                    <div th:replace="fragments/patientForm :: patientForm"></div>
+                </div>
 
-					<!-- END PATIENT DETAILS -->
+                <!-- END PATIENT DETAILS -->
 
-					<!-- PATIENT PROCEDURES -->
-					<div class="col">
-						<h5 class="mb-4 text-muted">Latest Procedures</h5>
-						<div class="card mb-4 procedure-card">
-							<div class="card-body">
+                <!-- PATIENT PROCEDURES -->
+                <div class="col">
+                    <h5 class="mb-4 text-muted">Latest Procedures</h5>
+                    <div class="card mb-4 procedure-card">
+                        <div class="card-body">
 
-								<div class="row" th:each="visit : ${patient.visits}" th:if="${patient.visits.size() > 0}">
-
-
-									<div class="col-sm-2">
-										<span th:text="${visit.date}" id="visitDay">Today</span><br>
-										<small class="text-muted" th:text="${visit.date}"
-											id="visitDate">April 4, 2020</small>
-									</div>
-
-									<div class="col-sm-10 text-center">
-										<div class="card mb-3"
-											th:each="procedure : ${visit.procedures}">
-											<div class="card-body">
-												<div class="row">
-													<div class="col-1">
-														<i
-															th:class="${procedure.paid == true ? 'fa fa-check-circle fa-lg' : 'fa fa-circle fa-lg'}"
-															th:style="${procedure.paid == false ? 'color: #222' : 'color: #007bff'}"></i>
-													</div>
+                            <div class="row" th:each="visit : ${patient.visits}" th:if="${patient.visits.size() > 0}">
 
 
-													<div class="col-7">
-														<div class="row" th:text="${procedure.description}">Description
-															will go here</div>
+                                <div class="col-sm-2">
+                                    <span th:text="${visit.date}" id="visitDay">Today</span><br>
+                                    <small class="text-muted" th:text="${visit.date}"
+                                           id="visitDate">April 4, 2020</small>
+                                </div>
 
-														<div class="row">
-															<small class="text-muted" th:text="${procedure.category}">Category
-																here</small>
-
-														</div>
-													</div>
-
-													<div class="col-4" th:if="${!procedure.paid}">
-														<button type="button" class="btn btn-info">Create
-															Invoice</button>
-													</div>
-												</div>
-											</div>
-										</div>
+                                <div class="col-sm-10 text-center">
+                                    <div class="card mb-3"
+                                         th:each="procedure : ${visit.procedures}">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <i
+                                                            th:class="${procedure.paid == true ? 'fa fa-check-circle fa-lg' : 'fa fa-circle fa-lg'}"
+                                                            th:style="${procedure.paid == false ? 'color: #222' : 'color: #007bff'}"></i>
+                                                </div>
 
 
-									</div>
+                                                <div class="col-7">
+                                                    <div class="row" th:text="${procedure.description}">Description
+                                                        will go here
+                                                    </div>
 
-								</div>
+                                                    <div class="row">
+                                                        <small class="text-muted" th:text="${procedure.category}">Category
+                                                            here</small>
 
-								<div th:unless="${!patient.visits.isEmpty()}">
-									<h5 class="text-muted">No Procedures</h5>
-									<a class="btn btn-info mt-1" th:href="@{'/patient/procedures/' + ${patient.id}}" id="addProcedures" >Add Procedures</a>
-								</div>
+                                                    </div>
+                                                </div>
 
-
-
-
-							</div>
-
-
-						</div>
-
-						<!-- END PATIENT PROCEDURES -->
-
-						<!-- PATIENT HEALTH NOTES -->
-						<div class="card procedure-card">
-
-							<div class="card-body">
-								<ul class="nav nav-pills">
-									<li class="nav-item"><a class="nav-link active" href="#">Health
-											Notes</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Documents</a>
-									</li>
-
-								</ul>
-								<div class="dropdown-divider"></div>
-								<div class="row mt-4">
-									<div class="col-sm-7">
-										<h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
-										<div class="card mt-3">
-											<div class="card-body">
-												<div class="row">
-													<div class="col-sm-8"></div>
-													<div class="col-sm-4"></div>
-												</div>
-												There was a headache due to Septanest<br> <small
-													class="text-muted">01/19/2020</small>
-											</div>
-										</div>
-
-										<div class="card mt-3">
-											<div class="card-body">
-												Long anesthesia<br> <small class="text-muted">01/19/2020</small>
-											</div>
-										</div>
-
-									</div>
-
-									<div class="col-sm-5">
-										<h5 class="card-subtitle mb-2 text-muted">Allergies</h5>
-										<p class="text-muted mt-3">No Allergies</p>
+                                                <div class="col-4" th:if="${!procedure.paid}">
+                                                    <button type="button" class="btn btn-info">Create
+                                                        Invoice
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-									</div>
+                                </div>
 
-								</div>
+                            </div>
 
-
-
-
-
-							</div>
-						</div>
-
-						<!-- END PATIENT HEALTH NOTES -->
-
-					</div>
-				</div>
+                            <div th:unless="${!patient.visits.isEmpty()}">
+                                <h5 class="text-muted">No Procedures</h5>
+                                <a class="btn btn-info mt-1" th:href="@{'/patient/procedures/' + ${patient.id}}"
+                                   id="addProcedures">Add Procedures</a>
+                            </div>
 
 
+                        </div>
 
-				<!-- END MAIN CONTENT DETAILS -->
-			</div>
-			<!-- MAIN CONTENT -->
-		</div>
 
-	</div>
+                    </div>
 
-	<script th:src="@{/js/main.js}"></script>
-	<script>
+                    <!-- END PATIENT PROCEDURES -->
+
+                    <!-- PATIENT HEALTH NOTES -->
+                    <div class="card procedure-card">
+
+                        <div class="card-body">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#">Health
+                                    Notes</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Documents</a>
+                                </li>
+
+                            </ul>
+                            <div class="dropdown-divider"></div>
+                            <div class="row mt-4">
+                                <div class="col-sm-7">
+                                    <h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
+                                    <div class="card mt-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-8"></div>
+                                                <div class="col-sm-4"></div>
+                                            </div>
+                                            There was a headache due to Septanest<br> <small
+                                                class="text-muted">01/19/2020</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="card mt-3">
+                                        <div class="card-body">
+                                            Long anesthesia<br> <small class="text-muted">01/19/2020</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-5">
+                                    <h5 class="card-subtitle mb-2 text-muted">Allergies</h5>
+                                    <p class="text-muted mt-3">No Allergies</p>
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- END PATIENT HEALTH NOTES -->
+
+                </div>
+            </div>
+
+
+            <!-- END MAIN CONTENT DETAILS -->
+        </div>
+        <!-- MAIN CONTENT -->
+    </div>
+
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+<script>
 		const visitDates = document.querySelectorAll("#visitDate");
 		const visitDays = document.querySelectorAll("#visitDay");
 
@@ -200,8 +195,26 @@
 		formatWeekDay(visitDays);
 		formatNamedDate(visitDates);
 
+	(function() {
+	  'use strict';
+	  window.addEventListener('load', function() {
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.getElementsByClassName('needs-validation');
+		// Loop over them and prevent submission
+		var validation = Array.prototype.filter.call(forms, function(form) {
+		  form.addEventListener('submit', function(event) {
+			if (form.checkValidity() === false) {
+			  event.preventDefault();
+			  event.stopPropagation();
+			}
+			form.classList.add('was-validated');
+		  }, false);
+		});
+	  }, false);
+	})();
 
 
-	</script>
+
+</script>
 </body>
 </html>
