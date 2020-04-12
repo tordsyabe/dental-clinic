@@ -53,10 +53,16 @@ input[type=radio].with-font ~ label:before {
     font-size: 1.333333em;
     color: red;
     margin-right: 1rem;
+
+
 }
 
 input[type=radio].with-font {
     display: none;
+}
+
+input[type=radio].with-font ~ label {
+    cursor: pointer;
 }
 
 input[type=radio].with-font ~ label:before {
