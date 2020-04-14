@@ -46,6 +46,7 @@
     cursor: pointer;
 }
 
+
 input[type=radio].with-font ~ label:before {
     font-family: FontAwesome;
     display: inline-block;
@@ -84,5 +85,53 @@ input[type=radio].with-font:focus ~ label,
 {
     color: var(--primary-color);
 }
+
+.teeth-map {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    padding: 0 2rem;
+}
+
+.teeth {
+    width: 100%;
+    height: auto;
+}
+
+
+.tooth__base {
+    cursor: pointer;
+    fill: transparent;
+}
+
+.crown__line,
+.crown__base {
+    stroke: #fff;
+    stroke-width: 7;
+}
+
+.root__base{
+    stroke-width: 7;
+}
+
+.tooth__base {
+    stroke-width: 0;
+}
+
+.tooth__base:hover {
+    fill: #999;
+}
+
+
+
+.tooth-toggle:checked + label svg .tooth__base {
+    fill: #999;
+}
+
+.tooth-toggle {
+    display: none;
+}
+
+
+
 
 

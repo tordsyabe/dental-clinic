@@ -22,18 +22,10 @@ font-size: 0.875rem;
 	border-color: #007bff !important;
 }
 
-.btn-info:hover {
-	background-color: #0259ff  !important;
-	border-color: #0259ff  !important;
-}
-
 .active-icon {
     color: #007bff;
 }
 
-.active-icon: {
-    color: #007bff;
-}
 
 a.btn {
     background-color: #007bff !important;
