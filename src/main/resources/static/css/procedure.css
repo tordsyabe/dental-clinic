@@ -87,14 +87,10 @@ input[type=radio].with-font:focus ~ label,
 }
 
 .teeth-map {
-    display: grid;
-    grid-template-columns: repeat(16, 1fr);
-    padding: 0 2rem;
-}
 
-.teeth {
-    width: 100%;
-    height: auto;
+    padding: 0 2rem;
+    align-items: end;
+    height: 100%;
 }
 
 
@@ -106,11 +102,11 @@ input[type=radio].with-font:focus ~ label,
 .crown__line,
 .crown__base {
     stroke: #fff;
-    stroke-width: 7;
+    stroke-width: 5;
 }
 
 .root__base{
-    stroke-width: 7;
+    stroke-width: 5;
 }
 
 .tooth__base {
@@ -123,12 +119,137 @@ input[type=radio].with-font:focus ~ label,
 
 
 
-.tooth-toggle:checked + label svg .tooth__base {
+input[id="tooth1"]:checked ~ svg #tooth1 {
     fill: #999;
 }
 
+input[id="tooth2"]:checked ~ svg #tooth2 {
+    fill: #999;
+}
+
+input[id="tooth3"]:checked ~ svg #tooth3 {
+    fill: #999;
+}
+
+input[id="tooth4"]:checked ~ svg #tooth4 {
+    fill: #999;
+}
+
+input[id="tooth5"]:checked ~ svg #tooth5 {
+    fill: #999;
+}
+
+input[id="tooth6"]:checked ~ svg #tooth6 {
+    fill: #999;
+}
+
+input[id="tooth7"]:checked ~ svg #tooth7 {
+    fill: #999;
+}
+
+input[id="tooth8"]:checked ~ svg #tooth8 {
+    fill: #999;
+}
+
+input[id="tooth9"]:checked ~ svg #tooth9 {
+    fill: #999;
+}
+
+input[id="tooth10"]:checked ~ svg #tooth10 {
+    fill: #999;
+}
+
+input[id="tooth11"]:checked ~ svg #tooth11 {
+    fill: #999;
+}
+
+input[id="tooth12"]:checked ~ svg #tooth12 {
+    fill: #999;
+}
+
+input[id="tooth13"]:checked ~ svg #tooth13 {
+    fill: #999;
+}
+
+input[id="tooth14"]:checked ~ svg #tooth14 {
+    fill: #999;
+}
+
+input[id="tooth15"]:checked ~ svg #tooth15 {
+    fill: #999;
+}
+
+input[id="tooth16"]:checked ~ svg #tooth16 {
+    fill: #999;
+}
+
+input[id="tooth17"]:checked ~ svg #tooth17 {
+    fill: #999;
+}
+
+input[id="tooth18"]:checked ~ svg #tooth18 {
+    fill: #999;
+}
+
+input[id="tooth19"]:checked ~ svg #tooth19 {
+    fill: #999;
+}
+
+input[id="tooth20"]:checked ~ svg #tooth20 {
+    fill: #999;
+}
+
+input[id="tooth21"]:checked ~ svg #tooth21 {
+    fill: #999;
+}
+
+input[id="tooth22"]:checked ~ svg #tooth22 {
+    fill: #999;
+}
+
+input[id="tooth23"]:checked ~ svg #tooth23 {
+    fill: #999;
+}
+
+input[id="tooth24"]:checked ~ svg #tooth24 {
+    fill: #999;
+}
+
+input[id="tooth25"]:checked ~ svg #tooth25 {
+    fill: #999;
+}
+
+input[id="tooth26"]:checked ~ svg #tooth26 {
+    fill: #999;
+}
+
+input[id="tooth27"]:checked ~ svg #tooth27 {
+    fill: #999;
+}
+
+input[id="tooth28"]:checked ~ svg #tooth28 {
+    fill: #999;
+}
+
+input[id="tooth29"]:checked ~ svg #tooth29 {
+    fill: #999;
+}
+
+input[id="tooth30"]:checked ~ svg #tooth30 {
+    fill: #999;
+}
+
+input[id="tooth31"]:checked ~ svg #tooth31 {
+    fill: #999;
+}
+
+input[id="tooth32"]:checked ~ svg #tooth32 {
+    fill: #999;
+}
+
+
 .tooth-toggle {
-    display: none;
+
 }
 
 
