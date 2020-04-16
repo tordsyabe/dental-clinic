@@ -17,6 +17,6 @@ public class ProcedureDto {
     private Boolean paid;
     private String category;
 
-    private TeethDto teethDto;
-    private VisitDto visitDto;
+    private String teethId;
+//    private VisitDto visitDto;
 }

@@ -1,6 +1,8 @@
 package com.johnllave.dentalclinic.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
@@ -25,9 +27,9 @@ public class PatientServiceImpl implements PatientService{
 
 
 	@Override
-	public Set<PatientDto> getPatients() {
+	public List<PatientDto> getPatients() {
 		
-		Set<PatientDto> patients = new HashSet<>();
+		List<PatientDto> patients = new ArrayList<>();
 		
 		patientRepository.findAll().forEach(patient -> patients.add(patientMapper.patientToPatientDto(patient)));
 
@@ -39,7 +41,7 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public Patient getPatientById(Long id) {
-		
+
 		return patientRepository.findById(id).orElse(null);
 
 	}

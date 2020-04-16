@@ -58,6 +58,7 @@
 
 				</div>
 
+				<span th:text="${#lists.size(patients)}"/>
 
 				<!-- END MAIN CONTENT HEADER -->
 
@@ -84,7 +85,7 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="patient : ${patients}" class="clickable-row" th:data-href="${'/patient/details/' + patient.id}">
+						<tr th:each="patient : ${#lists.sort(patients, lastName)}" class="clickable-row" th:data-href="${'/patient/details/' + patient.id}">
 							<th scope="row"><fieldset class="form-group">
 
 									<div class="form-check">

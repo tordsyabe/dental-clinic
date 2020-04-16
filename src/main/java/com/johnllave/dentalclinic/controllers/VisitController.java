@@ -42,15 +42,15 @@ public class VisitController {
     @PostMapping("patient/procedures/{patientId}")
     public String saveVisit(@PathVariable String patientId, @ModelAttribute ProcedureDto procedureDto) {
 
-        Teeth teethToSave = teethService.getTeethById(Long.parseLong(procedureDto.getTeethDto().getId()));
+        Teeth teethToSave = teethService.getTeethById(Long.parseLong(procedureDto.getTeethId()));
+
         Patient patient = patientService.getPatientById(Long.parseLong(patientId));
-        System.out.println(procedureDto.getDescription());
-        procedureDto.setDescription(procedureDto.getDescription());
+
         procedureDto.setCost("600");
-        procedureDto.setCategory(procedureDto.getCategory());
         procedureDto.setPaid(false);
 
         Procedure convertedProcedure = procedureMapper.procedureDtoToProcedure(procedureDto);
+
         convertedProcedure.setTeeth(teethToSave);
 
         Visit visit = new Visit();

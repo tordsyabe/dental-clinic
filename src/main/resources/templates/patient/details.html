@@ -61,7 +61,7 @@
                     <div class="card mb-4 procedure-card">
                         <div class="card-body">
 
-                            <div class="row" th:each="visit : ${patient.visits}" th:if="${patient.visits.size() > 0}">
+                            <div class="row" th:each="visit : ${#lists.sort(patient.visits, visitsByDate)}" th:if="${patient.visits.size() > 0}">
 
 
                                 <div class="col-sm-2">

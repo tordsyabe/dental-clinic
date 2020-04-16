@@ -1,13 +1,13 @@
 package com.johnllave.dentalclinic.services;
 
-import java.util.Set;
+import java.util.List;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.entity.Patient;
 
 public interface PatientService {
 	
-	Set<PatientDto> getPatients();
+	List<PatientDto> getPatients();
 	
 	Patient getPatientById(Long id);
 
