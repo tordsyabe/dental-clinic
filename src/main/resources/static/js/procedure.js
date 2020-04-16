@@ -35,11 +35,12 @@ const categories = document.querySelectorAll('.category-toggle');
           categoryLists[i][category.id].forEach((proc, i) => {
             processDiv.innerHTML += `
                             <div class="d-flex justify-content-between">
-                            <div>
-                                <input id=${proc.id} name="process" type="radio" class="with-font" value="${proc.desc}"/>
-                                <label for=${proc.id}>${proc.desc}</label>
+                                <div>
+                                    <input id=${proc.id} name="description" type="radio" class="with-font" value="${proc.desc}" th:field="*{description}" >
+                                    <label for=${proc.id}>${proc.desc}</label>
 
                                 </div>
+
                                 <p class="text-muted">${proc.cost}</p>
                             </div>
 

@@ -1,15 +1,13 @@
 package com.johnllave.dentalclinic.controllers;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
+import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.services.PatientService;
@@ -33,7 +31,7 @@ public class PatientController {
 
 
 
-	@RequestMapping("/patient/list")
+	@GetMapping("/patient/list")
 	public String showPatients(Model model) {
 
 
@@ -42,7 +40,7 @@ public class PatientController {
 		return "patient/list";
 	}
 
-	@RequestMapping("/patient/new")
+	@GetMapping("/patient/new")
 	public String createPatient(Model model) {
 
 		model.addAttribute("patient", new PatientDto());
@@ -50,8 +48,7 @@ public class PatientController {
 		return "patient/details";
 	}
 
-	@PostMapping
-	@RequestMapping("patient")
+	@PostMapping("patient")
 	public String savePatient(@ModelAttribute PatientDto patientDto) {
 
 		PatientDto savedPatient = patientService.savePatient(patientDto);
@@ -59,15 +56,12 @@ public class PatientController {
 		return "redirect:/patient/details/" + savedPatient.getId();
 	}
 
-	@RequestMapping("/patient/details/{id}")
+	@GetMapping("/patient/details/{id}")
 	public String showPatientById(@PathVariable String id, Model model) {
 
 		Patient patient = patientService.getPatientById(Long.parseLong(id));
 
 		PatientDto patientDto =  patientMapper.patientToPatientDto(patient);
-
-		System.out.println("FROM showPatientById()");
-		System.out.println(patientDto.toString());
 
 		model.addAttribute("patient", patientDto);
 
@@ -76,17 +70,15 @@ public class PatientController {
 		return "patient/details";
 	}
 
-	@RequestMapping("/patient/procedures/{id}")
+	@GetMapping("/patient/procedures/{id}")
 	public String showPatientProcedures(@PathVariable String id, Model model) {
 
 		Patient patient = patientService.getPatientById(Long.parseLong(id));
 
  		PatientDto patientDto =  patientMapper.patientToPatientDto(patient);
 
- 		System.out.println("FROM showPatientProcedures()");
- 		System.out.println(patientDto.toString());
-
 		model.addAttribute("patient", patientDto);
+		model.addAttribute("procedureDto", new ProcedureDto());
 
 		return "patient/procedures";
 	}

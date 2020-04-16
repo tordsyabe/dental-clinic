@@ -25,8 +25,12 @@ public class TeethServiceImpl implements TeethService {
 		Set<Teeth> teeth = new HashSet<>();
 
 		teethRepository.findAll().forEach(tooth -> teeth.add(tooth));
-		
-
 		return teeth;
+	}
+
+
+	@Override
+	public Teeth getTeethById(Long id) {
+		return teethRepository.findById(id).orElseGet(null);
 	}
 }

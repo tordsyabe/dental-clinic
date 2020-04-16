@@ -7,5 +7,7 @@ import com.johnllave.dentalclinic.entity.Teeth;
 public interface TeethService {
 	
 	Set<Teeth> getTeeth();
+
+	Teeth getTeethById(Long id);
 	
 }

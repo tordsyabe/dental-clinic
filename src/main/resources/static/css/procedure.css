@@ -44,6 +44,7 @@
     min-height: 7rem;
     width: 100%;
     cursor: pointer;
+    transition: background 100ms ease-in-out;
 }
 
 
@@ -111,6 +112,7 @@ input[type=radio].with-font:focus ~ label,
 
 .tooth__base {
     stroke-width: 0;
+    transition: fill 100ms ease-in-out;
 }
 
 .tooth__base:hover {
@@ -249,7 +251,7 @@ input[id="tooth32"]:checked ~ svg #tooth32 {
 
 
 .tooth-toggle {
-
+    display: none;
 }
 
 

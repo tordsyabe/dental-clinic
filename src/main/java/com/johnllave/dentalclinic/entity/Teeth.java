@@ -8,22 +8,17 @@ import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @Entity
 public class Teeth  extends BaseEntity{
 	
 	private String description;
 	private String category;
 	private Integer number;
-	
-	
-	
-	@Override
-	public String toString() {
-		return "Teeth [description=" + description + ", category=" + category + ", number=" + number + "]";
-	}
 
 	public Teeth() {
 		// TODO Auto-generated constructor stub
