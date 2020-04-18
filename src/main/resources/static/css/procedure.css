@@ -200,71 +200,84 @@ input[id="tooth16"]:checked ~ svg #tooth16,
 input[id="tooth16"]:checked ~ svg #tooth16n {
     fill: #999;
 }
-svg .tooth__number {
-    fill: transparent;
-}
 
-input[id="tooth17"]:checked ~ svg #tooth17 {
+input[id="tooth17"]:checked ~ svg #tooth17,
+input[id="tooth17"]:checked ~ svg #tooth17n {
     fill: #999;
 }
 
-input[id="tooth18"]:checked ~ svg #tooth18 {
+input[id="tooth18"]:checked ~ svg #tooth18,
+input[id="tooth18"]:checked ~ svg #tooth18n {
     fill: #999;
 }
 
-input[id="tooth19"]:checked ~ svg #tooth19 {
+input[id="tooth19"]:checked ~ svg #tooth19,
+input[id="tooth19"]:checked ~ svg #tooth19n{
     fill: #999;
 }
 
-input[id="tooth20"]:checked ~ svg #tooth20 {
+input[id="tooth20"]:checked ~ svg #tooth20,
+input[id="tooth20"]:checked ~ svg #tooth20n {
     fill: #999;
 }
 
-input[id="tooth21"]:checked ~ svg #tooth21 {
+input[id="tooth21"]:checked ~ svg #tooth21,
+input[id="tooth21"]:checked ~ svg #tooth21n {
     fill: #999;
 }
 
-input[id="tooth22"]:checked ~ svg #tooth22 {
+input[id="tooth22"]:checked ~ svg #tooth22,
+input[id="tooth22"]:checked ~ svg #tooth22n {
     fill: #999;
 }
 
-input[id="tooth23"]:checked ~ svg #tooth23 {
+input[id="tooth23"]:checked ~ svg #tooth23,
+input[id="tooth23"]:checked ~ svg #tooth23n {
     fill: #999;
 }
 
-input[id="tooth24"]:checked ~ svg #tooth24 {
+input[id="tooth24"]:checked ~ svg #tooth24,
+input[id="tooth24"]:checked ~ svg #tooth24n {
     fill: #999;
 }
 
-input[id="tooth25"]:checked ~ svg #tooth25 {
+input[id="tooth25"]:checked ~ svg #tooth25,
+input[id="tooth25"]:checked ~ svg #tooth25n {
     fill: #999;
 }
 
-input[id="tooth26"]:checked ~ svg #tooth26 {
+input[id="tooth26"]:checked ~ svg #tooth26,
+input[id="tooth26"]:checked ~ svg #tooth26n {
     fill: #999;
 }
 
-input[id="tooth27"]:checked ~ svg #tooth27 {
+input[id="tooth27"]:checked ~ svg #tooth27,
+input[id="tooth27"]:checked ~ svg #tooth27n {
     fill: #999;
 }
 
-input[id="tooth28"]:checked ~ svg #tooth28 {
+input[id="tooth28"]:checked ~ svg #tooth28,
+input[id="tooth28"]:checked ~ svg #tooth28n {
     fill: #999;
 }
 
-input[id="tooth29"]:checked ~ svg #tooth29 {
+input[id="tooth29"]:checked ~ svg #tooth29,
+input[id="tooth29"]:checked ~ svg #tooth29n {
     fill: #999;
 }
 
-input[id="tooth30"]:checked ~ svg #tooth30 {
+input[id="tooth30"]:checked ~ svg #tooth30,
+input[id="tooth30"]:checked ~ svg #tooth30n {
     fill: #999;
 }
 
-input[id="tooth31"]:checked ~ svg #tooth31 {
+input[id="tooth31"]:checked ~ svg #tooth31,
+input[id="tooth31"]:checked ~ svg #tooth31n {
     fill: #999;
 }
 
-input[id="tooth32"]:checked ~ svg #tooth32 {
+input[id="tooth32"]:checked ~ svg #tooth32,
+input[id="tooth32"]:checked ~ svg #tooth32n {
     fill: #999;
 }
 
