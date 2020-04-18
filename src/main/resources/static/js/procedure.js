@@ -39,15 +39,13 @@ const categories = document.querySelectorAll('.category-toggle');
 
       categoryProcedures.innerHTML = "";
       const processDiv = document.createElement("div");
+      processDiv.className = "px-5 py-2";
 
       categoryLists[i][category.id].forEach((process, i) => {
         processDiv.innerHTML += `
             <div class="d-flex justify-content-between">
-                <div>
                     <input id=${process.id} name="description" type="radio" class="with-font" value="${process.desc}" th:field="*{description}" >
                     <label aria-label=${process.cost + "-" + process.id} class="procedureDesc" for=${process.id}>${process.desc}</label>
-
-                </div>
 
                 <p class="text-muted">${process.cost}</p>
                 <input class="with-font" id=${process.cost + "-" + process.id} name="cost" type="radio" value="${process.cost}" th:field="*{cost}" >
