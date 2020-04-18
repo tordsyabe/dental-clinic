@@ -44,11 +44,11 @@ const categories = document.querySelectorAll('.category-toggle');
       categoryLists[i][category.id].forEach((process, i) => {
         processDiv.innerHTML += `
             <div class="d-flex justify-content-between">
-                    <input id=${process.id} name="description" type="radio" class="with-font" value="${process.desc}" th:field="*{description}" >
+                    <input required id=${process.id} name="description" type="radio" class="with-font" value="${process.desc}" th:field="*{description}" >
                     <label aria-label=${process.cost + "-" + process.id} class="procedureDesc" for=${process.id}>${process.desc}</label>
 
                 <p class="text-muted">${process.cost}</p>
-                <input class="with-font" id=${process.cost + "-" + process.id} name="cost" type="radio" value="${process.cost}" th:field="*{cost}" >
+                <input required class="with-font" id=${process.cost + "-" + process.id} name="cost" type="radio" value="${process.cost}" th:field="*{cost}" >
             </div>`;
       });
 

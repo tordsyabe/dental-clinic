@@ -45,6 +45,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 
         visit.addProcedure(convertedProcedure);
         visit.setDate(LocalDate.now());
+        visit.setPatient(patient);
         patient.addVisit(visit);
 
         PatientDto patientDto = patientMapper.patientToPatientDto(patient);
