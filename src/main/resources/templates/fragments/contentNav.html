@@ -1,12 +1,12 @@
 <ul class="nav nav-pills mt-5" th:fragment="contentNav">
-	<li class="nav-item"><a class="nav-link"
+	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/details/' + ${patient.id}}">Personal
 			Information</a></li>
-	<li class="nav-item"><a class="nav-link"
+	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/procedures/' + ${patient.id}}">Procedures</a></li>
-	<li class="nav-item"><a class="nav-link"
+	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/treatmentplans/' + ${patient.id}}">Treatment
 			Plan</a></li>
-	<li class="nav-item"><a class="nav-link"
+	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/bills/' + ${patient.id}}">Bills</a></li>
 </ul>

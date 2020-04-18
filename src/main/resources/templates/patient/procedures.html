@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Dental Clinic</title>
+    <title>Dental Clinic - Procedures</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
           rel="stylesheet">
@@ -55,7 +55,7 @@
                     <div class="col-7 text-center">
                         <div class="teeth-map">
                             <div class="row mb-5">
-                                <div class="col-12">
+                                <div class="col-12" id="upperTeethMap">
                                             <input type="radio" id="tooth1" name="tooth" value="1" class="tooth-toggle" th:field="*{teethId}"/>
                                             <input type="radio" id="tooth2" name="tooth" value="2" class="tooth-toggle" th:field="*{teethId}" />
                                             <input type="radio" id="tooth3" name="tooth" value="3" class="tooth-toggle" th:field="*{teethId}" />
@@ -108,40 +108,32 @@
 
 
                     <div class="col-4" id="procedure-list">
+                        <div class="d-flex flex-column justify-content-center align-items-end" style="height: 100%">
 
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <input id="1" name="description" type="radio" class="with-font"
-                                       value="Permanenttoothextraction" th:field="*{description}">
-                                <label for="1">Permanent tooth extraction</label>
-
+                            <div class="card mb-3" style="width: 90%">
+                                <div class="card-body">
+                                    <h5 class="text-muted text-center"><i id="up-arrow" class="fa fa-arrow-up fa-2x"
+                                        style="position: absolute;
+                                                top: -50px;
+                                                left: 50%;
+                                                transform: translateX;
+                                                transform: translateX(-50%);"
+                                    ></i> Choose procedure category</h5>
+                                </div>
                             </div>
 
-                            <p class="text-muted">450</p>
-                        </div>
-
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <input id="2" name="description" type="radio" class="with-font"
-                                       value="Wisdomtoothextraction" th:field="*{description}">
-                                <label for="2">Wisdom tooth extraction</label>
-
+                            <div class="card" style="width: 90%">
+                                <div class="card-body">
+                                    <h5 class="text-muted text-center"><i id="left-arrow" class="fa fa-arrow-left fa-2x"
+                                                                          style="position: absolute;
+                                                left: -50px;
+                                                top: 50%;
+                                                transform: translateY(-50%);"
+                                    ></i> Select tooth</h5>
+                                </div>
                             </div>
-                            <p class="text-muted">5000</p>
+
                         </div>
-
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <input id="3" name="description" type="radio" class="with-font"
-                                       value="Surgicaltoothextraction" th:field="*{description}">
-                                <label for="3">Surgical tooth extraction</label>
-
-                            </div>
-                            <p class="text-muted">2500</p>
-                        </div>
-
 
                     </div>
 
@@ -161,22 +153,5 @@
 
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/procedure.js}"></script>
-<script>
-
-    const teeth = document.querySelectorAll('.tooth__base');
-
-    teeth.forEach((tooth, i) => {
-
-
-        tooth.addEventListener('click', () => {
-
-        const radioButton = document.querySelector(`input[id=${tooth.id}]`);
-
-            radioButton.checked = "true";
-
-         });
-
-    });
-</script>
 </body>
 </html>

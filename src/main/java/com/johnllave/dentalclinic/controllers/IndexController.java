@@ -9,18 +9,28 @@ import com.johnllave.dentalclinic.services.TeethService;
 @Controller
 public class IndexController {
 
-	private final TeethService teethService;
-
-	public IndexController(TeethService teethService) {
-		this.teethService = teethService;
-	}
-
 	@RequestMapping({ "/", "index", "index.html" })
 	public String indexPage(Model model) {
 
-//		model.addAttribute("teeth", teethService.getTeeth());
-
 		return "index";
+	}
+
+	@RequestMapping("/calendar")
+	public String calendarPage(Model model) {
+
+		return "calendar";
+	}
+
+	@RequestMapping("/data")
+	public String dataAnalysisPage(Model model) {
+
+		return "data";
+	}
+
+	@RequestMapping("/setting")
+	public String settingsPage(Model model) {
+
+		return "setting";
 	}
 
 
