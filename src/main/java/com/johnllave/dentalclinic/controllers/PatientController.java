@@ -2,21 +2,17 @@ package com.johnllave.dentalclinic.controllers;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
-import com.johnllave.dentalclinic.dto.VisitDto;
 import com.johnllave.dentalclinic.entity.Patient;
-import com.johnllave.dentalclinic.entity.Visit;
+import com.johnllave.dentalclinic.entity.Procedure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.services.PatientService;
 
-import javax.validation.Valid;
 import java.util.Comparator;
-import java.util.Set;
 
 @Controller
 public class PatientController {
@@ -39,7 +35,7 @@ public class PatientController {
 
 		model.addAttribute("patients", patientService.getPatients());
 		model.addAttribute("lastName", Comparator.comparing((PatientDto patient) -> patient.getLastName()));
-
+		System.out.println(patientService.getPatients().toString());
 		return "patient/list";
 	}
 
@@ -62,8 +58,10 @@ public class PatientController {
 	@GetMapping("/patient/details/{id}")
 	public String showPatientById(@PathVariable String id, Model model) {
 
-		model.addAttribute("patient", patientService.getPatientById(Long.parseLong(id)));
-		model.addAttribute("visitsByDate", Comparator.comparing(Visit::getDate).reversed());
+		Patient patient = patientService.getPatientById(Long.parseLong(id));
+
+		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
+		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDate).reversed());
 
 		return "patient/details";
 	}
@@ -71,8 +69,12 @@ public class PatientController {
 	@GetMapping("/patient/procedures/{id}")
 	public String showPatientProcedures(@PathVariable String id, Model model) {
 
-		model.addAttribute("patient", patientService.getPatientById(Long.parseLong(id)));
+		Patient patient = patientService.getPatientById(Long.parseLong(id));
+
+		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
 		model.addAttribute("procedureDto", new ProcedureDto());
+
+		System.out.println(patientMapper.patientToPatientDto(patient).toString());
 
 		return "patient/procedures";
 	}

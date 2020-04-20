@@ -5,12 +5,14 @@ import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Procedure;
 import com.johnllave.dentalclinic.entity.Teeth;
-import com.johnllave.dentalclinic.entity.Visit;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.mapper.ProcedureMapper;
+import com.johnllave.dentalclinic.repository.ProcedureRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProcedureServiceImpl implements ProcedureService {
@@ -19,13 +21,15 @@ public class ProcedureServiceImpl implements ProcedureService {
     private final PatientService patientService;
     private final ProcedureMapper procedureMapper;
     private final PatientMapper patientMapper;
+    private final ProcedureRepository procedureRepository;
 
-    public ProcedureServiceImpl(TeethService teethService, PatientService patientService, ProcedureMapper procedureMapper, PatientMapper patientMapper) {
+    public ProcedureServiceImpl(TeethService teethService, PatientService patientService, ProcedureMapper procedureMapper, PatientMapper patientMapper, ProcedureRepository procedureRepository) {
         this.teethService = teethService;
         this.patientService = patientService;
         this.procedureMapper = procedureMapper;
 
         this.patientMapper = patientMapper;
+        this.procedureRepository = procedureRepository;
     }
 
 
@@ -37,19 +41,16 @@ public class ProcedureServiceImpl implements ProcedureService {
 
         procedureDto.setPaid(false);
 
-        Procedure convertedProcedure = procedureMapper.procedureDtoToProcedure(procedureDto);
+        Procedure procedure = procedureMapper.procedureDtoToProcedure(procedureDto);
 
-        convertedProcedure.setTeeth(teethToSave);
+        procedure.setTeeth(teethToSave);
+        procedure.setDate(LocalDate.now());
 
-        Visit visit = new Visit();
-
-        visit.addProcedure(convertedProcedure);
-        visit.setDate(LocalDate.now());
-        visit.setPatient(patient);
-        patient.addVisit(visit);
+        patient.addProcedure(procedure);
 
         PatientDto patientDto = patientMapper.patientToPatientDto(patient);
 
         return patientService.savePatient(patientDto);
     }
+
 }

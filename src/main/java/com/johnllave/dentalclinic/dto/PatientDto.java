@@ -1,18 +1,13 @@
 package com.johnllave.dentalclinic.dto;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.johnllave.dentalclinic.entity.Visit;
 
+import com.johnllave.dentalclinic.entity.Procedure;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,6 +45,6 @@ public class PatientDto {
 	private String city;
 	private String province;
 
-	private Set<Visit> visits = new HashSet<>();
+	private Set<ProcedureDto> procedures  = new HashSet<>();
 
 }

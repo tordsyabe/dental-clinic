@@ -39,7 +39,7 @@ const categories = document.querySelectorAll('.category-toggle');
 
       categoryProcedures.innerHTML = "";
       const processDiv = document.createElement("div");
-      processDiv.className = "px-5 py-2";
+      processDiv.className = "p-5";
 
       categoryLists[i][category.id].forEach((process, i) => {
         processDiv.innerHTML += `
@@ -77,13 +77,31 @@ function setCostAndDesc() {
 // Tooth Selection toggle
 (function(){
     const teeth = document.querySelectorAll('.tooth__base');
+    const roots = document.querySelectorAll('.root__base');
+    const crowns = document.querySelectorAll('.crown__base');
+    const newRoot = document.querySelectorAll('.replace__root');
+    const teethNumbers = [...document.querySelectorAll('.teeth_number')];
+
+    const numbers = teethNumbers.map(toothNum => toothNum.textContent);
+
+    numbers.forEach(number => {
+
+        newRoot[number -1];
+        roots[number -1].style.display = "none";
+        teeth[number -1].style.display = "none";
+
+    });
 
     teeth.forEach((tooth, i) => {
+
         tooth.addEventListener('click', () => {
             const radioButton = document.querySelector(`input[id=${tooth.id}]`);
             radioButton.checked = "true";
         });
     });
+
+
+
 
 })();
 

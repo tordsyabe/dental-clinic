@@ -47,9 +47,10 @@
             <!-- END MAIN CONTENT HEADER -->
 
             <!-- MAIN CONTENT DETAILS -->
-            <form class="needs-validation" novalidate th:object="${procedureDto}" th:action="@{'/patient/procedures/' + ${patient.getId()}}" method="post">
                 <!-- PROCEDURE CATEGORIES -->
-                <div th:replace="fragments/procedureCategory :: procedureCategory"></div>
+            <form class="needs-validation" novalidate th:object="${procedureDto}" th:action="@{'/patient/procedures/' + ${patient.getId()}}" method="post">
+
+            <div th:replace="fragments/procedureCategory :: procedureCategory"></div>
 
                 <div class="row mt-5">
                     <div class="col-7 text-center">
@@ -122,6 +123,10 @@
                                 </div>
                             </div>
 
+                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                <p>Please provide the following.</p>
+                            </div>
+
                         </div>
 
                     </div>
@@ -129,6 +134,20 @@
                     <div class="col-2 offset-10">
                     <button type="submit" class="btn btn-info">Save Procedure</button>
                     </div>
+<!--                    <ul>-->
+<!--                        <li>Description, Cost, Tooth no., Category</li>-->
+<!--                        <li th:each="procedure: ${patient.procedures}"-->
+<!--                            th:text="${procedure.description + ' - '-->
+<!--                            + procedure.cost + ' - '-->
+<!--                            + procedure.teeth.number + ' - '-->
+<!--                            + procedure.category}"></li>-->
+<!--                    </ul>-->
+
+<!--                    <ul>-->
+<!--                        <li>Description, Cost, Tooth no., Category</li>-->
+<!--                        <li class="teeth_number" th:each="procedure: ${patient.procedures}"-->
+<!--                            th:text="${procedure.teeth.number}"></li>-->
+<!--                    </ul>-->
                 </div>
 
             </form>

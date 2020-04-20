@@ -50,8 +50,6 @@ const formatWeekDay = (dates) => {
 				const todayMonth = dateToday.getMonth() > 9 ? dateToday.getMonth() + 1 : `0${dateToday.getMonth() + 1}`;
 				const todayDay = dateToday.getDate();
 
-
-
 				const today = `${todayYear}-${todayMonth}-${todayDay}`;
 
 				if(today === day.textContent) {
@@ -59,7 +57,6 @@ const formatWeekDay = (dates) => {
 				} else {
 					day.innerText = dayNames[formattedDate.getDay()];
 				}
-
 
 	});
 }

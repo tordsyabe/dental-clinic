@@ -61,18 +61,17 @@
                     <div class="card mb-4 procedure-card">
                         <div class="card-body">
 
-                            <div class="row" th:each="visit : ${#lists.sort(patient.visits, visitsByDate)}" th:if="${patient.visits.size() > 0}">
+                            <div class="row" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}" th:if="${patient.procedures.size() > 0}">
 
 
                                 <div class="col-sm-2">
-                                    <span th:text="${visit.date}" id="visitDay">Today</span><br>
-                                    <small class="text-muted" th:text="${visit.date}"
+                                    <span th:text="${procedure.date}" id="visitDay">Today</span><br>
+                                    <small class="text-muted" th:text="${procedure.date}"
                                            id="visitDate">April 4, 2020</small>
                                 </div>
 
                                 <div class="col-sm-10 text-center">
-                                    <div class="card mb-3"
-                                         th:each="procedure : ${visit.procedures}">
+                                    <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-1">
@@ -108,9 +107,9 @@
 
                             </div>
 
-                            <div th:unless="${!patient.visits.isEmpty()}">
-                                <h5 class="text-muted">No Procedures</h5>
-                                <a class="btn btn-info mt-1" th:href="@{'/patient/procedures/' + ${patient.id}}"
+                            <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;" th:unless="${!patient.procedures.isEmpty()}">
+                                <h5 class="text-muted mb-5">No Procedures</h5>
+                                <a class="btn btn-info" th:href="@{'/patient/procedures/' + ${patient.id}}"
                                    id="addProcedures">Add Procedures</a>
                             </div>
 

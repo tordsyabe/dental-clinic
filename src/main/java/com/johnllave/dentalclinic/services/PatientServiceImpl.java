@@ -32,8 +32,6 @@ public class PatientServiceImpl implements PatientService{
 		List<PatientDto> patients = new ArrayList<>();
 		
 		patientRepository.findAll().forEach(patient -> patients.add(patientMapper.patientToPatientDto(patient)));
-
-		System.out.println(patients.toString());
 		
 		return patients;
 	}

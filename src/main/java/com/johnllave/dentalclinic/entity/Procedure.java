@@ -15,11 +15,11 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "procedures")
 public class Procedure extends BaseEntity {
-	
+
+	private LocalDate date;
 	private String description;
 	private Integer cost;
 	private Boolean paid;
@@ -29,11 +29,7 @@ public class Procedure extends BaseEntity {
 	private Teeth teeth; 
 	
 	@ManyToOne
-	@JoinColumn(name = "visit_id")
-	private Visit visit;
-
-	
-
-	
+	@JoinColumn(name = "patient_id")
+	private Patient patient;
 
 }

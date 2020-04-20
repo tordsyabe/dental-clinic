@@ -13,7 +13,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "patients")
 public class Patient extends Person {
@@ -28,12 +27,12 @@ public class Patient extends Person {
 	private String city;
 	private String province;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "patient")
-	private Set<Visit> visits = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
+	private Set<Procedure> procedures = new HashSet<>();
 
-	public Patient addVisit(Visit visit) {
-		visit.setPatient(this);
-		this.visits.add(visit);
+	public Patient addProcedure(Procedure procedure) {
+		procedure.setPatient(this);
+		this.procedures.add(procedure);
 		return this;
 	}
 

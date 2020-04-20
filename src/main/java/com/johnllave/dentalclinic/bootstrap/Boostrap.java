@@ -3,7 +3,7 @@ package com.johnllave.dentalclinic.bootstrap;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Procedure;
 import com.johnllave.dentalclinic.entity.Teeth;
-import com.johnllave.dentalclinic.entity.Visit;
 import com.johnllave.dentalclinic.repository.PatientRepository;
 import com.johnllave.dentalclinic.repository.TeethRepository;
 
@@ -85,64 +84,51 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		john.setAddress("Rodriguez Avenue Barangay 35");
 		john.setCity("Bacolod");
 		john.setProvince("Negros Occidental");
-		
-
-//		SET PATIENT FIRST VISIT
-		Visit firstVisit = new Visit();
-		Visit secondVisit = new Visit();
-		
-		Visit thirdVisit = new Visit();
-
-		firstVisit.setDate(LocalDate.now());
-		
-		secondVisit.setDate(LocalDate.of(2020, 2, 14));
-		
-		thirdVisit.setDate(LocalDate.of(2020, 3, 28));
 
 //		SET PROCEDURE FOR FIRST VISIT
-		Procedure procedure1Of1stVisit = new Procedure();
+		Procedure procedure1 = new Procedure();
 
-		procedure1Of1stVisit.setCategory("Surgery");
-		procedure1Of1stVisit.setCost(960);
-		procedure1Of1stVisit.setDescription("Permanent tooth extraction");
-		procedure1Of1stVisit.setPaid(false);
-		procedure1Of1stVisit.setTeeth(upperRight3rdMolar.orElse(null));
+		procedure1.setCategory("Surgery");
+		procedure1.setCost(960);
+		procedure1.setDescription("Permanent tooth extraction");
+		procedure1.setPaid(false);
+		procedure1.setTeeth(upperRight3rdMolar.orElse(null));
+		procedure1.setDate(LocalDate.of(2020, 3, 2));
 		
-		Procedure procedure2Of1stVisit = new Procedure();
-		
-		procedure2Of1stVisit.setCategory("Restoration");
-		procedure2Of1stVisit.setCost(960);
-		procedure2Of1stVisit.setDescription("Restoration of teeth");
-		procedure2Of1stVisit.setPaid(false);
-		procedure2Of1stVisit.setTeeth(upperLeftCentralIncisor.orElse(null));
+		Procedure procedure2 = new Procedure();
+
+		procedure2.setCategory("Restoration");
+		procedure2.setCost(960);
+		procedure2.setDescription("Restoration of teeth");
+		procedure2.setPaid(false);
+		procedure2.setTeeth(upperLeftCentralIncisor.orElse(null));
+		procedure2.setDate(LocalDate.now());
 
 		
 		
-		Procedure procedure3Of2ndVisit = new Procedure();
+		Procedure procedure3 = new Procedure();
+
+		procedure3.setCategory("Root Canal");
+		procedure3.setCost(960);
+		procedure3.setDescription("Canalization of the teeth");
+		procedure3.setPaid(true);
+		procedure3.setTeeth(lowerright2ndBicuspid.orElse(null));
+		procedure3.setDate(LocalDate.of(2020, 1, 1));
 		
-		procedure3Of2ndVisit.setCategory("Root Canal");
-		procedure3Of2ndVisit.setCost(960);
-		procedure3Of2ndVisit.setDescription("Canalization of the teeth");
-		procedure3Of2ndVisit.setPaid(true);
-		procedure3Of2ndVisit.setTeeth(lowerright2ndBicuspid.orElse(null));
-		
-		Procedure procedure1Of3ndVisit = new Procedure();
-		
-		procedure1Of3ndVisit.setCategory("Prosthetics");
-		procedure1Of3ndVisit.setCost(3000);
-		procedure1Of3ndVisit.setDescription("Compisite veneers");
-		procedure1Of3ndVisit.setPaid(true);
-		procedure1Of3ndVisit.setTeeth(lowerright2ndBicuspid.orElse(null));
-	
-		firstVisit.addProcedure(procedure1Of1stVisit);
-		firstVisit.addProcedure(procedure2Of1stVisit);
-		secondVisit.addProcedure(procedure3Of2ndVisit);
-		thirdVisit.addProcedure(procedure1Of3ndVisit);
-		hillary.addVisit(firstVisit);
-		hillary.addVisit(secondVisit);
-		hillary.addVisit(thirdVisit);
-		
-		
+		Procedure procedure4 = new Procedure();
+
+		procedure4.setCategory("Prosthetics");
+		procedure4.setCost(3000);
+		procedure4.setDescription("Compisite veneers");
+		procedure4.setPaid(true);
+		procedure4.setTeeth(lowerright2ndBicuspid.orElse(null));
+		procedure4.setDate(LocalDate.of(2020, 4, 1));
+
+		hillary.addProcedure(procedure1);
+		hillary.addProcedure(procedure2);
+		hillary.addProcedure(procedure3);
+		john.addProcedure(procedure4);
+
 		patients.add(hillary);
 		patients.add(john);
 
