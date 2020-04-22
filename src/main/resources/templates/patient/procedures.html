@@ -1,32 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Dental Clinic - Procedures</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
-
-    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
-
-    <script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
-
-
-    <link rel="stylesheet"
-          th:href="@{/webjars/bootswatch-darkly/4.2.1/bootstrap.min.css}"/>
-
-    <link rel="stylesheet"
-          th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
-
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-    <link rel="stylesheet" th:href="@{/css/procedure.css}"/>
-
-</head>
-
-
+<head th:replace="fragments/layout/head :: head"></head>
 <body>
 
 
@@ -117,14 +91,30 @@
                                 </div>
                             </div>
 
-                            <div class="card" style="width: 90%">
+                            <div class="card mb-3" style="width: 90%">
                                 <div class="card-body">
                                     <h5 class="text-muted text-center">Select tooth</h5>
                                 </div>
                             </div>
 
-                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                                <p>Please provide the following.</p>
+                            <div class="" th:if="${#fields.hasErrors('*')}" style="width: 90%;">
+                            <div th:if="${#fields.hasErrors('description')}" class="alert alert-danger">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+                                </ul>
+                            </div>
+
+                            <div th:if="${#fields.hasErrors('category')}" class="alert alert-danger">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('category')}" th:text="${err}"/>
+                                </ul>
+                            </div>
+
+                            <div th:if="${#fields.hasErrors('teethId')}" class="alert alert-danger">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('teethId')}" th:text="${err}"/>
+                                </ul>
+                            </div>
                             </div>
 
                         </div>
@@ -134,20 +124,21 @@
                     <div class="col-2 offset-10">
                     <button type="submit" class="btn btn-info">Save Procedure</button>
                     </div>
-<!--                    <ul>-->
-<!--                        <li>Description, Cost, Tooth no., Category</li>-->
-<!--                        <li th:each="procedure: ${patient.procedures}"-->
-<!--                            th:text="${procedure.description + ' - '-->
-<!--                            + procedure.cost + ' - '-->
-<!--                            + procedure.teeth.number + ' - '-->
-<!--                            + procedure.category}"></li>-->
-<!--                    </ul>-->
 
-<!--                    <ul>-->
-<!--                        <li>Description, Cost, Tooth no., Category</li>-->
-<!--                        <li class="teeth_number" th:each="procedure: ${patient.procedures}"-->
-<!--                            th:text="${procedure.teeth.number}"></li>-->
-<!--                    </ul>-->
+                        <div class="col-7">
+                            <ul class="list-group">
+                                <li class="list-group-item">Description, Cost, Tooth no., Category</li>
+                                <li class="list-group-item" th:each="procedure: ${patient.procedures}"
+                                    th:text="${procedure.description + ' - '
+                            + procedure.cost + ' - '
+                            + procedure.teeth.number + ' - '
+                            + procedure.category}"></li>
+                            </ul>
+                        </div>
+
+
+
+
                 </div>
 
             </form>

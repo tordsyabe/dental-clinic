@@ -84,6 +84,8 @@ function setCostAndDesc() {
 
     const numbers = teethNumbers.map(toothNum => toothNum.textContent);
 
+    console.log(numbers);
+
     numbers.forEach(number => {
 
         newRoot[number -1];
@@ -100,8 +102,7 @@ function setCostAndDesc() {
         });
     });
 
-
-
+    console.log("FROM TOOTH SELECTION");
 
 })();
 
