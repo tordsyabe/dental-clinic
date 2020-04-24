@@ -60,6 +60,7 @@ public class PatientController {
 
 		Patient patient = patientService.getPatientById(Long.parseLong(id));
 
+
 		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
 		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDate).reversed());
 

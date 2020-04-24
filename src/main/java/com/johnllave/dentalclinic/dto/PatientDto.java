@@ -1,5 +1,6 @@
 package com.johnllave.dentalclinic.dto;
 
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,6 +46,8 @@ public class PatientDto {
 	private String city;
 	private String province;
 
-	private Set<ProcedureDto> procedures  = new HashSet<>();
+	private int age;
+
+	private Set<Procedure> procedures  = new HashSet<>();
 
 }

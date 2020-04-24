@@ -2,6 +2,7 @@ package com.johnllave.dentalclinic.entity;
 
 import java.time.LocalDate;
 
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,8 @@ public class Patient extends Person {
 	private String address;
 	private String city;
 	private String province;
+
+	private int age;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
 	private Set<Procedure> procedures = new HashSet<>();

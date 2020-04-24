@@ -5,7 +5,7 @@
             <img
                     src="https://image.shutterstock.com/image-photo/passport-picture-asian-young-woman-260nw-789673348.jpg"
                     class="avatar" alt="...">
-            <p class="text-muted"><small>Age: 26</small></p>
+            <p class="text-muted"><small><strong>Age: <span th:text="${patient.age}">26</span></strong></small></p>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-8 mt-1">
             <input type="hidden" th:value="${patient.id}" th:field="*{id}">

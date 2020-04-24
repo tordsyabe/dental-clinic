@@ -56,5 +56,3 @@ const clickableRows = document.querySelectorAll('.clickable-row');
 
 
 
-
-

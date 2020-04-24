@@ -1,5 +1,7 @@
 package com.johnllave.dentalclinic.services;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +34,8 @@ public class PatientServiceImpl implements PatientService{
 		List<PatientDto> patients = new ArrayList<>();
 		
 		patientRepository.findAll().forEach(patient -> patients.add(patientMapper.patientToPatientDto(patient)));
+
+		patients.forEach(patient -> patient.setAge(Period.between(LocalDate.parse(patient.getBirthDate()), LocalDate.now()).getYears()));
 		
 		return patients;
 	}
@@ -40,7 +44,14 @@ public class PatientServiceImpl implements PatientService{
 	@Override
 	public Patient getPatientById(Long id) {
 
-		return patientRepository.findById(id).orElse(null);
+		Patient patient = patientRepository.findById(id).orElse(null);
+
+		if(patient != null) {
+			patient.setAge(Period.between(patient.getBirthDate(), LocalDate.now()).getYears());
+		}
+
+
+		return patient;
 
 	}
 
