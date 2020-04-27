@@ -10,6 +10,7 @@
 			<div th:replace="fragments/sidebar :: sidebar"></div>
 			<!-- MAIN CONTENT -->
 			<div class="col-11 offset-1 my-4 pl-0 pr-5">
+
 				<!-- MAIN CONTENT HEADER -->
 				<h5>Patients</h5>
 				<div class="row mt-5">
@@ -42,13 +43,7 @@
 				<table class="table table-hover mt-4">
 					<thead>
 						<tr>
-							<th scope="col"><fieldset class="form-group">
-
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox">
-									</div>
-
-								</fieldset></th>
+							<th scope="col"></th>
 							<th scope="col">Patient Name</th>
 							<th scope="col">Birthdate</th>
 							<th scope="col">Phone</th>
@@ -62,13 +57,11 @@
 
 					<tbody>
 						<tr th:each="patient : ${#lists.sort(patients, lastName)}" class="clickable-row" th:data-href="${'/patient/details/' + patient.id}">
-							<th scope="row"><fieldset class="form-group">
-
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox">
-									</div>
-
-								</fieldset></th>
+							<th scope="row">
+								<img
+										th:src="${'https://picsum.photos/id/' + patient.id + '/info'}"
+										class="avatar" alt="..." width="30" height="30">
+							</th>
 							<td th:text="${patient.firstName + ' ' + patient.lastName}">Hillary
 								Joevette Tan</td>
 							<td th:text="${patient.birthDate}"

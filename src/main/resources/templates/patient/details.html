@@ -11,6 +11,14 @@
         <div th:replace="fragments/sidebar :: sidebar"></div>
         <!-- MAIN CONTENT -->
         <div class="col-11 offset-1 my-4 pl-0 pr-5">
+
+            <form th:action="@{/uploadFile/}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:value="${patient.id}" name="patientId">
+                <input type="file" name="file" >
+
+                <input type="submit" value="Upload">
+            </form>
+
             <!-- MAIN CONTENT HEADER -->
             <div th:replace="fragments/patientName :: patientName"></div>
 
