@@ -2,6 +2,7 @@ package com.johnllave.dentalclinic.services;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
@@ -56,7 +57,7 @@ public class AWSS3ServiceImpl implements AWSS3Service {
     private void uploadFileToS3Bucket(String bucketName, File file, String patientId) {
 
         String uniqueFileName = LocalDateTime.now() + "_" + file.getName().replace(" ", "_");
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, uniqueFileName, file);
+        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, uniqueFileName, file).withCannedAcl(CannedAccessControlList.PublicRead);
 
         amazonS3.putObject(putObjectRequest);
 

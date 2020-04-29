@@ -2,9 +2,11 @@
     <h5 class="mb-4 text-muted">Patient Details</h5>
     <div class="form-row">
         <div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column align-items-center justify-content-center">
-            <img
-                    src="https://image.shutterstock.com/image-photo/passport-picture-asian-young-woman-260nw-789673348.jpg"
-                    class="avatar" alt="..." width="95" height="95">
+
+            <img th:if="${patient.image == null}"
+                 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}"
+                 class="avatar" alt="..." width="95" height="95">
+            <img th:unless="${patient.image == null}" th:src="${patient.image}" class="avatar" alt="..." width="95" height="95">
             <p class="text-muted"><small><strong>Age: <span th:text="${patient.age}">26</span></strong></small></p>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-8 mt-1">
