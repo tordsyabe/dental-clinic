@@ -59,6 +59,15 @@ td > a > i {
 	color: #303030 !important;
 }
 
+.icon-button {
+    color: grey;
+    cursor: pointer;
+}
+
+.icon-button:hover {
+    color: var(--primary-color);
+
+}
 
 .avatar {
     object-position: top;

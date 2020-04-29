@@ -117,17 +117,30 @@
                             </ul>
                             <div class="dropdown-divider"></div>
                             <div class="row mt-4">
+
                                 <div class="col-sm-7">
-                                    <h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
+                                    <div class="d-flex justify-content-between px-2">
+                                        <h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
+                                        <i class="fa fa-plus-circle fa-lg icon-button"></i>
+                                    </div>
+
+
+
                                     <div th:if="${patient.complaints.size() > 0}">
                                         <div class="card mt-3" th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col-sm-8"></div>
-                                                    <div class="col-sm-4"></div>
+                                                    <div class="col-sm-10">
+                                                        <p class="mb-0" th:text="${complaint.description}"></p>
+                                                        <small class="text-muted" th:text="${complaint.date}"></small>
+                                                    </div>
+                                                    <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                                                        <i class="fa fa-pencil icon-button mr-3"></i>
+                                                        <i class="fa fa-trash icon-button"></i>
+
+                                                    </div>
                                                 </div>
-                                                <p class="mb-0" th:text="${complaint.description}"></p>
-                                                <small class="text-muted" th:text="${complaint.date}"></small>
+
                                             </div>
                                         </div>
                                     </div>
