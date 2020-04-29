@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.johnllave.dentalclinic.entity.Complaint;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -124,10 +125,20 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure4.setTeeth(lowerright2ndBicuspid.orElse(null));
 		procedure4.setDate(LocalDate.of(2020, 4, 1));
 
+		Complaint complaint1 = new Complaint();
+		complaint1.setDescription("There was a bleeding gum");
+		complaint1.setDate(LocalDate.now());
+
+		Complaint complaint2 = new Complaint();
+		complaint2.setDescription("Walay kwarta pambayad");
+		complaint2.setDate(LocalDate.of(2020, 1, 2));
+
 		hillary.addProcedure(procedure1);
 		hillary.addProcedure(procedure2);
 		hillary.addProcedure(procedure3);
 		john.addProcedure(procedure4);
+		john.addComplaint(complaint1);
+		john.addComplaint(complaint2);
 
 		patients.add(hillary);
 		patients.add(john);

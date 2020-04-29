@@ -2,6 +2,7 @@ package com.johnllave.dentalclinic.controllers;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
+import com.johnllave.dentalclinic.entity.Complaint;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Procedure;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class PatientController {
 
 		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
 		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDate).reversed());
+		model.addAttribute("complaintDate", Comparator.comparing((Complaint complaint) -> complaint.getDate()).reversed());
 
 		return "patient/details";
 	}

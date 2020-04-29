@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
+import com.johnllave.dentalclinic.entity.Complaint;
 import com.johnllave.dentalclinic.entity.Procedure;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,8 @@ public class PatientDto {
 	private String province;
 
 	private int age;
+
+	private Set<Complaint> complaints = new HashSet<>();
 
 	private Set<Procedure> procedures  = new HashSet<>();
 

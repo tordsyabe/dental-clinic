@@ -119,22 +119,20 @@
                             <div class="row mt-4">
                                 <div class="col-sm-7">
                                     <h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
-                                    <div class="card mt-3">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-8"></div>
-                                                <div class="col-sm-4"></div>
+                                    <div th:if="${patient.complaints.size() > 0}">
+                                        <div class="card mt-3" th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-8"></div>
+                                                    <div class="col-sm-4"></div>
+                                                </div>
+                                                <p class="mb-0" th:text="${complaint.description}"></p>
+                                                <small class="text-muted" th:text="${complaint.date}"></small>
                                             </div>
-                                            There was a headache due to Septanest<br> <small
-                                                class="text-muted">01/19/2020</small>
                                         </div>
                                     </div>
 
-                                    <div class="card mt-3">
-                                        <div class="card-body">
-                                            Long anesthesia<br> <small class="text-muted">01/19/2020</small>
-                                        </div>
-                                    </div>
+                                    <p class="text-muted mt-3" th:unless="${patient.complaints.size() > 0}">No Complaints</p>
 
                                 </div>
 

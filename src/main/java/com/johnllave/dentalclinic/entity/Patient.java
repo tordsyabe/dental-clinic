@@ -31,11 +31,20 @@ public class Patient extends Person {
 	private int age;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
+	private Set<Complaint> complaints = new HashSet<>();
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
 	private Set<Procedure> procedures = new HashSet<>();
 
 	public Patient addProcedure(Procedure procedure) {
 		procedure.setPatient(this);
 		this.procedures.add(procedure);
+		return this;
+	}
+
+	public Patient addComplaint(Complaint complaint) {
+		complaint.setPatient(this);
+		this.complaints.add(complaint);
 		return this;
 	}
 
