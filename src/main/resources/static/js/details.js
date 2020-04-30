@@ -64,27 +64,68 @@ const formatWeekDay = (dates) => {
 (function(){
     let complaintFormShow = false;
 
-    const complaintForm = document.querySelector('.complaintForm');
+    const complaintFormCard = document.querySelector('.complaintFormCard');
     const addComplaintBtn = document.querySelector('#addComplaint');
+    const complaintSubmitBtn = document.querySelector('#complaintSubmitBtn');
 
+    const complaintForm = document.querySelector('#complaintForm');
+
+    const complaintList = document.querySelector('.complaint-list');
 
     addComplaint.addEventListener('click', () => {
+
         complaintFormShow = !complaintFormShow;
-        if(complaintFormShow !== true) {
+        if(complaintFormShow === false) {
             addComplaintBtn.classList.remove('fa-minus');
-            complaintForm.style.display = "none";
+            complaintFormCard.style.display = "none";
         } else {
             addComplaintBtn.classList.add('fa-minus');
-            complaintForm.style.display = "flex";
+            complaintFormCard.style.display = "flex";
         }
-
-
-
-        console.log(complaintFormShow);
     });
 
+    if(complaintFormShow === false) {
+        addComplaintBtn.classList.remove('fa-minus');
+        complaintFormCard.style.display = "none";
+    } else {
+        addComplaintBtn.classList.add('fa-minus');
+        complaintFormCard.style.display = "flex";
+    }
 
+    complaintSubmitBtn.addEventListener('click', () => {
+        const complaintDesc = document.getElementById('complaintDesc').value;
+        const complaintDate = document.getElementById('complaintDate').value;
+        const newItem = document.createElement("div");
+        newItem.classList.add('card');
+        newItem.classList.add('mt-3');
 
+        newItem.innerHTML = `
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <p class="mb-0">${complaintDesc}</p>
+                        <small class="text-muted">${complaintDate}</small>
+                    </div>
+                    <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                        <i class="fa fa-pencil icon-button mr-3"></i>
+                        <i class="fa fa-trash icon-button"></i>
 
+                    </div>
+                </div>
+
+            </div>
+        `;
+
+        complaintList.insertBefore(newItem, complaintList.childNodes[0]);
+        complaintFormShow = false;
+        addComplaintBtn.classList.remove('fa-minus');
+        complaintFormCard.style.display = "none";
+
+        const noComplaintP = document.querySelector('#noComplaintP');
+
+        if(noComplaintP !== null) {
+            complaintList.removeChild(noComplaintP);
+        }
+    });
 
 })();

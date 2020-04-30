@@ -129,7 +129,7 @@
 
 
 
-                                    <div th:if="${patient.complaints.size() > 0}">
+                                    <div class="complaint-list" th:if="${patient.complaints.size() > 0}">
                                         <div class="card mt-3" th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
                                             <div class="card-body">
                                                 <div class="row">
@@ -147,8 +147,9 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <p class="text-muted mt-3" th:unless="${patient.complaints.size() > 0}">No Complaints</p>
+                                    <div class="complaint-list" th:unless="${patient.complaints.size() > 0}">
+                                        <p class="text-muted mt-3" id="noComplaintP">No Complaints</p>
+                                    </div>
 
                                 </div>
 
