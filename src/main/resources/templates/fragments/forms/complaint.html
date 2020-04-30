@@ -1,0 +1,36 @@
+<div class="card mt-3 complaintForm" th:fragment="complaintForm">
+    <div class="card-body">
+        <form class="form-inline justify-content-between" id="complaintForm">
+            <input type="hidden">
+            <div class="form-group input-group-sm">
+                <input type="text" class="form-control"
+                       required
+                       placeholder="Complaint"
+                       id="complaintDesc"
+                       name="complaintDesc"
+                       style="background-color: #393939 !important"
+                >
+                <div class="invalid-feedback">
+                    Description is required.
+                </div>
+
+            </div>
+
+            <div class="form-group input-group-sm">
+                <input type="date" class="form-control"
+                       required
+                       placeholder="Complaint"
+                       id="complaintDate"
+                       name="complaintDate"
+                       style="background-color: #393939 !important"
+                >
+                <div class="invalid-feedback">
+                    Date is required.
+                </div>
+
+            </div>
+
+            <i class="fa fa-plus-circle fa-lg icon-button" style="color: var(--primary-color);"></i>
+        </form>
+    </div>
+</div>

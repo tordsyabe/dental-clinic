@@ -121,8 +121,11 @@
                                 <div class="col-sm-7">
                                     <div class="d-flex justify-content-between px-2">
                                         <h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
-                                        <i class="fa fa-plus-circle fa-lg icon-button"></i>
+                                        <i class="fa fa-plus icon-button" id="addComplaint"></i>
                                     </div>
+
+                                            <div th:replace="fragments/forms/complaint :: complaintForm"></div>
+
 
 
 
@@ -187,6 +190,8 @@
 
 		formatWeekDay(visitDays);
 		formatNamedDate(visitDates);
+
+
 </script>
 </body>
 </html>

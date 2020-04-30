@@ -60,3 +60,31 @@ const formatWeekDay = (dates) => {
 
 	});
 }
+//Complaint Section
+(function(){
+    let complaintFormShow = false;
+
+    const complaintForm = document.querySelector('.complaintForm');
+    const addComplaintBtn = document.querySelector('#addComplaint');
+
+
+    addComplaint.addEventListener('click', () => {
+        complaintFormShow = !complaintFormShow;
+        if(complaintFormShow !== true) {
+            addComplaintBtn.classList.remove('fa-minus');
+            complaintForm.style.display = "none";
+        } else {
+            addComplaintBtn.classList.add('fa-minus');
+            complaintForm.style.display = "flex";
+        }
+
+
+
+        console.log(complaintFormShow);
+    });
+
+
+
+
+
+})();
