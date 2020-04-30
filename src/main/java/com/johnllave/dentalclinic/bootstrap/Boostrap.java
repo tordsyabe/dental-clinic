@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.johnllave.dentalclinic.entity.Complaint;
+import com.johnllave.dentalclinic.repository.ComplaintRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -24,11 +25,13 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 
 	private final TeethRepository teethRepository;
 	private final PatientRepository patientRepository;
+	private final ComplaintRepository complaintRepository;
 
-	public Boostrap(TeethRepository teethRepository, PatientRepository patientRepository) {
+	public Boostrap(TeethRepository teethRepository, PatientRepository patientRepository, ComplaintRepository complaintRepository) {
 
 		this.teethRepository = teethRepository;
 		this.patientRepository = patientRepository;
+		this.complaintRepository = complaintRepository;
 	}
 
 	@Override
@@ -133,15 +136,24 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		complaint2.setDescription("Walay kwarta pambayad");
 		complaint2.setDate(LocalDate.of(2020, 1, 2));
 
+		Complaint complaint3 = new Complaint();
+		complaint3.setDescription("This is the complaint saved from complaint side");
+		complaint3.setDate(LocalDate.of(2020, 1, 2));
+
 		hillary.addProcedure(procedure1);
 		hillary.addProcedure(procedure2);
 		hillary.addProcedure(procedure3);
 		john.addProcedure(procedure4);
 		john.addComplaint(complaint1);
 		john.addComplaint(complaint2);
+		complaint3.setPatient(hillary);
 
 		patients.add(hillary);
 		patients.add(john);
+
+		complaintRepository.save(complaint3);
+
+
 
 		return patients;
 	}

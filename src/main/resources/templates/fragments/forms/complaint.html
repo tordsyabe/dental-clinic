@@ -1,7 +1,7 @@
 <div class="card mt-3 complaintFormCard" th:fragment="complaintForm">
     <div class="card-body">
         <form class="form-inline justify-content-between" id="complaintForm">
-            <input type="hidden">
+            <input type="hidden" th:value="${patient.id}" id="comPatientId">
             <div class="form-group input-group-sm">
                 <input type="text" class="form-control"
                        required

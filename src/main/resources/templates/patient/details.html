@@ -129,7 +129,7 @@
 
 
 
-                                    <div class="complaint-list" th:if="${patient.complaints.size() > 0}">
+                                    <div class="complaint-list mb-3" th:if="${patient.complaints.size() > 0}">
                                         <div class="card mt-3" th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
                                             <div class="card-body">
                                                 <div class="row">

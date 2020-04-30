@@ -12,6 +12,7 @@ public class ComplaintDto {
     private String id;
     private String description;
     private String date;
+    private String patientId;
 
     private PatientDto patientDto;
 }

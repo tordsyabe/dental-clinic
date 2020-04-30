@@ -95,6 +95,8 @@ const formatWeekDay = (dates) => {
     complaintSubmitBtn.addEventListener('click', () => {
         const complaintDesc = document.getElementById('complaintDesc').value;
         const complaintDate = document.getElementById('complaintDate').value;
+        const comPatientId = document.getElementById('comPatientId').value;
+
         const newItem = document.createElement("div");
         newItem.classList.add('card');
         newItem.classList.add('mt-3');
@@ -126,6 +128,35 @@ const formatWeekDay = (dates) => {
         if(noComplaintP !== null) {
             complaintList.removeChild(noComplaintP);
         }
+
+        console.log(JSON.stringify(
+                                    {
+                                        patientId: comPatientId,
+                                        description: complaintDesc,
+                                        date: complaintDate
+                                    }
+                                ));
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/complaints",
+            data: JSON.stringify(
+                {
+                    patientId: comPatientId,
+                    description: complaintDesc,
+                    date: complaintDate
+                }
+            ),
+            cache: false,
+            timeout: 600000,
+            success: function(data) {
+                console.log("DATA", data);
+            },
+            error: function(e) {
+                console.log("ERROR : ", e);
+            }
+        });
     });
 
 })();
