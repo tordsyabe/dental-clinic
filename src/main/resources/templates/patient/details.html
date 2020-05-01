@@ -12,13 +12,6 @@
         <!-- MAIN CONTENT -->
         <div class="col-11 offset-1 my-4 pl-0 pr-5">
 
-            <form th:action="@{/uploadFile/}" method="post" enctype="multipart/form-data">
-                <input type="hidden" th:value="${patient.id}" name="patientId">
-                <input type="file" name="file" >
-
-                <input type="submit" value="Upload">
-            </form>
-
             <!-- MAIN CONTENT HEADER -->
             <div th:replace="fragments/patientName :: patientName"></div>
 
@@ -34,6 +27,13 @@
 
                 <div class="col-sm-3">
                     <div th:replace="fragments/patientForm :: patientForm"></div>
+
+                    <form th:action="@{/uploadFile/}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" th:value="${patient.id}" name="patientId">
+                        <input type="file" name="file">
+
+                        <input type="submit" value="Upload">
+                    </form>
                 </div>
 
                 <!-- END PATIENT DETAILS -->
@@ -44,7 +44,8 @@
                     <div class="card mb-4 procedure-card">
                         <div class="card-body">
 
-                            <div class="row" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}" th:if="${patient.procedures.size() > 0}">
+                            <div class="row" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}"
+                                 th:if="${patient.procedures.size() > 0}">
 
 
                                 <div class="col-sm-2">
@@ -90,7 +91,8 @@
 
                             </div>
 
-                            <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;" th:unless="${!patient.procedures.isEmpty()}">
+                            <div class="d-flex flex-column justify-content-center align-items-center"
+                                 style="height: 100%;" th:unless="${!patient.procedures.isEmpty()}">
                                 <h5 class="text-muted mb-5">No Procedures</h5>
                                 <a class="btn btn-info" th:href="@{'/patient/procedures/' + ${patient.id}}"
                                    id="addProcedures">Add Procedures</a>
@@ -105,32 +107,26 @@
                     <!-- END PATIENT PROCEDURES -->
 
                     <!-- PATIENT HEALTH NOTES -->
+                    <h5 class="mb-4 text-muted">Health Notes</h5>
                     <div class="card procedure-card">
 
                         <div class="card-body">
-                            <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#">Health
-                                    Notes</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">Documents</a>
-                                </li>
 
-                            </ul>
-                            <div class="dropdown-divider"></div>
-                            <div class="row mt-4">
 
-                                <div class="col-sm-7">
+                            <div class="row mb-3">
+
+                                <div class="col-sm-6">
                                     <div class="d-flex justify-content-between px-2">
-                                        <h5 class="card-subtitle mb-2 text-muted">Complaints</h5>
+                                        <h6 class="card-subtitle mb-2">Complaints</h6>
                                         <i class="fa fa-plus icon-button" id="addComplaint"></i>
                                     </div>
 
-                                            <div th:replace="fragments/forms/complaint :: complaintForm"></div>
+                                    <div th:replace="fragments/forms/complaint :: complaintForm"></div>
 
 
-
-
-                                    <div class="complaint-list mb-3" th:if="${patient.complaints.size() > 0}">
-                                        <div class="card mt-3" th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
+                                    <div class="complaint-list" th:if="${patient.complaints.size() > 0}">
+                                        <div class="card mt-3"
+                                             th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-sm-10">
@@ -153,10 +149,17 @@
 
                                 </div>
 
-                                <div class="col-sm-5">
-                                    <h5 class="card-subtitle mb-2 text-muted">Allergies</h5>
-                                    <p class="text-muted mt-3">No Allergies</p>
-
+                                <div class="col-sm-6">
+                                    <div class="d-flex justify-content-between px-2">
+                                        <h6 class="card-subtitle mb-2">Allergies</h6>
+                                        <i class="fa fa-plus icon-button" id="addAllergy"></i>
+                                    </div>
+                                    <ul class="mt-3" style="list-style: none;">
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Allergic to sea foods.</li>
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Allergic to mefenamic.</li>
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Allergic to bulalo.</li>
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Allergic to mang inasal.</li>
+                                    </ul>
 
                                 </div>
 
@@ -191,6 +194,7 @@
 
 		formatWeekDay(visitDays);
 		formatNamedDate(visitDates);
+
 
 
 </script>

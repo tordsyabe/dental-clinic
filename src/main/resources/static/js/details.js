@@ -129,14 +129,6 @@ const formatWeekDay = (dates) => {
             complaintList.removeChild(noComplaintP);
         }
 
-        console.log(JSON.stringify(
-                                    {
-                                        patientId: comPatientId,
-                                        description: complaintDesc,
-                                        date: complaintDate
-                                    }
-                                ));
-
         $.ajax({
             type: "POST",
             contentType: "application/json",
