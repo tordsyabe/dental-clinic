@@ -60,6 +60,27 @@ const formatWeekDay = (dates) => {
 
 	});
 }
+
+//HOVER on complaint cards for edit and delete button
+function displayActionBtn() {
+    console.log("CALLED");
+    const complaintCards = [...document.querySelector('.complaint-list').children];
+
+    complaintCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.childNodes[1].childNodes[1].childNodes[3].childNodes[1].style.display = "inline-block";
+            card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].style.display = "inline-block";
+        });
+
+        card.addEventListener('mouseleave', () => {
+                    card.childNodes[1].childNodes[1].childNodes[3].childNodes[1].style.display = "none";
+                    card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].style.display = "none";
+                });
+    });
+}
+//Invoking HOVER on complaint cards for edit and delete button
+(displayActionBtn)();
+
 //Complaint Section
 (function(){
     let complaintFormShow = false;
@@ -97,28 +118,7 @@ const formatWeekDay = (dates) => {
         const complaintDate = document.getElementById('complaintDate').value;
         const comPatientId = document.getElementById('comPatientId').value;
 
-        const newItem = document.createElement("div");
-        newItem.classList.add('card');
-        newItem.classList.add('mt-3');
 
-        newItem.innerHTML = `
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-10">
-                        <p class="mb-0">${complaintDesc}</p>
-                        <small class="text-muted">${complaintDate}</small>
-                    </div>
-                    <div class="col-sm-2 d-flex justify-content-center align-items-center">
-                        <i class="fa fa-pencil icon-button mr-3"></i>
-                        <i class="fa fa-trash icon-button"></i>
-
-                    </div>
-                </div>
-
-            </div>
-        `;
-
-        complaintList.insertBefore(newItem, complaintList.childNodes[0]);
         complaintFormShow = false;
         addComplaintBtn.classList.remove('fa-minus');
         complaintFormCard.style.display = "none";
@@ -128,6 +128,7 @@ const formatWeekDay = (dates) => {
         if(noComplaintP !== null) {
             complaintList.removeChild(noComplaintP);
         }
+
 
         $.ajax({
             type: "POST",
@@ -143,7 +144,33 @@ const formatWeekDay = (dates) => {
             cache: false,
             timeout: 600000,
             success: function(data) {
+
                 console.log("DATA", data);
+                const newItem = document.createElement("div");
+                    newItem.classList.add('card');
+                    newItem.classList.add('mt-3');
+
+                    newItem.innerHTML = `
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <p class="mb-0">${data.description}</p>
+                                    <small class="text-muted">${data.date}</small>
+                                </div>
+                                <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                                    <i class="fa fa-pencil icon-button mr-3" style="display: none;"></i>
+                                    <i class="fa fa-trash icon-button"
+                                        onclick="handleDeleteComplaint(${data.id})"
+                                        style="display: none;"></i>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    `;
+
+                    complaintList.insertBefore(newItem, complaintList.childNodes[0]);
+                    displayActionBtn();
             },
             error: function(e) {
                 console.log("ERROR : ", e);
@@ -152,3 +179,19 @@ const formatWeekDay = (dates) => {
     });
 
 })();
+
+//Handle delete complaint
+const handleDeleteComplaint = (id) => {
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/JSON",
+        url: "/complaints/" + id,
+        dataType: "json",
+        success: function(result) {
+            console.log(result);
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+}

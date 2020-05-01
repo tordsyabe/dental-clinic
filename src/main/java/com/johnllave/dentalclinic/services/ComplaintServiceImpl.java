@@ -36,4 +36,9 @@ public class ComplaintServiceImpl implements ComplaintService {
 
         return complaintMapper.complaintToComplaintDto(complaintRepository.save(complaint));
     }
+
+    @Override
+    public void deleteComplaintById(String id) {
+        complaintRepository.deleteById(Long.parseLong(id));
+    }
 }

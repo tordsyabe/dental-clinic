@@ -6,4 +6,6 @@ import com.johnllave.dentalclinic.entity.Complaint;
 public interface ComplaintService {
 
     ComplaintDto saveComplaintByPatientId(String id, ComplaintDto complaintDto);
+
+    void deleteComplaintById(String id);
 }

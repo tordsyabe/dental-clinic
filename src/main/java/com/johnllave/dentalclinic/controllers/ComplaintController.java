@@ -24,4 +24,11 @@ public class ComplaintController {
 
         return complaintService.saveComplaintByPatientId(complaintDto.getPatientId(), complaintDto);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteComplaint(@PathVariable String id) {
+
+        complaintService.deleteComplaintById(id);
+    }
 }
