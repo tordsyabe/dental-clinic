@@ -125,7 +125,7 @@
 
 
                                     <div class="complaint-list" th:if="${patient.complaints.size() > 0}">
-                                        <div class="card mt-3"
+                                        <div class="card mt-3" th:data-comp-id="${complaint.id}"
                                              th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
                                             <div class="card-body">
                                                 <div class="row">

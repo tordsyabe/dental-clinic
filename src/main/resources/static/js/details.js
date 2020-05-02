@@ -149,6 +149,7 @@ function displayActionBtn() {
                 const newItem = document.createElement("div");
                     newItem.classList.add('card');
                     newItem.classList.add('mt-3');
+                    newItem.setAttribute('data-comp-id', data.id);
 
                     newItem.innerHTML = `
                         <div class="card-body">
@@ -171,6 +172,7 @@ function displayActionBtn() {
 
                     complaintList.insertBefore(newItem, complaintList.childNodes[0]);
                     displayActionBtn();
+
             },
             error: function(e) {
                 console.log("ERROR : ", e);
@@ -182,6 +184,11 @@ function displayActionBtn() {
 
 //Handle delete complaint
 const handleDeleteComplaint = (id) => {
+    $(`*[data-comp-id="${id}"]`).remove();
+    if($(".complaint-list").children().length === 0) {
+        $(".complaint-list").prepend('<p class="text-muted mt-3" id="noComplaintP">No Complaints</p>');
+    }
+
     $.ajax({
         type: "DELETE",
         contentType: "application/JSON",
@@ -189,6 +196,8 @@ const handleDeleteComplaint = (id) => {
         dataType: "json",
         success: function(result) {
             console.log(result);
+
+
         },
         error: function(e) {
             console.log(e);
