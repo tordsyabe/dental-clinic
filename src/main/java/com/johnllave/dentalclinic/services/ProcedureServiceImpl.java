@@ -2,6 +2,7 @@ package com.johnllave.dentalclinic.services;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
+import com.johnllave.dentalclinic.entity.Invoice;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Procedure;
 import com.johnllave.dentalclinic.entity.Teeth;
@@ -51,6 +52,20 @@ public class ProcedureServiceImpl implements ProcedureService {
         PatientDto patientDto = patientMapper.patientToPatientDto(patient);
 
         return patientService.savePatient(patientDto);
+    }
+
+    @Override
+    public ProcedureDto createInvoiceById(Long id) {
+
+        Procedure procedure =  procedureRepository.findById(id).orElse(null);
+        procedure.setPaid(true);
+        procedure.setInvoice(new Invoice(LocalDate.now()
+                .toString().replace("-", ""),
+                LocalDate.now()));
+
+        Procedure savedProcedure = procedureRepository.save(procedure);
+
+        return procedureMapper.procedureToProcedureDto(savedProcedure);
     }
 
 }

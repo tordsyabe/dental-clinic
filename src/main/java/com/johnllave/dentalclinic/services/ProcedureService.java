@@ -9,4 +9,6 @@ import java.util.List;
 public interface ProcedureService {
 
     PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto);
+
+    ProcedureDto createInvoiceById(Long id);
 }

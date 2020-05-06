@@ -3,12 +3,14 @@ package com.johnllave.dentalclinic.services;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
+import com.johnllave.dentalclinic.dto.ProcedureDto;
+import com.johnllave.dentalclinic.entity.Procedure;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
+import com.johnllave.dentalclinic.mapper.ProcedureMapper;
+import com.johnllave.dentalclinic.repository.ProcedureRepository;
 import org.springframework.stereotype.Service;
 
 import com.johnllave.dentalclinic.entity.Patient;
@@ -19,12 +21,17 @@ public class PatientServiceImpl implements PatientService{
 	
 	private final PatientRepository patientRepository;
 	private final PatientMapper patientMapper;
+	private final ProcedureRepository procedureRepository;
+	private final ProcedureMapper procedureMapper;
 	
 
-	public PatientServiceImpl(PatientRepository patientRepository, PatientMapper patientMapper) {
+	public PatientServiceImpl(PatientRepository patientRepository, PatientMapper patientMapper, ProcedureRepository procedureRepository, ProcedureMapper procedureMapper) {
 
 		this.patientRepository = patientRepository;
 		this.patientMapper = patientMapper;
+		this.procedureRepository = procedureRepository;
+
+		this.procedureMapper = procedureMapper;
 	}
 
 
