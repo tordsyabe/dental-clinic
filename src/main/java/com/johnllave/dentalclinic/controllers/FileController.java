@@ -19,12 +19,12 @@ public class FileController {
     }
 
 
-    @PostMapping("uploadFile")
+    @PostMapping("uploadProfileImage")
     public String uploadFile(@RequestPart(value = "file") MultipartFile multipartFile,
                              @RequestParam(value = "patientId") String patientId) {
 
         awss3Service.uploadFile(multipartFile, patientId);
 
-        return "redirect:/patient/list";
+        return "redirect:/patient/details/" + patientId;
     }
 }

@@ -28,9 +28,10 @@
                 <div class="col-sm-3">
                     <div th:replace="fragments/patientForm :: patientForm"></div>
 
-                    <form th:action="@{/uploadFile/}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{/uploadProfileImage/}" method="post" enctype="multipart/form-data">
                         <input type="hidden" th:value="${patient.id}" name="patientId">
-                        <input type="file" name="file">
+                        <input type="file" name="file" id="upload-image" accept="image/*"
+                               onchange="loadFile(event)" class="upload-button">
 
                         <input type="submit" value="Upload">
                     </form>
@@ -197,7 +198,12 @@
 		formatWeekDay(visitDays);
 		formatNamedDate(visitDates);
 
-
+        $(document).ready(function(){
+            $("button").click(function( event ) {
+              event.stopPropagation();
+              // Do something
+            });
+        });
 
 </script>
 </body>

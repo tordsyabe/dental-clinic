@@ -33,7 +33,7 @@ public class PatientDto {
 	private String lastName;
 
 
-	private String image;
+	private String image = null;
 
 	@NotEmpty
 	private String birthDate;

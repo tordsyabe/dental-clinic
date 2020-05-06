@@ -204,3 +204,21 @@ const handleDeleteComplaint = (id) => {
         }
     });
 }
+
+(function(){
+    const profileImage = document.querySelector('#profile-image');
+    const changeP = document.querySelector('.avatar + p');
+
+    profileImage.addEventListener('mouseenter', () => {
+        changeP.style.display = "inline-block";
+    });
+
+    profileImage.addEventListener('mouseleave', () => {
+        changeP.style.display = "none";
+    });
+})();
+
+const loadFile = (event) => {
+	const profileImage = document.querySelector('#profile-image');
+	profileImage.src = URL.createObjectURL(event.target.files[0]);
+};

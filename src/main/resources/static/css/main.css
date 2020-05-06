@@ -69,12 +69,6 @@ td > a > i {
 
 }
 
-.avatar {
-    object-position: top;
-	border-radius: 50%;
-	object-fit: cover;
-}
-
 .form-control {
 	background-color: #303030 !important;
 	color: #fff !important;

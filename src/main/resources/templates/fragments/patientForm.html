@@ -1,16 +1,22 @@
-<form class="needs-validation" novalidate th:object="${patient}" th:action="@{/patient/}" th:fragment="patientForm" method="post">
+<form onsubmit="console.log('from patientForm')"
+      class="needs-validation" novalidate th:object="${patient}" th:action="@{/patient/}" th:fragment="patientForm" method="post">
     <h5 class="mb-4 text-muted">Patient Details</h5>
     <div class="form-row">
         <div class="col-sm-12 col-md-12 col-lg-4 d-flex flex-column align-items-center justify-content-center">
-
+            <label for="upload-image" class="upload-image-label">
             <img th:if="${patient.image == null}"
-                 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}"
-                 class="avatar" alt="..." width="95" height="95">
-            <img th:unless="${patient.image == null}" th:src="${patient.image}" class="avatar" alt="..." width="95" height="95">
+                 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}" id="profile-image"
+                 class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="95" height="95">
+
+                <img th:unless="${patient.image == null}" th:src="${patient.image}" id="profile-image"
+                     class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="95" height="95">
+                <p>Change</p>
+            </label>
             <p class="text-muted"><small><strong>Age: <span th:text="${patient.age}">26</span></strong></small></p>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-8 mt-1">
             <input type="hidden" th:value="${patient.id}" th:field="*{id}">
+            <input type="hidden" th:value="${patient.image}" th:field="*{image}">
             <div class="form-group input-group-sm">
                 <label class="text-muted" for="firstName"><small>First
                     Name</small></label> <input type="text" class="form-control" required

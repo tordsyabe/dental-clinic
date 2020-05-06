@@ -1,3 +1,32 @@
 .complaintForm {
     display: none;
 }
+
+.avatar {
+    object-position: top;
+	border-radius: 50%;
+	object-fit: cover;
+	cursor: pointer;
+}
+
+.avatar:hover {
+    opacity: 0.4;
+}
+
+.upload-image-label {
+    position: relative;
+}
+
+.avatar + p {
+    display: none;
+    color: #fff;
+    position: absolute;
+    bottom: -12%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+}
+
+.upload-button {
+    display: none;
+}
