@@ -1,4 +1,4 @@
-package com.johnllave.dentalclinic.controllers;
+package com.johnllave.dentalclinic.controllers.api;
 
 import com.johnllave.dentalclinic.dto.ComplaintDto;
 import com.johnllave.dentalclinic.services.ComplaintService;
@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("complaints")
+@RequestMapping("api/complaints")
 public class ComplaintController {
 
     private final ComplaintService complaintService;

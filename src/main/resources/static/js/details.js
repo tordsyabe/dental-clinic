@@ -133,7 +133,7 @@ function displayActionBtn() {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/complaints",
+            url: "/api/complaints",
             data: JSON.stringify(
                 {
                     patientId: comPatientId,
@@ -192,7 +192,7 @@ const handleDeleteComplaint = (id) => {
     $.ajax({
         type: "DELETE",
         contentType: "application/JSON",
-        url: "/complaints/" + id,
+        url: "/api/complaints/" + id,
         dataType: "json",
         success: function(result) {
             console.log(result);

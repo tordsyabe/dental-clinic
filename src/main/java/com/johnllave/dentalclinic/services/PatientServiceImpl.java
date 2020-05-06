@@ -65,9 +65,6 @@ public class PatientServiceImpl implements PatientService{
 	@Override
 	public PatientDto savePatient(PatientDto patientDto) {
 
-		if(patientDto.getImage().equals("")) {
-			patientDto.setImage(null);
-		}
 
 		Patient patient = patientMapper.patientDtoToPatient(patientDto);
 
