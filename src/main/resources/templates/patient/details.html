@@ -31,9 +31,9 @@
                     <form th:action="@{/uploadProfileImage/}" method="post" enctype="multipart/form-data">
                         <input type="hidden" th:value="${patient.id}" name="patientId">
                         <input type="file" name="file" id="upload-image" accept="image/*"
-                               onchange="loadFile(event)" class="upload-button">
+                               onchange="loadFile(event)">
 
-                        <input type="submit" value="Upload">
+                        <input type="submit" value="Upload" id="profileUploadButton">
                     </form>
                 </div>
 

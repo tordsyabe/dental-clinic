@@ -220,5 +220,10 @@ const handleDeleteComplaint = (id) => {
 
 const loadFile = (event) => {
 	const profileImage = document.querySelector('#profile-image');
+	const profileUploadLabel = document.querySelector('.profile-upload-label');
+
+
 	profileImage.src = URL.createObjectURL(event.target.files[0]);
+	profileUploadLabel.style.display = "inline-block";
+
 };

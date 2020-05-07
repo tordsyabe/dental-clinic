@@ -21,12 +21,28 @@
     display: none;
     color: #fff;
     position: absolute;
-    bottom: -12%;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: -15%;
+    right: -5px;
     font-size: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
 }
 
-.upload-button {
+#upload-image, #profileUploadButton {
     display: none;
 }
+
+.profile-upload-label {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+}
+
+.profile-upload-label > i {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+
