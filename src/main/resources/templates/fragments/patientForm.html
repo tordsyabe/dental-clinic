@@ -6,10 +6,10 @@
             <label for="upload-image" class="upload-image-label">
             <img th:if="${patient.image == null || patient.image == ''}"
                  th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}" id="profile-image"
-                 class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="95" height="95">
+                 class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="110" height="110">
 
                 <img th:unless="${patient.image == null || patient.image == ''}" th:src="${patient.image}" id="profile-image"
-                     class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="95" height="95">
+                     class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="110" height="110">
                 <p><i class="fa fa-camera fa-lg"></i></p>
 
             </label>
