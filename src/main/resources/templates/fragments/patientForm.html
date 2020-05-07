@@ -1,47 +1,50 @@
 <form onsubmit="console.log('from patientForm')"
       class="needs-validation" novalidate th:object="${patient}" th:action="@{/patient/}" th:fragment="patientForm" method="post">
     <h5 class="mb-4 text-muted">Patient Details</h5>
-    <div class="form-row">
-        <div class="col-sm-12 col-md-12 col-lg-12 d-flex flex-column align-items-center justify-content-center">
-            <label for="upload-image" class="upload-image-label">
-            <img th:if="${patient.image == null || patient.image == ''}"
-                 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}" id="profile-image"
+    <div class="d-flex flex-column align-items-center" style="position: relative;">
+        <label for="upload-image" class="upload-image-label">
+        <img th:if="${patient.image == null || patient.image == ''}"
+             th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}" id="profile-image"
+             class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="110" height="110">
+
+            <img th:unless="${patient.image == null || patient.image == ''}" th:src="${patient.image}" id="profile-image"
                  class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="110" height="110">
+            <p><i class="fa fa-camera fa-lg"></i></p>
 
-                <img th:unless="${patient.image == null || patient.image == ''}" th:src="${patient.image}" id="profile-image"
-                     class="avatar" th:alt="${patient.firstName + ' ' + patient.lastName}" width="110" height="110">
-                <p><i class="fa fa-camera fa-lg"></i></p>
+        </label>
 
-            </label>
-            <label class="profile-upload-label" for="profileUploadButton"><i class="fa fa-upload mr-1"></i> Upload</label>
-            <p class="text-muted"><small><strong>Age: <span th:text="${patient.age}">26</span></strong></small></p>
+        <div class="py-2 px-4">
+            <span class="badge badge-pill badge-info"><span th:text="${patient.age}"></span> years old</span><br>
+<!--            <span class="badge badge-pill badge-danger">Has allergies</span>-->
+<!--            <span class="badge badge-pill badge-warning">No medical history</span>-->
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 mt-1">
-            <input type="hidden" th:value="${patient.id}" th:field="*{id}">
-            <input type="hidden" th:value="${patient.image}" th:field="*{image}">
-            <div class="form-group input-group-sm">
-                <label class="text-muted" for="firstName"><small>First
-                    Name</small></label> <input type="text" class="form-control" required
-                                                placeholder="First Name" th:value="${patient.firstName}"
-                                                id="firstName" name="firstName" th:field="*{firstName}">
-                <div class="invalid-feedback">
-                    First name is required.
-                </div>
 
-            </div>
-            <div class="form-group input-group-sm">
-                <label class="text-muted" for="lastName"><small>Last
-                    Name</small></label> <input type="text" class="form-control" required
-                                                placeholder="Last Name" th:value="${patient.lastName}"
-                                                id="lastName" name="lastName" th:field="*{lastName}">
-                <div class="invalid-feedback">
-                    Last name is required.
-                </div>
-            </div>
-
-        </div>
+        <label class="profile-upload-label" for="profileUploadButton"><i class="fa fa-upload mr-1"></i> Upload</label>
     </div>
 
+    <input type="hidden" th:value="${patient.id}" th:field="*{id}">
+    <input type="hidden" th:value="${patient.image}" th:field="*{image}">
+
+
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="firstName"><small>First
+            Name</small></label> <input type="text" class="form-control" required
+                                        placeholder="First Name" th:value="${patient.firstName}"
+                                        id="firstName" name="firstName" th:field="*{firstName}">
+        <div class="invalid-feedback">
+            First name is required.
+        </div>
+
+    </div>
+    <div class="form-group input-group-sm">
+        <label class="text-muted" for="lastName"><small>Last
+            Name</small></label> <input type="text" class="form-control" required
+                                        placeholder="Last Name" th:value="${patient.lastName}"
+                                        id="lastName" name="lastName" th:field="*{lastName}">
+        <div class="invalid-feedback">
+            Last name is required.
+        </div>
+    </div>
 
     <div class="form-group input-group-sm">
         <label class="text-muted" for="birthDate"><small>Birth Date</small></label>
