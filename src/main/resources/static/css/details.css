@@ -35,14 +35,15 @@
 
 .profile-upload-label {
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     right: 10px;
     display: none;
+    cursor: pointer;
+    padding: 5px 8px;
+    background: var(--primary-color);
+    border-radius: 5px;
+
 }
 
-.profile-upload-label > i {
-    color: var(--primary-color);
-    cursor: pointer;
-}
 
 

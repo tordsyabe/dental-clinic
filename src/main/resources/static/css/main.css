@@ -62,10 +62,14 @@ td > a > i {
 .icon-button {
     color: grey;
     cursor: pointer;
+    padding: 5px 6px;
 }
 
 .icon-button:hover {
-    color: var(--primary-color);
+    color: #fff;
+    background: #222222;
+    padding: 5px 6px;
+    border-radius: 50%;
 
 }
 

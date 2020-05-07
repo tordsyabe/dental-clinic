@@ -113,15 +113,12 @@ function displayActionBtn() {
         complaintFormCard.style.display = "flex";
     }
 
-    complaintSubmitBtn.addEventListener('click', () => {
+    complaintSubmitBtn.addEventListener('click', (e) => {
+
+        e.preventDefault();
         const complaintDesc = document.getElementById('complaintDesc').value;
         const complaintDate = document.getElementById('complaintDate').value;
         const comPatientId = document.getElementById('comPatientId').value;
-
-
-        complaintFormShow = false;
-        addComplaintBtn.classList.remove('fa-minus');
-        complaintFormCard.style.display = "none";
 
         const noComplaintP = document.querySelector('#noComplaintP');
 
@@ -145,6 +142,10 @@ function displayActionBtn() {
             timeout: 600000,
             success: function(data) {
 
+                complaintFormShow = false;
+                addComplaintBtn.classList.remove('fa-minus');
+                complaintFormCard.style.display = "none";
+
                 console.log("DATA", data);
                 const newItem = document.createElement("div");
                     newItem.classList.add('card');
@@ -159,7 +160,7 @@ function displayActionBtn() {
                                     <small class="text-muted">${data.date}</small>
                                 </div>
                                 <div class="col-sm-2 d-flex justify-content-center align-items-center">
-                                    <i class="fa fa-pencil icon-button mr-3" style="display: none;"></i>
+                                    <i class="fa fa-pencil icon-button" style="display: none;"></i>
                                     <i class="fa fa-trash icon-button"
                                         onclick="handleDeleteComplaint(${data.id})"
                                         style="display: none;"></i>
