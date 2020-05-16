@@ -1,5 +1,6 @@
 package com.johnllave.dentalclinic.controllers.api;
 
+import com.johnllave.dentalclinic.dto.InvoiceDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.services.ProcedureService;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,9 @@ public class ProcedureRestController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProcedureDto createInvoice(@PathVariable String id) {
+    public ProcedureDto createInvoice(@PathVariable String id, @RequestBody InvoiceDto invoiceDto) {
 
-        return procedureService.createInvoiceById(Long.parseLong(id));
+        return procedureService.createInvoiceByProcedureId(Long.parseLong(id), invoiceDto);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.johnllave.dentalclinic.services;
 
+import com.johnllave.dentalclinic.dto.InvoiceDto;
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Procedure;
@@ -10,5 +11,5 @@ public interface ProcedureService {
 
     PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto);
 
-    ProcedureDto createInvoiceById(Long id);
+    ProcedureDto createInvoiceByProcedureId(Long id, InvoiceDto invoiceDto);
 }

@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/complaints")
-public class ComplaintController {
+public class ComplaintRestController {
 
     private final ComplaintService complaintService;
 
     @Autowired
-    public ComplaintController(ComplaintService complaintService) {
+    public ComplaintRestController(ComplaintService complaintService) {
         this.complaintService = complaintService;
     }
 

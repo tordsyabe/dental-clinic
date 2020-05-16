@@ -1,5 +1,6 @@
 package com.johnllave.dentalclinic.services;
 
+import com.johnllave.dentalclinic.dto.InvoiceDto;
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Invoice;
@@ -55,13 +56,15 @@ public class ProcedureServiceImpl implements ProcedureService {
     }
 
     @Override
-    public ProcedureDto createInvoiceById(Long id) {
+    public ProcedureDto createInvoiceByProcedureId(Long id, InvoiceDto invoiceDto) {
 
         Procedure procedure =  procedureRepository.findById(id).orElse(null);
         procedure.setPaid(true);
         procedure.setInvoice(new Invoice(LocalDate.now()
-                .toString().replace("-", ""),
-                LocalDate.now()));
+                .toString()
+                .replace("-", ""),
+                LocalDate.parse(invoiceDto.getDatePaid()),
+                Integer.parseInt(invoiceDto.getCost())));
 
         Procedure savedProcedure = procedureRepository.save(procedure);
 

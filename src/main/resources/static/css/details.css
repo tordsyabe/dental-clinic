@@ -33,17 +33,15 @@
     display: none;
 }
 
-.profile-upload-label {
+#profileUploadBtn {
     position: absolute;
     bottom: 0;
     right: 0;
     display: none;
-    cursor: pointer;
-    padding: 3px 7px;
-    background: var(--primary-color);
-    border-radius: 5px;
-    font-size: 12px;
+}
 
+[data-invoice-form-id] {
+    display: none;
 }
 
 

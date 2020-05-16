@@ -17,11 +17,15 @@ public class Invoice extends BaseEntity {
 
     private LocalDate datePaid;
 
+    private Integer cost;
+
+
     public Invoice() {
     }
 
-    public Invoice(String invoiceNo, LocalDate datePaid) {
+    public Invoice(String invoiceNo, LocalDate datePaid, Integer cost) {
         this.invoiceNo = invoiceNo;
         this.datePaid = datePaid;
+        this.cost = cost;
     }
 }

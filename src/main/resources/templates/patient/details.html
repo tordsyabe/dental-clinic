@@ -52,38 +52,81 @@
                                 <div class="col-sm-2">
                                     <span th:text="${procedure.date}" id="visitDay">Today</span><br>
                                     <small class="text-muted" th:text="${procedure.date}"
-                                           id="visitDate">April 4, 2020</small>
+                                           id="visitDate"></small>
                                 </div>
 
                                 <div class="col-sm-10 text-center">
-                                    <div class="card mb-3">
+                                    <div class="card mb-3" th:data-procedure-card="${procedure.id}">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-1">
                                                     <i
+                                                            id="procedureIcon"
                                                             th:class="${procedure.paid == true ? 'fa fa-check-circle fa-lg' : 'fa fa-circle fa-lg'}"
-                                                            th:style="${procedure.paid == false ? 'color: #222' : 'color: #007bff'}"></i>
+                                                            th:style="${procedure.paid == false ? 'color: #222' : 'color: #3498db'}"></i>
                                                 </div>
 
 
                                                 <div class="col-8">
-                                                    <div class="row" th:text="${procedure.description}">Description
-                                                        will go here
-                                                    </div>
+                                                    <div class="row" th:text="${procedure.description}"></div>
 
                                                     <div class="row">
-                                                        <small class="text-muted" th:text="${procedure.category}">Category
-                                                            here</small>
+                                                        <small class="text-muted" th:text="${procedure.category}"></small>
 
                                                     </div>
                                                 </div>
 
                                                 <div class="col-3" th:if="${!procedure.paid}">
-                                                    <button type="button" class="btn btn-info">Create
+                                                    <a class="btn btn-info" id="create-invoice-btn"
+                                                            th:data-procedure-id="${procedure.id}">Create
                                                         Invoice
-                                                    </button>
+                                                    </a>
                                                 </div>
+
+                                                <div class="col-1"></div>
+
+                                                <div class="col-11 mt-4 pl-0" th:if="${!procedure.paid}" th:data-invoice-form-id="${procedure.id}">
+                                                    <form class="form-inline justify-content-between" th:id="${'invoice-form-' + procedure.id}"
+                                                          th:onsubmit="|return submitProcedureInvoice(event, '${procedure.id}')|">
+                                                        <input type="hidden" th:value="${patient.id}" id="comPatientId">
+                                                        <div class="form-group input-group-sm">
+                                                            <label class="text-muted pr-2" for="payment"><small>Payment Amount</small></label>
+                                                            <input type="text" class="form-control"
+                                                                   required
+                                                                   placeholder="Amount"
+                                                                   id="payment"
+                                                                   name="payment"
+                                                                   th:value="${procedure.cost}"
+                                                                   style="background-color: #393939 !important"
+                                                            >
+                                                            <div class="invalid-feedback">
+                                                                Payment amount is required.
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group input-group-sm">
+                                                            <label class="text-muted pr-2" for="paymentDate"><small>Payment Date</small></label>
+                                                            <input type="date" class="form-control"
+                                                                   required
+                                                                   id="paymentDate"
+                                                                   name="paymentDate"
+                                                                   style="background-color: #393939 !important"
+                                                            >
+                                                            <div class="invalid-feedback">
+                                                                Payment date is required.
+                                                            </div>
+
+                                                        </div>
+                                                        <a class="btn btn-secondary btn-sm" th:onclick="|handleCloseInvoiceForm('${procedure.id}')|">Cancel</a>
+                                                        <button class="btn btn-primary btn-sm" type="submit" id="submit-invoice">Invoice</button>
+<!--                                                        <i class="fa fa-minus icon-button mr-3" ></i>-->
+
+                                                    </form>
+                                                </div>
+
                                             </div>
+
                                         </div>
                                     </div>
 
@@ -159,9 +202,9 @@
                                         <i class="fa fa-plus icon-button" id="addAllergy"></i>
                                     </div>
                                     <ul class="mt-2" style="list-style: none; padding-left: 30px;">
-                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Allergic to sea foods.</li>
-                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Allergic to mefenamic.</li>
-                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Allergic to bulalo.</li>
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>Allergic to sea foods.</li>
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>Allergic to mefenamic.</li>
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>Allergic to bulalo.</li>
                                     </ul>
 
                                     </div>
@@ -174,7 +217,7 @@
                                         <i class="fa fa-plus icon-button" id="addHistory"></i>
                                     </div>
                                     <ul class="mt-2" style="list-style: none; padding-left: 30px;">
-                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: var(--primary-color);"></i>Heart Surgery 10 years ago.</li>
+                                        <li class="py-1"><i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>Heart Surgery 10 years ago.</li>
 
                                     </ul>
                                     </div>
@@ -202,23 +245,15 @@
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/details.js}"></script>
 <script>
-		const visitDates = document.querySelectorAll("#visitDate");
-		const visitDays = document.querySelectorAll("#visitDay");
+    const visitDates = document.querySelectorAll("#visitDate");
+    const visitDays = document.querySelectorAll("#visitDay");
 
-		const hiddenBirthDAte = document.getElementById("hiddenBirthDAte").value;
+    const hiddenBirthDAte = document.getElementById("hiddenBirthDAte").value;
 
-		document.getElementById("birthDate").value = hiddenBirthDAte;
+    document.getElementById("birthDate").value = hiddenBirthDAte;
 
-		formatWeekDay(visitDays);
-		formatNamedDate(visitDates);
-
-        $(document).ready(function(){
-            $("button").click(function( event ) {
-              event.stopPropagation();
-              // Do something
-            });
-        });
-
+    formatWeekDay(visitDays);
+    formatNamedDate(visitDates);
 </script>
 </body>
 </html>

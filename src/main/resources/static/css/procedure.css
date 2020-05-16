@@ -37,7 +37,7 @@
 }
 
 .category-toggle:checked + label .card {
-    background-color: var(--primary-color);
+    background-color: #3498db;
 }
 
 .categories label .card {
@@ -78,13 +78,13 @@ input[type=radio].with-font ~ label:before {
 input[type=radio].with-font:checked ~ label:before {
     content: "\f058";
     font-size: 1.2em;
-    color: var(--primary-color);
+    color: #3498db;
 }
 
 input[type=radio].with-font:focus ~ label:before,
 input[type=radio].with-font:focus ~ label,
 {
-    color: var(--primary-color);
+    color: #3498db;
 }
 
 .teeth-map {

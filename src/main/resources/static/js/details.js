@@ -48,7 +48,7 @@ const formatWeekDay = (dates) => {
 
 				const todayYear = dateToday.getFullYear();
 				const todayMonth = dateToday.getMonth() > 9 ? dateToday.getMonth() + 1 : `0${dateToday.getMonth() + 1}`;
-				const todayDay = dateToday.getDate();
+				const todayDay = dateToday.getDate() > 9 ? dateToday.getDate() : `0${dateToday.getDate()}`;
 
 				const today = `${todayYear}-${todayMonth}-${todayDay}`;
 
@@ -185,23 +185,18 @@ function displayActionBtn() {
 
 //Handle delete complaint
 const handleDeleteComplaint = (id) => {
-    $(`*[data-comp-id="${id}"]`).remove();
-    if($(".complaint-list").children().length === 0) {
-        $(".complaint-list").prepend('<p class="text-muted mt-3" id="noComplaintP">No Complaints</p>');
-    }
 
     $.ajax({
         type: "DELETE",
-        contentType: "application/JSON",
         url: "/api/complaints/" + id,
-        dataType: "json",
-        success: function(result) {
-            console.log(result);
-
-
+        success: function() {
+           $(`*[data-comp-id="${id}"]`).remove();
+           if($(".complaint-list").children().length === 0) {
+               $(".complaint-list").prepend('<p class="text-muted mt-3" id="noComplaintP">No Complaints</p>');
+           }
         },
         error: function(e) {
-            console.log(e);
+            console.log("tae");
         }
     });
 }
@@ -221,10 +216,76 @@ const handleDeleteComplaint = (id) => {
 
 const loadFile = (event) => {
 	const profileImage = document.querySelector('#profile-image');
-	const profileUploadLabel = document.querySelector('.profile-upload-label');
+	const profileUploadLabel = document.querySelector('#profileUploadBtn');
 
 
 	profileImage.src = URL.createObjectURL(event.target.files[0]);
 	profileUploadLabel.style.display = "inline-block";
 
 };
+//Open create invoice  form for procedures
+(function() {
+    const createInvoiceBtn = document.querySelectorAll('#create-invoice-btn');
+
+    createInvoiceBtn.forEach(createInvBtn => {
+        createInvBtn.addEventListener('click', () => {
+
+            const procedureId = createInvBtn.getAttribute('data-procedure-id');
+            const invoiceForm = document.querySelector(`[data-invoice-form-id="${procedureId}"]`);
+
+            invoiceForm.style.display = "inline-block";
+
+        });
+    });
+})();
+
+//Close create invoice form for procedures
+const handleCloseInvoiceForm = (invoiceFormId) => {
+    const invoiceForm = document.querySelector(`[data-invoice-form-id="${invoiceFormId}"]`);
+    invoiceForm.style.display = "none";
+
+}
+
+//handle submit of create invoice for procedures
+
+const submitProcedureInvoice = (event, formId) => {
+    event.preventDefault();
+
+    const invoiceFormToSubmit = document.querySelector(`#invoice-form-${formId}`);
+
+    const invoiceCost = invoiceFormToSubmit.elements[1].value;
+    const invoiceDate = invoiceFormToSubmit.elements[2].value;
+
+
+
+        $.ajax({
+            type: "PUT",
+            contentType: "application/JSON",
+            url: "/api/procedures/" + formId,
+            dataType: "json",
+            data: JSON.stringify({
+                datePaid: invoiceDate,
+                cost: invoiceCost
+            }),
+            success: function(result) {
+                console.log(result);
+                //remove invoice form from DOM
+                $(`*[data-invoice-form-id="${formId}"]`).remove();
+
+
+                const procedureCard = $(`*[data-procedure-card="${result.id}"]`);
+
+                    procedureCard.find("i").removeClass("fa fa-circle fa-lg")
+                    .addClass("fa fa-check-circle fa-lg")
+                    .css("color", "#3498db");
+
+                    procedureCard.find("a#create-invoice-btn").remove();
+
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+
+    return false;
+}
