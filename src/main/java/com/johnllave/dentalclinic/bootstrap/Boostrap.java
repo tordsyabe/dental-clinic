@@ -141,15 +141,22 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		Allergy allergy2 = new Allergy("Allergic to inhalers");
 		Allergy allergy3 = new Allergy("Allergic to ibuprofen ");
 
+		MedicalHistory medicalHistory1 = new MedicalHistory("Heart surgery year 2007");
+		MedicalHistory medicalHistory2 = new MedicalHistory("Skull fracture year 1991");
+
 		hillary.addProcedure(procedure1);
 		hillary.addProcedure(procedure2);
 		hillary.addProcedure(procedure3);
 		hillary.addAllergy(allergy1);
+		hillary.addMedicalHistory(medicalHistory1);
+
+
 		john.addAllergy(allergy2);
 		john.addAllergy(allergy3);
 		john.addProcedure(procedure4);
 		john.addComplaint(complaint1);
 		john.addComplaint(complaint2);
+		john.addMedicalHistory(medicalHistory2);
 		complaint3.setPatient(hillary);
 
 		patients.add(hillary);

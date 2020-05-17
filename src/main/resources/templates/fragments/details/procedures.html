@@ -1,0 +1,105 @@
+<div class="card mb-4 procedure-card" th:fragment="procedures">
+    <div class="card-body">
+
+        <div class="row" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}"
+             th:if="${patient.procedures.size() > 0}">
+
+
+            <div class="col-sm-2">
+                <span th:text="${procedure.date}" id="visitDay">Today</span><br>
+                <small class="text-muted" th:text="${procedure.date}"
+                       id="visitDate"></small>
+            </div>
+
+            <div class="col-sm-10 text-center">
+                <div class="card mb-3" th:data-procedure-card="${procedure.id}">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-1">
+                                <i
+                                        id="procedureIcon"
+                                        th:class="${procedure.paid == true ? 'fa fa-check-circle fa-lg' : 'fa fa-circle fa-lg'}"
+                                        th:style="${procedure.paid == false ? 'color: #222' : 'color: #3498db'}"></i>
+                            </div>
+
+
+                            <div class="col-8">
+                                <div class="row" th:text="${procedure.description}"></div>
+
+                                <div class="row">
+                                    <small class="text-muted" th:text="${procedure.category}"></small>
+
+                                </div>
+                            </div>
+
+                            <div class="col-3" th:if="${!procedure.paid}">
+                                <a class="btn btn-info" id="create-invoice-btn"
+                                   th:data-procedure-id="${procedure.id}">Create
+                                    Invoice
+                                </a>
+                            </div>
+
+                            <div class="col-1"></div>
+
+                            <div class="col-11 mt-4 pl-0" th:if="${!procedure.paid}" th:data-invoice-form-id="${procedure.id}">
+                                <form class="form-inline justify-content-between" th:id="${'invoice-form-' + procedure.id}"
+                                      th:onsubmit="|return submitProcedureInvoice(event, '${procedure.id}')|">
+                                    <input type="hidden" th:value="${patient.id}" id="comPatientId">
+                                    <div class="form-group input-group-sm">
+                                        <label class="text-muted pr-2" for="payment"><small>Payment Amount</small></label>
+                                        <input type="text" class="form-control"
+                                               required
+                                               placeholder="Amount"
+                                               id="payment"
+                                               name="payment"
+                                               th:value="${procedure.cost}"
+                                               style="background-color: #393939 !important"
+                                        >
+                                        <div class="invalid-feedback">
+                                            Payment amount is required.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group input-group-sm">
+                                        <label class="text-muted pr-2" for="paymentDate"><small>Payment Date</small></label>
+                                        <input type="date" class="form-control"
+                                               required
+                                               id="paymentDate"
+                                               name="paymentDate"
+                                               style="background-color: #393939 !important"
+                                        >
+                                        <div class="invalid-feedback">
+                                            Payment date is required.
+                                        </div>
+
+                                    </div>
+                                    <a class="btn btn-secondary btn-sm" th:onclick="|handleCloseInvoiceForm('${procedure.id}')|">Cancel</a>
+                                    <button class="btn btn-primary btn-sm" type="submit" id="submit-invoice">Invoice</button>
+                                    <!--                                                        <i class="fa fa-minus icon-button mr-3" ></i>-->
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="d-flex flex-column justify-content-center align-items-center"
+             style="height: 100%;" th:unless="${!patient.procedures.isEmpty()}">
+            <h5 class="text-muted mb-5">No Procedures</h5>
+            <a class="btn btn-info" th:href="@{'/patient/procedures/' + ${patient.id}}"
+               id="addProcedures">Add Procedures</a>
+        </div>
+
+
+    </div>
+
+
+</div>

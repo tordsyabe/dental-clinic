@@ -7,7 +7,7 @@
 		<div class="row">
 
 			<!-- SIDEBAR -->
-			<div th:replace="fragments/sidebar :: sidebar"></div>
+			<div th:replace="fragments/layout/sidebar :: sidebar"></div>
 			<!-- MAIN CONTENT -->
 			<div class="col-11 offset-1 my-4 pl-0 pr-5">
 
@@ -58,10 +58,10 @@
 					<tbody>
 						<tr th:each="patient : ${#lists.sort(patients, lastName)}" class="clickable-row" th:data-href="${'/patient/details/' + patient.id}">
 							<th scope="row">
-								<img th:if="${patient.image == null}"
+								<img th:if="${patient.image == null || patient.image == ''}"
 									 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}"
 									 class="avatar" alt="..." width="40" height="40">
-								<img th:unless="${patient.image == null}" th:src="${patient.image}" class="avatar" alt="..." width="40" height="40">
+								<img th:unless="${patient.image == null || patient.image == ''}" th:src="${patient.image}" class="avatar" alt="..." width="40" height="40">
 							</th>
 							<td th:text="${patient.firstName + ' ' + patient.lastName}">Hillary
 								Joevette Tan</td>

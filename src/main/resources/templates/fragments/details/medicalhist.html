@@ -1,0 +1,17 @@
+<div th:fragment="medicalhist">
+    <div class="d-flex justify-content-between align-items-center px-2 mt-3">
+        <h6 class="card-subtitle">Medical History</h6>
+        <i class="fa fa-plus icon-button" id="addHistory"></i>
+    </div>
+    <ul class="mt-2" style="list-style: none; padding-left: 30px;" th:if="${patient.medicalHistories.size() > 0}">
+        <li class="py-1" th:each="medicalHistory : ${patient.medicalHistories}">
+            <i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>
+            <span th:text="${medicalHistory.description}"></span>
+        </li>
+
+    </ul>
+
+    <div class="medical-history-list" th:unless="${patient.medicalHistories.size() > 0}">
+        <p class="text-muted mt-3" id="noMedicalHistory">No Medical History</p>
+    </div>
+</div>

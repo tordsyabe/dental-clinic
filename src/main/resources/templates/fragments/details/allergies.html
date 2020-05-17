@@ -1,0 +1,19 @@
+
+    <div style="height: 50%;" th:fragment="allergies">
+        <div class="d-flex justify-content-between align-items-center px-2">
+            <h6 class="card-subtitle">Allergies</h6>
+            <i class="fa fa-plus icon-button" id="addAllergy"></i>
+        </div>
+        <ul class="mt-2" style="list-style: none; padding-left: 30px;" th:if="${patient.allergies.size() > 0}">
+            <li class="py-1" th:each="allergy : ${patient.allergies}">
+                <i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>
+                <span th:text="${allergy.description}"></span>
+            </li>
+        </ul>
+
+        <div class="allergy-list" th:unless="${patient.allergies.size() > 0}">
+            <p class="text-muted mt-3" id="noAllergiesP">No Allergies</p>
+        </div>
+
+
+    </div>
