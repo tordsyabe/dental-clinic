@@ -174,6 +174,8 @@ function displayActionBtn() {
                     complaintList.insertBefore(newItem, complaintList.childNodes[0]);
                     displayActionBtn();
 
+                    toastr.success("Complaint successfully added", "Success");
+
             },
             error: function(e) {
                 console.log("ERROR : ", e);
@@ -189,14 +191,18 @@ const handleDeleteComplaint = (id) => {
     $.ajax({
         type: "DELETE",
         url: "/api/complaints/" + id,
+        contentType: "application/json",
         success: function() {
            $(`*[data-comp-id="${id}"]`).remove();
            if($(".complaint-list").children().length === 0) {
                $(".complaint-list").prepend('<p class="text-muted mt-3" id="noComplaintP">No Complaints</p>');
            }
+
+           toastr.success("Complaint successfully deleted", "Success");
         },
         error: function(e) {
-            console.log("tae");
+
+            toastr.error("There was an error on deleting the complaint", "Error");
         }
     });
 }
@@ -280,6 +286,8 @@ const submitProcedureInvoice = (event, formId) => {
                     .css("color", "#3498db");
 
                     procedureCard.find("a#create-invoice-btn").remove();
+
+                toastr.success("Procedure invoiced", "Success");
 
             },
             error: function(e) {

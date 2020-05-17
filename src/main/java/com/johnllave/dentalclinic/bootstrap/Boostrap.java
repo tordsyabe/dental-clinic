@@ -7,16 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.johnllave.dentalclinic.entity.Complaint;
+import com.johnllave.dentalclinic.entity.*;
 import com.johnllave.dentalclinic.repository.ComplaintRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.johnllave.dentalclinic.entity.Patient;
-import com.johnllave.dentalclinic.entity.Procedure;
-import com.johnllave.dentalclinic.entity.Teeth;
 import com.johnllave.dentalclinic.repository.PatientRepository;
 import com.johnllave.dentalclinic.repository.TeethRepository;
 
@@ -140,9 +137,16 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		complaint3.setDescription("This is the complaint saved from complaint side");
 		complaint3.setDate(LocalDate.of(2020, 1, 2));
 
+		Allergy allergy1 = new Allergy("Allergic to anesthesia");
+		Allergy allergy2 = new Allergy("Allergic to inhalers");
+		Allergy allergy3 = new Allergy("Allergic to ibuprofen ");
+
 		hillary.addProcedure(procedure1);
 		hillary.addProcedure(procedure2);
 		hillary.addProcedure(procedure3);
+		hillary.addAllergy(allergy1);
+		john.addAllergy(allergy2);
+		john.addAllergy(allergy3);
 		john.addProcedure(procedure4);
 		john.addComplaint(complaint1);
 		john.addComplaint(complaint2);

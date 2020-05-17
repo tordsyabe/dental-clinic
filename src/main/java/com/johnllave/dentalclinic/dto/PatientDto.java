@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
+import com.johnllave.dentalclinic.entity.Allergy;
 import com.johnllave.dentalclinic.entity.Complaint;
 import com.johnllave.dentalclinic.entity.Procedure;
 import lombok.Getter;
@@ -52,5 +53,7 @@ public class PatientDto {
 	private Set<Complaint> complaints = new HashSet<>();
 
 	private Set<Procedure> procedures  = new HashSet<>();
+
+	private Set<Allergy> allergies = new HashSet<>();
 
 }
