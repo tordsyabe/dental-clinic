@@ -13,4 +13,8 @@ public class AllergyDto {
 
     private String description;
 
+    private String patientId;
+
+    private PatientDto patientDto;
+
 }
