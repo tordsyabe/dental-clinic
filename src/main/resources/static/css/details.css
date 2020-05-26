@@ -1,6 +1,12 @@
-.complaintForm {
+.healthNoteForms {
     display: none;
 }
+
+.allergy-list ul li i {
+    cursor: pointer;
+    color: #3498db;
+}
+
 
 .avatar {
     object-position: top;

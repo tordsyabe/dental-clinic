@@ -19,8 +19,6 @@
 	})();
 
 // Function for formatting date to eg. January 1, 2020
-
-
 const formatNamedDate = (dates) => {
 	dates.forEach(date => {
 
@@ -39,7 +37,6 @@ const formatNamedDate = (dates) => {
 // Formatting date and getting the name of the week from the given date
 const formatWeekDay = (dates) => {
 	dates.forEach(day => {
-
 
 		const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -61,130 +58,6 @@ const formatWeekDay = (dates) => {
 	});
 }
 
-//HOVER on complaint cards for edit and delete button
-function displayActionBtn() {
-    console.log("CALLED");
-    const complaintCards = [...document.querySelector('.complaint-list').children];
-
-    complaintCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.childNodes[1].childNodes[1].childNodes[3].childNodes[1].style.display = "inline-block";
-            card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].style.display = "inline-block";
-        });
-
-        card.addEventListener('mouseleave', () => {
-                    card.childNodes[1].childNodes[1].childNodes[3].childNodes[1].style.display = "none";
-                    card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].style.display = "none";
-                });
-    });
-}
-//Invoking HOVER on complaint cards for edit and delete button
-(displayActionBtn)();
-
-//Complaint Section
-(function(){
-    let complaintFormShow = false;
-
-    const complaintFormCard = document.querySelector('.complaintFormCard');
-    const addComplaintBtn = document.querySelector('#addComplaint');
-    const complaintSubmitBtn = document.querySelector('#complaintSubmitBtn');
-
-    const complaintForm = document.querySelector('#complaintForm');
-
-    const complaintList = document.querySelector('.complaint-list');
-
-    addComplaint.addEventListener('click', () => {
-
-        complaintFormShow = !complaintFormShow;
-        if(complaintFormShow === false) {
-            addComplaintBtn.classList.remove('fa-minus');
-            complaintFormCard.style.display = "none";
-        } else {
-            addComplaintBtn.classList.add('fa-minus');
-            complaintFormCard.style.display = "flex";
-        }
-    });
-
-    if(complaintFormShow === false) {
-        addComplaintBtn.classList.remove('fa-minus');
-        complaintFormCard.style.display = "none";
-    } else {
-        addComplaintBtn.classList.add('fa-minus');
-        complaintFormCard.style.display = "flex";
-    }
-
-    complaintSubmitBtn.addEventListener('click', (e) => {
-
-        e.preventDefault();
-        const complaintDesc = document.getElementById('complaintDesc').value;
-        const complaintDate = document.getElementById('complaintDate').value;
-        const comPatientId = document.getElementById('comPatientId').value;
-
-        const noComplaintP = document.querySelector('#noComplaintP');
-
-        if(noComplaintP !== null) {
-            complaintList.removeChild(noComplaintP);
-        }
-
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/api/complaints",
-            data: JSON.stringify(
-                {
-                    patientId: comPatientId,
-                    description: complaintDesc,
-                    date: complaintDate
-                }
-            ),
-            cache: false,
-            timeout: 600000,
-            success: function(data) {
-
-                complaintFormShow = false;
-                addComplaintBtn.classList.remove('fa-minus');
-                complaintFormCard.style.display = "none";
-
-                console.log("DATA", data);
-                const newItem = document.createElement("div");
-                    newItem.classList.add('card');
-                    newItem.classList.add('mt-3');
-                    newItem.setAttribute('data-comp-id', data.id);
-
-                    newItem.innerHTML = `
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <p class="mb-0">${data.description}</p>
-                                    <small class="text-muted">${data.date}</small>
-                                </div>
-                                <div class="col-sm-2 d-flex justify-content-center align-items-center">
-                                    <i class="fa fa-pencil icon-button" style="display: none;"></i>
-                                    <i class="fa fa-trash icon-button"
-                                        onclick="handleDeleteComplaint(${data.id})"
-                                        style="display: none;"></i>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    `;
-
-                    complaintList.insertBefore(newItem, complaintList.childNodes[0]);
-                    displayActionBtn();
-
-                    toastr.success("Complaint successfully added", "Success");
-
-            },
-            error: function(e) {
-                console.log("ERROR : ", e);
-            }
-        });
-    });
-
-})();
-
 //Handle delete complaint
 const handleDeleteComplaint = (id) => {
 
@@ -195,7 +68,7 @@ const handleDeleteComplaint = (id) => {
         success: function() {
            $(`*[data-comp-id="${id}"]`).remove();
            if($(".complaint-list").children().length === 0) {
-               $(".complaint-list").prepend('<p class="text-muted mt-3" id="noComplaintP">No Complaints</p>');
+               $(".complaint-list").prepend('<h5 class="text-muted mt-3 pl-2" id="noComplaintP">No Complaints</h5>');
            }
 
            toastr.success("Complaint successfully deleted", "Success");
@@ -297,3 +170,187 @@ const submitProcedureInvoice = (event, formId) => {
 
     return false;
 }
+
+//toggle-health-form and submit
+$(document).ready(function() {
+    $('.toggle-health-form').each(function(index, toggle){
+        $(toggle).on("click", function() {
+            $(toggle).toggleClass("fa-plus fa-minus");
+
+            if($(toggle).hasClass("fa-plus")) {
+                $(".healthNoteForms").eq(index).css("display", "none");
+            } else {
+                $(".healthNoteForms").eq(index).css("display", "block");
+            }
+
+
+        });
+
+            $(".healthNoteForms").eq(index).find("form").submit(function(event) {
+                   event.preventDefault();
+
+                   let formObj = {};
+                   let endPoint = "";
+
+                   const inputs = $(this).serializeArray();
+                   console.log("INPUTS", inputs);
+                   $.each(inputs, function(i, input){
+                        formObj[input.name] = input.value;
+                   });
+
+                   console.log("FORM OBJ",formObj);
+                   console.log("FORM ID",this.id);
+                   switch(this.id) {
+                        case "allergyForm":
+                            endPoint = "allergies";
+                            break;
+                        case "complaintForm":
+                            endPoint = "complaints";
+                            break;
+                        case "medicalHistoryForm":
+                            endPoint = "medicalhistories";
+                            break;
+                        default:
+                            endPoint = "";
+
+                   }
+
+                   $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/api/" + endPoint,
+                        data: JSON.stringify(formObj),
+                        success: function(data) {
+                            console.log(data);
+                            console.log("FROM POST AJAX");
+
+                            switch(endPoint) {
+
+                                case "complaints":
+                                console.log("FROM COMPLAINTS CASE");
+                                    $(".complaint-list").prepend(`
+                                    <div class="card mt-3" data-comp-id=${data.id}>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <p class="mb-0">${data.description}</p>
+                                                    <small class="text-muted">${data.date}</small>
+                                                </div>
+                                                <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                                                    <i class="fa fa-pencil icon-button" style="display: none;"></i>
+                                                    <i class="fa fa-trash icon-button"
+                                                        onclick="handleDeleteComplaint(${data.id})"
+                                                        style="display: none;"></i>
+
+                                                </div>
+                                            </div>
+
+                                       </div>
+                                    </div>
+                                    `);
+
+                                    showComplaintActionBtn();
+                                    if($(".complaint-list").length > 0) {
+                                        $("#noComplaintP").remove();
+                                    }
+
+                                    toastr.success("Complaint added", "Success");
+
+                                    break;
+                                 case "allergies":
+                                    console.log("FROM ALLERGIES CASE");
+                                     if($(".allergy-list").find("ul").length > 0) {
+                                          $(".allergy-list").find("ul").append(`
+                                              <li class="py-1" data-allergy-id=${data.id}>
+                                                 <i class="fa fa-check-circle pr-2" onclick="handleDeleteAllergy(${data.id})"></i>
+                                                 <span>${data.description}</span>
+                                              </li>
+                                          `);
+                                     } else {
+                                        $(".allergy-list").append(`
+                                        <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
+                                            <li class="py-1" data-allergy-id=${data.id}>
+                                                 <i class="fa fa-check-circle pr-2" onclick="handleDeleteAllergy(${data.id})"></i>
+                                                 <span>${data.description}</span>
+                                            </li>
+                                        </ul>
+                                        `);
+                                     }
+
+                                     showAllergyDeleteBtn();
+                                     toastr.success("Allergy added", "Success");
+                                     if($(".allergy-list").length > 0) {
+                                         $("#noAllergiesP").remove();
+                                     }
+
+                                     break;
+                                default:
+
+                            }
+
+
+                            $(".healthNoteForms").eq(index).css("display", "none");
+                            $(toggle).removeClass("fa-minus");
+                            $(toggle).addClass("fa-plus");
+                            $(".healthNoteForms").eq(index).find("form").get(0).reset();
+                        },
+                         error: function(e) {
+                            console.log(e);
+                            toastr.error(`There was an error adding ${endPoint}`, "Error");
+                         }
+                   });
+            });
+    });
+});
+
+//DELETING ALLERGY BY ID AJAX
+
+const handleDeleteAllergy = (id) => {
+
+    $.ajax({
+            type: "DELETE",
+            url: "/api/allergies/" + id,
+            contentType: "application/json",
+            success: function() {
+               $(`*[data-allergy-id="${id}"]`).remove();
+               if($(".allergy-list ul").children().length === 0) {
+                   $(".allergy-list").prepend('<h5 class="text-muted mt-3 pl-2" id="noAllergiesP">No Allergies</h5>');
+               }
+
+               toastr.success("Allergy successfully deleted", "Success");
+
+            },
+            error: function(e) {
+
+                toastr.error("There was an error on deleting the allergy", "Error");
+            }
+        });
+
+}
+
+//HOVER on complaint cards for edit and delete button
+function showComplaintActionBtn() {
+    $(".complaint-list .card").mouseenter(function(){
+        $(this).find("i").css("display", "block");
+    });
+
+    $(".complaint-list .card").mouseleave(function(){
+        $(this).find("i").css("display", "none");
+    });
+};
+
+(showComplaintActionBtn)();
+
+function showAllergyDeleteBtn(){
+    $(".allergy-list ul li i").mouseenter(function(){
+        $(this).toggleClass("fa-check-circle fa-minus-circle");
+    });
+
+    $(".allergy-list ul li i").mouseleave(function(){
+        $(this).toggleClass("fa-check-circle fa-minus-circle");
+    });
+
+
+}
+
+(showAllergyDeleteBtn)();

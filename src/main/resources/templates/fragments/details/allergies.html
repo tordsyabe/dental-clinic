@@ -2,14 +2,19 @@
     <div style="height: 50%;" th:fragment="allergies">
         <div class="d-flex justify-content-between align-items-center px-2">
             <h6 class="card-subtitle">Allergies</h6>
-            <i class="fa fa-plus icon-button" id="addAllergy"></i>
+            <i class="fa fa-plus icon-button toggle-health-form" id="addAllergy"></i>
         </div>
-        <ul class="mt-2" style="list-style: none; padding-left: 30px;" th:if="${patient.allergies.size() > 0}">
-            <li class="py-1" th:each="allergy : ${patient.allergies}">
-                <i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>
-                <span th:text="${allergy.description}"></span>
-            </li>
-        </ul>
+
+        <div th:replace="fragments/forms/allergy-form :: allergyForm"></div>
+
+        <div class="allergy-list" th:if="${patient.allergies.size() > 0}">
+            <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
+                <li class="py-1" th:each="allergy : ${patient.allergies}" th:data-allergy-id="${allergy.id}">
+                    <i class="fa fa-check-circle pr-2" th:onclick="|handleDeleteAllergy('${allergy.id}')|"></i>
+                    <span th:text="${allergy.description}"></span>
+                </li>
+            </ul>
+        </div>
 
         <div class="allergy-list" th:unless="${patient.allergies.size() > 0}">
             <h5 class="text-muted mt-3 pl-2" id="noAllergiesP">No Allergies</h5>

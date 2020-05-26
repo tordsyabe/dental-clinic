@@ -1,12 +1,12 @@
-<div class="card mt-3 healthNoteForms" th:fragment="complaintForm">
+<div class="card mt-3 healthNoteForms" th:fragment="allergyForm">
     <div class="card-body">
-        <form class="form-inline justify-content-between" id="complaintForm">
-            <input type="hidden" th:value="${patient.id}" name="patientId" id="comPatientId">
+        <form class="form-inline justify-content-between" id="allergyForm">
+            <input type="hidden" th:value="${patient.id}" name="patientId" id="allergyPatientId">
             <div class="form-group input-group-sm">
                 <input type="text" class="form-control"
                        required
                        placeholder="Description"
-                       id="complaintDesc"
+                       id="allergyDesc"
                        name="description"
                        style="background-color: #393939 !important"
                 >
@@ -19,7 +19,7 @@
             <div class="form-group input-group-sm">
                 <input type="date" class="form-control"
                        required
-                       id="complaintDate"
+                       id="allergyDate"
                        name="date"
                        style="background-color: #393939 !important"
                 >
@@ -29,9 +29,9 @@
 
             </div>
 
-            <button type="submit" style="display: none;" id="submitComplaint"></button>
-            <label for="submitComplaint">
-                <i class="fa fa-plus icon-button" id="complaintSubmitBtn"></i>
+            <button type="submit" style="display: none;" id="submitAllergy"></button>
+            <label for="submitAllergy">
+                <i class="fa fa-plus icon-button" id="allergySubmitBtn"></i>
             </label>
         </form>
     </div>
