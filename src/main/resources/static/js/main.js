@@ -19,11 +19,6 @@
 
 })();
 
-//ENABLING BOOTSTRAP TOOLTIP
-
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
 
 // Making table row clickable and href to patients details
 (function(){

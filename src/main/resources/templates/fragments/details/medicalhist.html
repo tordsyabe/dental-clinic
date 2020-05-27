@@ -6,15 +6,17 @@
 
     <div th:replace="fragments/forms/medical-history-form :: medicalHistoryForm"></div>
 
-    <ul class="mt-2" style="list-style: none; padding-left: 30px;" th:if="${patient.medicalHistories.size() > 0}">
-        <li class="py-1" th:each="medicalHistory : ${patient.medicalHistories}">
-            <i class="fa fa-check-circle pr-2" style="color: #3498db;"></i>
-            <span th:text="${medicalHistory.description}"></span>
-        </li>
-
-    </ul>
+    <div class="medical-history-list" th:if="${patient.medicalHistories.size() > 0}">
+        <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
+            <li class="py-1" th:each="medicalHistory : ${patient.medicalHistories}"
+                th:data-medicalhistory-id="${medicalHistory.id}"  th:onclick="|handleDeleteMedicalHistory('${medicalHistory.id}')|">
+                <i class="fa fa-check-circle pr-2"></i>
+                <span th:text="${medicalHistory.description}"></span>
+            </li>
+        </ul>
+    </div>
 
     <div class="medical-history-list" th:unless="${patient.medicalHistories.size() > 0}">
-        <h5 class="text-muted mt-3 pl-2" id="noMedicalHistory">No Medical History</h5>
+        <h5 class="text-muted mt-3 pl-2" id="noMedicalHistoryP">No Medical History</h5>
     </div>
 </div>

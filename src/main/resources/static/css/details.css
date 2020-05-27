@@ -2,15 +2,18 @@
     display: none;
 }
 
-.allergy-list ul li i {
+.allergy-list ul li i,
+.medical-history-list ul li i {
     color: var(--info);
 }
 
-.allergy-list ul li {
+.allergy-list ul li,
+.medical-history-list ul li {
     cursor: pointer;
 }
 
-.allergy-list ul li:hover {
+.allergy-list ul li:hover,
+.medical-history-list ul li:hover{
     text-decoration: line-through;
 }
 

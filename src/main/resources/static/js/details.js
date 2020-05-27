@@ -285,6 +285,33 @@ $(document).ready(function() {
                                      }
 
                                      break;
+                                     case "medicalhistories":
+                                     console.log("FROM MEDICAL HISTORY CASE");
+                                      if($(".medical-history-list").find("ul").length > 0) {
+                                           $(".medical-history-list").find("ul").append(`
+                                               <li class="py-1" data-medicalhistory-id=${data.id} onclick="handleDeleteMedicalHistory(${data.id})">
+                                                  <i class="fa fa-check-circle pr-2"></i>
+                                                  <span>${data.description}</span>
+                                               </li>
+                                           `);
+                                      } else {
+                                         $(".medical-history-list").append(`
+                                         <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
+                                             <li class="py-1" data-medicalhistory-id=${data.id} onclick="handleDeleteMedicalHistory(${data.id})">
+                                                  <i class="fa fa-check-circle pr-2"></i>
+                                                  <span>${data.description}</span>
+                                             </li>
+                                         </ul>
+                                         `);
+                                      }
+
+ //                                     showAllergyDeleteBtn();
+                                      toastr.success("Medical History added", "Success");
+                                      if($(".medical-history-list").length > 0) {
+                                          $("#noMedicalHistoryP").remove();
+                                      }
+
+                                      break;
                                 default:
 
                             }
@@ -322,11 +349,32 @@ const handleDeleteAllergy = (id) => {
 
             },
             error: function(e) {
-
+                console.log(e);
                 toastr.error("There was an error on deleting the allergy", "Error");
             }
         });
 
+}
+
+//DELETING MEDICAL HISTORY AJAX
+const handleDeleteMedicalHistory = (id) => {
+    $.ajax({
+        type: "DELETE",
+        url: "/api/medicalhistories/" + id,
+        contentType: "application/json",
+        success: function() {
+            $(`*[data-medicalhistory-id="${id}"]`).remove();
+            if($(".medical-history-list ul").children().length === 0) {
+               $(".medical-history-list").prepend('<h5 class="text-muted mt-3 pl-2" id="noMedicalHistoryP">No Medical History</h5>');
+            }
+
+            toastr.success("Medical history successfully deleted", "Success");
+        },
+        error: function(e) {
+            console.log(e);
+            toastr.error("There was an error on deleting the medical history", "Error");
+        }
+    });
 }
 
 //HOVER on complaint cards for edit and delete button
@@ -342,17 +390,3 @@ function showComplaintActionBtn() {
 
 (showComplaintActionBtn)();
 
-//function showAllergyDeleteBtn(){
-//    console.log("CALLED");
-//    $(".allergy-list").find("i").mouseenter(function(){
-//        $(this).toggleClass("fa-check-circle fa-minus-circle");
-//    });
-//
-//    $(".allergy-list").find("i").mouseleave(function(){
-//        $(this).toggleClass("fa-check-circle fa-minus-circle");
-//    });
-//
-//
-//}
-//
-//(showAllergyDeleteBtn)();
