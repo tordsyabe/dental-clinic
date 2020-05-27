@@ -46,7 +46,7 @@ public class ProcedureServiceImpl implements ProcedureService {
         Procedure procedure = procedureMapper.procedureDtoToProcedure(procedureDto);
 
         procedure.setTeeth(teethToSave);
-        procedure.setDate(LocalDate.now());
+        procedure.setDateCreated(LocalDate.now());
 
         patient.addProcedure(procedure);
 
@@ -62,9 +62,10 @@ public class ProcedureServiceImpl implements ProcedureService {
         procedure.setPaid(true);
         procedure.setInvoice(new Invoice(LocalDate.now()
                 .toString()
-                .replace("-", ""),
+                .replace("-", "") + "-0" + procedure.getId(),
                 LocalDate.parse(invoiceDto.getDatePaid()),
-                Integer.parseInt(invoiceDto.getCost())));
+                Integer.parseInt(invoiceDto.getCost()),
+                LocalDate.now()));
 
         Procedure savedProcedure = procedureRepository.save(procedure);
 

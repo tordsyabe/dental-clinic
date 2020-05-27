@@ -30,6 +30,9 @@ public class Patient extends Person {
 
 	private int age;
 
+	private LocalDate dateCreated;
+	private LocalDate dateUpdated;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
 	private Set<Complaint> complaints = new HashSet<>();
 

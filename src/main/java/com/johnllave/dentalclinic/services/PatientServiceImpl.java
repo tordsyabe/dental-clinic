@@ -65,8 +65,13 @@ public class PatientServiceImpl implements PatientService{
 	@Override
 	public PatientDto savePatient(PatientDto patientDto) {
 
-
 		Patient patient = patientMapper.patientDtoToPatient(patientDto);
+
+		if(patientDto.getId() == null) {
+			patient.setDateCreated(LocalDate.now());
+		}
+
+		patient.setDateUpdated(LocalDate.now());
 
 		Patient savePatient = patientRepository.save(patient);
 

@@ -13,5 +13,8 @@ public class MedicalHistoryDto {
 
     private String description;
 
+    private String dateCreated;
+
+    private String patientId;
 
 }

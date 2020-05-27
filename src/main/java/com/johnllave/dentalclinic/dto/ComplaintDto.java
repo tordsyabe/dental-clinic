@@ -11,7 +11,7 @@ public class ComplaintDto {
 
     private String id;
     private String description;
-    private String date;
+    private String dateCreated;
     private String patientId;
 
     private PatientDto patientDto;

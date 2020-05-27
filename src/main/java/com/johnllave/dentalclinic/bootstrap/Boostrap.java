@@ -94,7 +94,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure1.setDescription("Permanent tooth extraction");
 		procedure1.setPaid(false);
 		procedure1.setTeeth(upperRight3rdMolar.orElse(null));
-		procedure1.setDate(LocalDate.of(2020, 3, 2));
+		procedure1.setDateCreated(LocalDate.of(2020, 3, 2));
 		
 		Procedure procedure2 = new Procedure();
 
@@ -103,7 +103,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure2.setDescription("Restoration of teeth");
 		procedure2.setPaid(false);
 		procedure2.setTeeth(upperLeftCentralIncisor.orElse(null));
-		procedure2.setDate(LocalDate.now());
+		procedure2.setDateCreated(LocalDate.now());
 
 		
 		
@@ -114,7 +114,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure3.setDescription("Canalization of the teeth");
 		procedure3.setPaid(true);
 		procedure3.setTeeth(lowerright2ndBicuspid.orElse(null));
-		procedure3.setDate(LocalDate.of(2020, 1, 1));
+		procedure3.setDateCreated(LocalDate.of(2020, 1, 1));
 		
 		Procedure procedure4 = new Procedure();
 
@@ -123,19 +123,19 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure4.setDescription("Compisite veneers");
 		procedure4.setPaid(true);
 		procedure4.setTeeth(lowerright2ndBicuspid.orElse(null));
-		procedure4.setDate(LocalDate.of(2020, 4, 1));
+		procedure4.setDateCreated(LocalDate.of(2020, 4, 1));
 
 		Complaint complaint1 = new Complaint();
 		complaint1.setDescription("There was a bleeding gum");
-		complaint1.setDate(LocalDate.now());
+		complaint1.setDateCreated(LocalDate.now());
 
 		Complaint complaint2 = new Complaint();
 		complaint2.setDescription("Walay kwarta pambayad");
-		complaint2.setDate(LocalDate.of(2020, 1, 2));
+		complaint2.setDateCreated(LocalDate.of(2020, 1, 2));
 
 		Complaint complaint3 = new Complaint();
 		complaint3.setDescription("This is the complaint saved from complaint side");
-		complaint3.setDate(LocalDate.of(2020, 1, 2));
+		complaint3.setDateCreated(LocalDate.of(2020, 1, 2));
 
 		Allergy allergy1 = new Allergy("Allergic to anesthesia");
 		Allergy allergy2 = new Allergy("Allergic to inhalers");

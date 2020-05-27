@@ -3,8 +3,15 @@
 }
 
 .allergy-list ul li i {
+    color: var(--info);
+}
+
+.allergy-list ul li {
     cursor: pointer;
-    color: #3498db;
+}
+
+.allergy-list ul li:hover {
+    text-decoration: line-through;
 }
 
 

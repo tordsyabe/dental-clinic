@@ -49,6 +49,10 @@ public class PatientDto {
 	private String city;
 	private String province;
 
+	private String dateCreated;
+	private String dateUpdated;
+
+
 	private int age;
 
 	private Set<Complaint> complaints = new HashSet<>();

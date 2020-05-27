@@ -9,8 +9,9 @@
 
         <div class="allergy-list" th:if="${patient.allergies.size() > 0}">
             <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
-                <li class="py-1" th:each="allergy : ${patient.allergies}" th:data-allergy-id="${allergy.id}">
-                    <i class="fa fa-check-circle pr-2" th:onclick="|handleDeleteAllergy('${allergy.id}')|"></i>
+                <li class="py-1" th:each="allergy : ${patient.allergies}"
+                    th:data-allergy-id="${allergy.id}"  th:onclick="|handleDeleteAllergy('${allergy.id}')|">
+                    <i class="fa fa-check-circle pr-2"></i>
                     <span th:text="${allergy.description}"></span>
                 </li>
             </ul>

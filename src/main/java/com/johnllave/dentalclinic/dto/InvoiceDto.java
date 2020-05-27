@@ -10,12 +10,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class InvoiceDto {
 
-    String id;
+    private String id;
 
-    String invoiceNo;
+    private String invoiceNo;
 
-    String datePaid;
+    private String datePaid;
 
-    String cost;
+    private String cost;
+
+    private String dateCreated;
+
 
 }

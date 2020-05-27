@@ -63,8 +63,8 @@ public class PatientController {
 
 
 		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
-		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDate).reversed());
-		model.addAttribute("complaintDate", Comparator.comparing((Complaint complaint) -> complaint.getDate()).reversed());
+		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDateCreated).reversed());
+		model.addAttribute("complaintDate", Comparator.comparing((Complaint complaint) -> complaint.getDateCreated()).reversed());
 
 		return "patient/details";
 	}

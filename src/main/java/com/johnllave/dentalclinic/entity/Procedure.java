@@ -15,11 +15,12 @@ import lombok.ToString;
 @Table(name = "procedures")
 public class Procedure extends BaseEntity {
 
-	private LocalDate date;
+	private LocalDate dateCreated;
 	private String description;
 	private Integer cost;
 	private Boolean paid;
 	private String category;
+
 	
 	@OneToOne
 	private Teeth teeth;

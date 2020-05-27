@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -14,6 +15,8 @@ import javax.persistence.Table;
 public class MedicalHistory extends BaseEntity {
 
     private String description;
+
+    private LocalDate dateCreated;
 
     @ManyToOne
     private Patient patient;

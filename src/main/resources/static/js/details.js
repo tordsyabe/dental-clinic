@@ -144,7 +144,8 @@ const submitProcedureInvoice = (event, formId) => {
             dataType: "json",
             data: JSON.stringify({
                 datePaid: invoiceDate,
-                cost: invoiceCost
+                cost: invoiceCost,
+                dateCreated: Date.now()
             }),
             success: function(result) {
                 console.log(result);
@@ -234,7 +235,7 @@ $(document).ready(function() {
                                             <div class="row">
                                                 <div class="col-sm-10">
                                                     <p class="mb-0">${data.description}</p>
-                                                    <small class="text-muted">${data.date}</small>
+                                                    <small class="text-muted">${data.dateCreated}</small>
                                                 </div>
                                                 <div class="col-sm-2 d-flex justify-content-center align-items-center">
                                                     <i class="fa fa-pencil icon-button" style="display: none;"></i>
@@ -261,23 +262,23 @@ $(document).ready(function() {
                                     console.log("FROM ALLERGIES CASE");
                                      if($(".allergy-list").find("ul").length > 0) {
                                           $(".allergy-list").find("ul").append(`
-                                              <li class="py-1" data-allergy-id=${data.id}>
-                                                 <i class="fa fa-check-circle pr-2" onclick="handleDeleteAllergy(${data.id})"></i>
+                                              <li class="py-1" data-allergy-id=${data.id} onclick="handleDeleteAllergy(${data.id})">
+                                                 <i class="fa fa-check-circle pr-2"></i>
                                                  <span>${data.description}</span>
                                               </li>
                                           `);
                                      } else {
                                         $(".allergy-list").append(`
                                         <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
-                                            <li class="py-1" data-allergy-id=${data.id}>
-                                                 <i class="fa fa-check-circle pr-2" onclick="handleDeleteAllergy(${data.id})"></i>
+                                            <li class="py-1" data-allergy-id=${data.id} onclick="handleDeleteAllergy(${data.id})">
+                                                 <i class="fa fa-check-circle pr-2"></i>
                                                  <span>${data.description}</span>
                                             </li>
                                         </ul>
                                         `);
                                      }
 
-                                     showAllergyDeleteBtn();
+//                                     showAllergyDeleteBtn();
                                      toastr.success("Allergy added", "Success");
                                      if($(".allergy-list").length > 0) {
                                          $("#noAllergiesP").remove();
@@ -341,16 +342,17 @@ function showComplaintActionBtn() {
 
 (showComplaintActionBtn)();
 
-function showAllergyDeleteBtn(){
-    $(".allergy-list ul li i").mouseenter(function(){
-        $(this).toggleClass("fa-check-circle fa-minus-circle");
-    });
-
-    $(".allergy-list ul li i").mouseleave(function(){
-        $(this).toggleClass("fa-check-circle fa-minus-circle");
-    });
-
-
-}
-
-(showAllergyDeleteBtn)();
+//function showAllergyDeleteBtn(){
+//    console.log("CALLED");
+//    $(".allergy-list").find("i").mouseenter(function(){
+//        $(this).toggleClass("fa-check-circle fa-minus-circle");
+//    });
+//
+//    $(".allergy-list").find("i").mouseleave(function(){
+//        $(this).toggleClass("fa-check-circle fa-minus-circle");
+//    });
+//
+//
+//}
+//
+//(showAllergyDeleteBtn)();

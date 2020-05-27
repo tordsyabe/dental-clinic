@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class Complaint extends BaseEntity {
 
     private String description;
-    private LocalDate date;
+    private LocalDate dateCreated;
 
     @ManyToOne
     Patient patient;
