@@ -153,13 +153,18 @@ const submitProcedureInvoice = (event, formId) => {
                 $(`*[data-invoice-form-id="${formId}"]`).remove();
 
 
-                const procedureCard = $(`*[data-procedure-card="${result.id}"]`);
+                const procedureCard = $(`*[data-procedure-id="${result.id}"]`);
 
                     procedureCard.find("i").removeClass("fa fa-circle fa-lg")
                     .addClass("fa fa-check-circle fa-lg")
                     .css("color", "#3498db");
 
-                    procedureCard.find("a#create-invoice-btn").remove();
+                    procedureCard.find(".col-3").addClass("d-flex justify-content-end align-items-center pr-4");
+
+                    procedureCard.find("a#create-invoice-btn").replaceWith(`
+                        <i class="fa fa-print icon-button"></i>
+                        <i class="fa fa-trash icon-button"></i>
+                    `);
 
                 toastr.success("Procedure invoiced", "Success");
 
@@ -238,7 +243,6 @@ $(document).ready(function() {
                                                     <small class="text-muted">${data.dateCreated}</small>
                                                 </div>
                                                 <div class="col-sm-2 d-flex justify-content-center align-items-center">
-                                                    <i class="fa fa-pencil icon-button" style="display: none;"></i>
                                                     <i class="fa fa-trash icon-button"
                                                         onclick="handleDeleteComplaint(${data.id})"
                                                         style="display: none;"></i>
@@ -390,3 +394,8 @@ function showComplaintActionBtn() {
 
 (showComplaintActionBtn)();
 
+
+//PROCEDURE DELETE AJAX
+const handleDeleteProcedure = (id) => {
+    console.log(id);
+}

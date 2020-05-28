@@ -23,4 +23,10 @@ public class ProcedureRestController {
         return procedureService.createInvoiceByProcedureId(Long.parseLong(id), invoiceDto);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProcedure(@PathVariable String id) {
+        procedureService.deleteProcedureById(id);
+    }
+
 }

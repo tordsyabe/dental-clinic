@@ -12,4 +12,6 @@ public interface ProcedureService {
     PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto);
 
     ProcedureDto createInvoiceByProcedureId(Long id, InvoiceDto invoiceDto);
+
+    void deleteProcedureById(String id);
 }

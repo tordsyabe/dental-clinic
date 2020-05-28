@@ -12,7 +12,7 @@
             </div>
 
             <div class="col-sm-10 text-center">
-                <div class="card mb-3" th:data-procedure-card="${procedure.id}">
+                <div class="card mb-3" th:data-procedure-id="${procedure.id}">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-1">
@@ -37,6 +37,11 @@
                                    th:data-procedure-id="${procedure.id}">Create
                                     Invoice
                                 </a>
+                            </div>
+
+                            <div class="col-3 d-flex justify-content-end align-items-center pr-4" th:if="${procedure.paid}">
+                                <i class="fa fa-print icon-button"></i>
+                                <i class="fa fa-trash icon-button" th:onclick="|handleDeleteProcedure('${procedure.id}')|"></i>
                             </div>
 
                             <div class="col-1"></div>

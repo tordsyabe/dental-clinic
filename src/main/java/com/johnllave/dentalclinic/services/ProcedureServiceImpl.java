@@ -72,4 +72,9 @@ public class ProcedureServiceImpl implements ProcedureService {
         return procedureMapper.procedureToProcedureDto(savedProcedure);
     }
 
+    @Override
+    public void deleteProcedureById(String id) {
+        procedureRepository.deleteById(Long.parseLong(id));
+    }
+
 }
