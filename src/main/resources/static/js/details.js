@@ -155,15 +155,14 @@ const submitProcedureInvoice = (event, formId) => {
 
                 const procedureCard = $(`*[data-procedure-id="${result.id}"]`);
 
-                    procedureCard.find("i").removeClass("fa fa-circle fa-lg")
+                    procedureCard.find("i#procedureIcon").removeClass("fa fa-circle fa-lg")
                     .addClass("fa fa-check-circle fa-lg")
                     .css("color", "#3498db");
 
                     procedureCard.find(".col-3").addClass("d-flex justify-content-end align-items-center pr-4");
 
-                    procedureCard.find("a#create-invoice-btn").replaceWith(`
+                    procedureCard.find("#create-invoice-btn").replaceWith(`
                         <i class="fa fa-print icon-button"></i>
-                        <i class="fa fa-trash icon-button" onclick="handleDeleteProcedure(${result.id})"></i>
                     `);
 
                 toastr.success("Procedure invoiced", "Success");

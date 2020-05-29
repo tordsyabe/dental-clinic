@@ -32,11 +32,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-3" th:if="${!procedure.paid}">
-                                <a class="btn btn-info" id="create-invoice-btn"
-                                   th:data-procedure-id="${procedure.id}">Create
-                                    Invoice
-                                </a>
+                            <div class="col-3 d-flex justify-content-end align-items-center pr-4" th:if="${!procedure.paid}">
+                                <i class="fa fa-files-o icon-button" id="create-invoice-btn" th:data-procedure-id="${procedure.id}"></i>
+                                <i class="fa fa-trash icon-button" th:onclick="|handleDeleteProcedure('${procedure.id}')|"></i>
                             </div>
 
                             <div class="col-3 d-flex justify-content-end align-items-center pr-4" th:if="${procedure.paid}">
