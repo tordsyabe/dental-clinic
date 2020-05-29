@@ -163,7 +163,7 @@ const submitProcedureInvoice = (event, formId) => {
 
                     procedureCard.find("a#create-invoice-btn").replaceWith(`
                         <i class="fa fa-print icon-button"></i>
-                        <i class="fa fa-trash icon-button"></i>
+                        <i class="fa fa-trash icon-button" onclick="handleDeleteProcedure(${result.id})"></i>
                     `);
 
                 toastr.success("Procedure invoiced", "Success");
@@ -397,5 +397,36 @@ function showComplaintActionBtn() {
 
 //PROCEDURE DELETE AJAX
 const handleDeleteProcedure = (id) => {
-    console.log(id);
+    $.ajax({
+        type: "DELETE",
+        url: "/api/procedures/" + id,
+        contentType: "application/json",
+        success: function() {
+            console.log("Deleted");
+            $(`*[data-procedure-item="${id}"]`).remove();
+
+            if($("#procedure-card-item").find(".card-body").children().length === 0) {
+                const url = window.location.pathname;
+
+                const patientId = url.substring(url.lastIndexOf('/') + 1);
+
+               $("#procedure-card-item").find(".card-body").append(`
+                    <div class="d-flex flex-column justify-content-center align-items-center"
+                                 style="height: 100%;">
+                                <h5 class="text-muted mb-5">No Procedures</h5>
+                                <a class="btn btn-info" href="/patient/procedures/${patientId}"
+                                   id="addProcedures">Add Procedures</a>
+                            </div>
+               `);
+            }
+
+            console.log($("#procedure-card-item ").find(".card-body"));
+
+            toastr.success("Procedure successfully deleted", "Success");
+        },
+        error: function(e) {
+            console.log(e);
+            toastr.error("There was an error deleting procedure", "Error");
+        }
+    });
 }

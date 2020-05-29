@@ -1,8 +1,8 @@
-<div class="card mb-4 procedure-card" th:fragment="procedures">
+<div class="card mb-4 procedure-card" th:fragment="procedures" id="procedure-card-item">
     <div class="card-body">
 
         <div class="row" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}"
-             th:if="${patient.procedures.size() > 0}">
+             th:if="${patient.procedures.size() > 0}" th:data-procedure-item="${procedure.id}" >
 
 
             <div class="col-sm-2">
