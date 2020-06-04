@@ -82,66 +82,149 @@
                     </div>
 
 
-                    <div class="col-4" id="procedure-list">
-                        <div class="d-flex flex-column justify-content-center align-items-end" style="height: 100%">
+                    <div class="col-5" id="procedure-items">
+                        <div class="d-flex flex-column justify-content-start" style="height: 100%">
+                            <div class="p-5" style="flex-grow: 1;">
 
-                            <div class="card mb-3" style="width: 90%">
-                                <div class="card-body">
-                                    <h5 class="text-muted text-center">Choose procedure category</h5>
+                                <div class="d-flex justify-content-between">
+                                    <input required="" id="1" name="description" type="radio" class="with-font" value="Permanent tooth extraction" th:field="*{description}">
+                                    <label aria-label="450-1" class="procedureDesc" for="1">Permanent tooth extraction</label>
+
+                                    <p class="text-muted">450</p>
+                                    <input required="" class="with-font" id="450-1" name="cost" type="radio" value="450" th:field="*{cost}">
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <input required="" id="2" name="description" type="radio" class="with-font" value="Wisdom tooth extraction" th:field="*{description}">
+                                    <label aria-label="5000-2" class="procedureDesc" for="2">Wisdom tooth extraction</label>
+
+                                    <p class="text-muted">5000</p>
+                                    <input required="" class="with-font" id="5000-2" name="cost" type="radio" value="5000" th:field="*{cost}">
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <input required="" id="3" name="description" type="radio" class="with-font" value="Surgical tooth extraction" th:field="*{description}">
+                                    <label aria-label="2500-3" class="procedureDesc" for="3">Surgical tooth extraction</label>
+
+                                    <p class="text-muted">2500</p>
+                                    <input required="" class="with-font" id="2500-3" name="cost" type="radio" value="2500" th:field="*{cost}">
                                 </div>
                             </div>
 
-                            <div class="card mb-3" style="width: 90%">
-                                <div class="card-body">
-                                    <h5 class="text-muted text-center">Select tooth</h5>
+
+<!--                            <div class="" th:if="${#fields.hasErrors('*')}" style="width: 90%;">-->
+<!--                                <div th:if="${#fields.hasErrors('description')}" class="alert alert-danger">-->
+<!--                                    <ul>-->
+<!--                                        <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+
+<!--                                <div th:if="${#fields.hasErrors('category')}" class="alert alert-danger">-->
+<!--                                    <ul>-->
+<!--                                        <li th:each="err : ${#fields.errors('category')}" th:text="${err}"/>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+
+<!--                                <div th:if="${#fields.hasErrors('teethId')}" class="alert alert-danger">-->
+<!--                                    <ul>-->
+<!--                                        <li th:each="err : ${#fields.errors('teethId')}" th:text="${err}"/>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="d-flex justify-content-between align-items-end p-5">
+                                <div class="form-group input-group-sm" style="margin-bottom: 0">
+                                    <label class="text-muted" for="procedure-date"><small>Procedure Date</small></label>
+                                    <input type="date" class="form-control" required
+                                           id="procedure-date" name="procedure-date">
+                                    <div class="invalid-feedback">
+                                        Procedure date is required.
+                                    </div>
                                 </div>
-                            </div>
+                                <button type="submit" class="btn btn-info">Save Procedure</button>
 
-                            <div class="" th:if="${#fields.hasErrors('*')}" style="width: 90%;">
-                            <div th:if="${#fields.hasErrors('description')}" class="alert alert-danger">
-                                <ul>
-                                    <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
-                                </ul>
                             </div>
-
-                            <div th:if="${#fields.hasErrors('category')}" class="alert alert-danger">
-                                <ul>
-                                    <li th:each="err : ${#fields.errors('category')}" th:text="${err}"/>
-                                </ul>
-                            </div>
-
-                            <div th:if="${#fields.hasErrors('teethId')}" class="alert alert-danger">
-                                <ul>
-                                    <li th:each="err : ${#fields.errors('teethId')}" th:text="${err}"/>
-                                </ul>
-                            </div>
-                            </div>
-
                         </div>
 
                     </div>
-
-                    <div class="col-2 offset-10">
-                    <button type="submit" class="btn btn-info">Save Procedure</button>
-                    </div>
-
-                        <div class="col-7">
-                            <ul class="list-group">
-                                <li class="list-group-item">Description, Cost, Tooth no., Category</li>
-                                <li class="list-group-item" th:each="procedure: ${patient.procedures}"
-                                    th:text="${procedure.description + ' - '
-                            + procedure.cost + ' - '
-                            + procedure.teeth.number + ' - '
-                            + procedure.category}"></li>
-                            </ul>
-                        </div>
-
-
-
 
                 </div>
 
             </form>
+
+            <div class="row mt-5">
+                <div class="col-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <i class="fa fa-snowflake-o fa-2x mb-3" style="font-size: 1.5rem;"></i>
+                                <p class="small"><span class="text-muted">INVOICE NO.: </span> 20200101-001</p>
+                            </div>
+
+                            <p>Permanent tooth extraction</p>
+                            <h6 style="color: var(--info); font-weight: bold;">Surgery</h6>
+                            <span class="text-muted">Upper right canine</span><br />
+                            <span class="text-muted">January 1, 2019</span><br />
+                            <br />
+                            <br />
+                            <p><span class="text-muted">Attended by:</span> Dr. Hillary Jovette Tan</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <i class="fa fa-snowflake-o fa-2x mb-3" style="font-size: 1.5rem;"></i>
+                                <p class="small"><span class="text-muted">INVOICE NO.: </span> 20200101-001</p>
+                            </div>
+
+                            <p>Permanent tooth extraction</p>
+                            <h6 style="color: var(--info); font-weight: bold;">Surgery</h6>
+                            <span class="text-muted">Upper right canine</span><br />
+                            <span class="text-muted">January 1, 2019</span><br />
+                            <br />
+                            <br />
+                            <p><span class="text-muted">Attended by:</span> Dr. Hillary Jovette Tan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <i class="fa fa-snowflake-o fa-2x mb-3" style="font-size: 1.5rem;"></i>
+                                <p class="small"><span class="text-muted">INVOICE NO.: </span> 20200101-001</p>
+                            </div>
+
+                            <p>Permanent tooth extraction</p>
+                            <h6 style="color: var(--info); font-weight: bold;">Surgery</h6>
+                            <span class="text-muted">Upper right canine</span><br />
+                            <span class="text-muted">January 1, 2019</span><br />
+                            <br />
+                            <br />
+                            <p><span class="text-muted">Attended by:</span> Dr. Hillary Jovette Tan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <i class="fa fa-snowflake-o fa-2x mb-3" style="font-size: 1.5rem;"></i>
+                                <p class="small"><span class="text-muted">INVOICE NO.: </span> 20200101-001</p>
+                            </div>
+
+                            <p>Permanent tooth extraction</p>
+                            <h6 style="color: var(--info); font-weight: bold;">Surgery</h6>
+                            <span class="text-muted">Upper right canine</span><br />
+                            <span class="text-muted">January 1, 2019</span><br />
+                            <br />
+                            <br />
+                            <p><span class="text-muted">Attended by:</span> Dr. Hillary Jovette Tan</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
             <!-- END MAIN CONTENT DETAILS -->
         </div>

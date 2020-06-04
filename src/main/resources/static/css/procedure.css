@@ -1,8 +1,4 @@
-.categories {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-gap: 1rem;
-}
+
 
 // Small devices (landscape phones, 576px and down)
 @media only screen and(max-width: 576px) {
@@ -30,6 +26,12 @@
          .categories {
                  grid-template-columns: repeat(9, 1fr);
          }
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-gap: 1rem;
 }
 
 .category-toggle {

@@ -1,7 +1,7 @@
 
 // Data for procedure's description
 
-const categoryLists = [
+const procedureItems = [
     {
       surgery: [
         { id: 1, desc: "Permanent tooth extraction", cost: "450" },
@@ -25,44 +25,49 @@ const categoryLists = [
     },
   ];
 
-
 // Dynamic change of procedure's description base on category change
+$(document).ready(function() {
 
-(function(){
-const categories = document.querySelectorAll('.category-toggle');
-
-   let categoryProcedures = document.querySelector("#procedure-list");
-
-  categories.forEach((category, i) => {
-    category.addEventListener("click", function () {
+    $(".categories").find(".category-toggle").first().attr("checked", true);
+    $("#procedure-items").find("input[name='description']").first().attr("checked", true);
 
 
-      categoryProcedures.innerHTML = "";
-      const processDiv = document.createElement("div");
-      processDiv.className = "p-5";
+    $(".categories").find("label").each(function(i, label){
+        $(this).on("click", () => {
 
-      categoryLists[i][category.id].forEach((process, i) => {
-        processDiv.innerHTML += `
-            <div class="d-flex justify-content-between">
-                    <input required id=${process.id} name="description" type="radio" class="with-font" value="${process.desc}" th:field="*{description}" >
-                    <label aria-label=${process.cost + "-" + process.id} class="procedureDesc" for=${process.id}>${process.desc}</label>
-
-                <p class="text-muted">${process.cost}</p>
-                <input required class="with-font" id=${process.cost + "-" + process.id} name="cost" type="radio" value="${process.cost}" th:field="*{cost}" >
-            </div>`;
-      });
+          const procedures = $("#procedure-items > div");
 
 
-      categoryProcedures.appendChild(processDiv);
-      setCostAndDesc();
+          const processes = document.createElement("div");
+          processes.className = "p-5";
 
+          procedureItems[i][label.getAttribute("for")].forEach((process, i) => {
+            processes.innerHTML += `
+                <div class="d-flex justify-content-between">
+                        <input required id=${process.id} name="description" type="radio" class="with-font" value="${process.desc}" th:field="*{description}" >
+                        <label aria-label=${process.cost + "-" + process.id} class="procedureDesc" for=${process.id}>${process.desc}</label>
 
+                    <p class="text-muted">${process.cost}</p>
+                    <input required class="with-font" id=${process.cost + "-" + process.id} name="cost" type="radio" value="${process.cost}" th:field="*{cost}" >
+                </div>`;
+          });
+
+          $(procedures).replaceWith(processes);
+          $("#procedure-items").find("input[name='description']").first().attr("checked", true);
+
+          setCostAndDesc()
+        });
     });
-  });
-})();
+
+});
+
+
+
+
+
 
 // Selecting cost and description
-function setCostAndDesc() {
+    function setCostAndDesc() {
 
     const procedureLabels = document.querySelectorAll('.procedureDesc');
     procedureLabels.forEach((procedureLabel, i) => {
