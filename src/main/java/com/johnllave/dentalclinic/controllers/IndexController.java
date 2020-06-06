@@ -10,8 +10,9 @@ import com.johnllave.dentalclinic.services.TeethService;
 public class IndexController {
 
 	@RequestMapping({ "/", "index", "index.html" })
-	public String indexPage(Model model) {
+		public String indexPage(Model model) {
 
+		System.out.println("plus 1 visited.");
 		return "index";
 	}
 
