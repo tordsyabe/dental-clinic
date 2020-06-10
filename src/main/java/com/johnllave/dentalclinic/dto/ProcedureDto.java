@@ -14,6 +14,8 @@ import javax.validation.constraints.NotBlank;
 public class ProcedureDto {
 
     private String id;
+
+    @NotBlank
     private String dateCreated;
 
     @NotBlank

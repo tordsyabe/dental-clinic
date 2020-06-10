@@ -36,11 +36,11 @@ table, .table-hover tbody tr:hover {
 }
 
 
- .clickable-row {
+.clickable-row {
     cursor: pointer;
-  }
+}
 
- table {
+table {
     border-top: hidden !important;
  }
 
@@ -107,4 +107,12 @@ transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 
 .card:hover {
     background: rgba(225, 225, 225, 0.2);
+}
+
+#calendar {
+    overflow: hidden !important;
+}
+
+#calendar table {
+    border-top: 1px solid #444 !important;
 }

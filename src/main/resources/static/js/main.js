@@ -52,7 +52,44 @@ const clickableRows = document.querySelectorAll('.clickable-row');
 })();
 
 
+// Function for formatting date to eg. January 1, 2020
+const formatNamedDate = (dates) => {
+	dates.forEach(date => {
 
 
+		const monthNames = ["January", "February", "March", "April", "May", "June",
+			  "July", "August", "September", "October", "November", "December"
+		];
+
+				const formattedDate = new Date(date.textContent);
+
+				date.innerText = monthNames[formattedDate.getMonth()] + ' ' + formattedDate.getDate() + ', ' + formattedDate.getFullYear();
+
+	});
+}
+
+// Formatting date and getting the name of the week from the given date
+const formatWeekDay = (dates) => {
+	dates.forEach(day => {
+
+		const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+				const formattedDate = new Date(day.textContent);
+				const dateToday = new Date();
+
+				const todayYear = dateToday.getFullYear();
+				const todayMonth = dateToday.getMonth() > 9 ? dateToday.getMonth() + 1 : `0${dateToday.getMonth() + 1}`;
+				const todayDay = dateToday.getDate() > 9 ? dateToday.getDate() : `0${dateToday.getDate()}`;
+
+				const today = `${todayYear}-${todayMonth}-${todayDay}`;
+
+				if(today === day.textContent) {
+					day.innerText = "Today";
+				} else {
+					day.innerText = dayNames[formattedDate.getDay()];
+				}
+
+	});
+}
 
 

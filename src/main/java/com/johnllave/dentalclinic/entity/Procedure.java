@@ -13,6 +13,7 @@ import lombok.ToString;
 @Setter
 @Entity
 @Table(name = "procedures")
+@ToString
 public class Procedure extends BaseEntity {
 
 	private LocalDate dateCreated;

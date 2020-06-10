@@ -12,9 +12,12 @@ import com.johnllave.dentalclinic.mapper.ProcedureMapper;
 import com.johnllave.dentalclinic.repository.ProcedureRepository;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProcedureServiceImpl implements ProcedureService {
@@ -36,6 +39,16 @@ public class ProcedureServiceImpl implements ProcedureService {
 
 
     @Override
+    public List<ProcedureDto> getProcedures() {
+
+        List<ProcedureDto> procedures = new ArrayList<>();
+
+        procedureRepository.findAll().forEach(procedure -> procedures.add(procedureMapper.procedureToProcedureDto(procedure)));
+
+        return procedures;
+    }
+
+    @Override
     public PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto) {
         Teeth teethToSave = teethService.getTeethById(Long.parseLong(procedureDto.getTeethId()));
 
@@ -46,7 +59,6 @@ public class ProcedureServiceImpl implements ProcedureService {
         Procedure procedure = procedureMapper.procedureDtoToProcedure(procedureDto);
 
         procedure.setTeeth(teethToSave);
-        procedure.setDateCreated(LocalDate.now());
 
         patient.addProcedure(procedure);
 

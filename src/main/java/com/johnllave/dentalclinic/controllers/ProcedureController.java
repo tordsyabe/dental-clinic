@@ -3,6 +3,7 @@ package com.johnllave.dentalclinic.controllers;
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Patient;
+import com.johnllave.dentalclinic.entity.Procedure;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.services.PatientService;
 import com.johnllave.dentalclinic.services.ProcedureService;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 
 @Controller
 public class ProcedureController {

@@ -30,16 +30,20 @@ $(document).ready(function() {
 
     $(".categories").find(".category-toggle").first().attr("checked", true);
     $("#procedure-items").find("input[name='description']").first().attr("checked", true);
+    $("#procedure-items").find("input[name='cost']").first().attr("checked", true);
 
 
     $(".categories").find("label").each(function(i, label){
         $(this).on("click", () => {
 
-          const procedures = $("#procedure-items > div");
+          const procedures = $("#procedure-items").find("#procedure-items-list");
+
+          console.log(procedures);
 
 
           const processes = document.createElement("div");
           processes.className = "p-5";
+          processes.setAttribute("id", "procedure-items-list");
 
           procedureItems[i][label.getAttribute("for")].forEach((process, i) => {
             processes.innerHTML += `
@@ -54,6 +58,7 @@ $(document).ready(function() {
 
           $(procedures).replaceWith(processes);
           $("#procedure-items").find("input[name='description']").first().attr("checked", true);
+          $("#procedure-items").find("input[name='cost']").first().attr("checked", true);
 
           setCostAndDesc()
         });

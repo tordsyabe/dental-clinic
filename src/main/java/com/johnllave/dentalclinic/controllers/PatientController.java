@@ -75,9 +75,13 @@ public class PatientController {
 		Patient patient = patientService.getPatientById(Long.parseLong(id));
 
 		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
+		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDateCreated).reversed());
 		model.addAttribute("procedureDto", new ProcedureDto());
 
+
+
 		System.out.println(patientMapper.patientToPatientDto(patient).toString());
+		System.out.println(patient.getProcedures().toString());
 
 		return "patient/procedures";
 	}
