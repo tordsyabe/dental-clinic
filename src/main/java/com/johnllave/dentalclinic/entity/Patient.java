@@ -34,6 +34,9 @@ public class Patient extends Person {
 	private LocalDate dateUpdated;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
+	private Set<MissingTooth> missingTeeth = new HashSet<>();
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
 	private Set<Complaint> complaints = new HashSet<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
@@ -66,6 +69,12 @@ public class Patient extends Person {
 	public Patient addMedicalHistory(MedicalHistory medicalHistory) {
 		medicalHistory.setPatient(this);
 		this.medicalHistories.add(medicalHistory);
+		return this;
+	}
+
+	public Patient addMissingTooth(MissingTooth missingTooth) {
+		missingTooth.setPatient(this);
+		this.missingTeeth.add(missingTooth);
 		return this;
 	}
 

@@ -87,26 +87,13 @@
                             <div class="p-5" id="procedure-items-list" style="flex-grow: 1;">
 
                                 <div class="d-flex justify-content-between">
-                                    <input required="" id="1" name="description" type="radio" class="with-font" value="Permanent tooth extraction" th:field="*{description}">
-                                    <label aria-label="450-1" class="procedureDesc" for="1">Permanent tooth extraction</label>
-
-                                    <p class="text-muted">450</p>
-                                    <input required="" class="with-font" id="450-1" name="cost" type="radio" value="450" th:field="*{cost}">
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <input required="" id="2" name="description" type="radio" class="with-font" value="Wisdom tooth extraction" th:field="*{description}">
-                                    <label aria-label="5000-2" class="procedureDesc" for="2">Wisdom tooth extraction</label>
+                                    <input required="" id="1" name="description" type="radio" class="with-font" value="Odontectomy" th:field="*{description}">
+                                    <label aria-label="50000-1" class="procedureDesc" for="1">Odontectomy</label>
 
                                     <p class="text-muted">5000</p>
-                                    <input required="" class="with-font" id="5000-2" name="cost" type="radio" value="5000" th:field="*{cost}">
+                                    <input required="" class="with-font" id="5000-1" name="cost" type="radio" value="5000" th:field="*{cost}">
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <input required="" id="3" name="description" type="radio" class="with-font" value="Surgical tooth extraction" th:field="*{description}">
-                                    <label aria-label="2500-3" class="procedureDesc" for="3">Surgical tooth extraction</label>
 
-                                    <p class="text-muted">2500</p>
-                                    <input required="" class="with-font" id="2500-3" name="cost" type="radio" value="2500" th:field="*{cost}">
-                                </div>
                             </div>
 
 
@@ -155,6 +142,7 @@
 
             </form>
 
+
             <div class="row mt-5" id="procedure-card-lists">
                 <div class="col-4 mb-4" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}">
                     <div class="card">
@@ -171,17 +159,36 @@
 
                             <p th:text="${procedure.description}"></p>
                             <h6 style="color: var(--info); font-weight: bold;" th:text="${procedure.category}"></h6>
-                            <span class="text-muted text-capitalize" th:text="${procedure.teeth.description}"></span><br />
+                            <span class="text-muted text-capitalize" th:text="${procedure.teeth.description}"></span>
+                                <span class="badge badge-pill badge-info" th:text="${procedure.teeth.number}"></span><br />
                             <span class="text-muted" id="procedureDate" th:text="${procedure.dateCreated}"></span><br />
                             <br />
                             <br />
-                            <p><span class="text-muted">Attended by:</span> Dr. Hillary Jovette Tan</p>
+                            <p th:if="${procedure.invoice == null}">
+                                Upcoming
+                            </p>
+                            <p th:if="${procedure.invoice != null}">
+                                <span class="text-muted">Attended by:</span> Dr. Hillary Jovette Tan
+                            </p>
+
 
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            <div>Missing teeth</div>
+            <ul id="missing">
+
+                <li th:each="missing : ${patient.missingTeeth}" th:text="${missing.teeth.number}" th:id="${missing.teeth.number}"></li>
+            </ul>
+
+            <div>Procedured teeth</div>
+            <ul>
+
+                <li th:each="procedure : ${patient.procedures}" th:text="${procedure.teeth.number}"></li>
+            </ul>
 
             <!-- END MAIN CONTENT DETAILS -->
         </div>
@@ -195,7 +202,6 @@
 <script>
 
     const procedureDates = document.querySelectorAll('#procedureDate');
-    console.log(procedureDates);
     formatNamedDate(procedureDates);
 
 

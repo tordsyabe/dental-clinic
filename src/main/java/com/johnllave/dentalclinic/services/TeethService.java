@@ -8,6 +8,6 @@ public interface TeethService {
 	
 	Set<Teeth> getTeeth();
 
-	Teeth getTeethById(Long id);
+	Teeth getTeethById(String id);
 	
 }

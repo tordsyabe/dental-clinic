@@ -61,6 +61,12 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 			throw new RuntimeException("Expected Teeth Not Found");
 		}
 
+		MissingTooth missingTooth1 = new MissingTooth();
+		missingTooth1.setTeeth(upperLeftCentralIncisor.orElse(null));
+
+		MissingTooth missingTooth2 = new MissingTooth();
+		missingTooth2.setTeeth(lowerright2ndBicuspid.orElse(null));
+
 //		SET PATIENT DETAILS
 		Patient hillary = new Patient();
 
@@ -73,6 +79,8 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		hillary.setAddress("Celine Homes Fortune Towne");
 		hillary.setCity("Bacolod");
 		hillary.setProvince("Negros Occidental");
+		hillary.addMissingTooth(missingTooth1);
+		hillary.addMissingTooth(missingTooth2);
 		
 		Patient john = new Patient();
 

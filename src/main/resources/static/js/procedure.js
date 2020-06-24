@@ -4,25 +4,54 @@
 const procedureItems = [
     {
       surgery: [
-        { id: 1, desc: "Permanent tooth extraction", cost: "450" },
-        { id: 2, desc: "Wisdom tooth extraction", cost: "5000" },
-        { id: 3, desc: "Surgical tooth extraction", cost: "2500" },
+        { id: 1, desc: "odontectomy", cost: "5000" }
       ],
     },
 
     {
-      rootCanal: [
-        { id: 1, desc: "Amazing root canal", cost: "8000" },
-        { id: 2, desc: "Simple root canal", cost: "3000" },
+      extraction: [
+        { id: 1, desc: "adult exo", cost: "650" },
+        { id: 2, desc: "pedo exo", cost: "650" },
       ],
     },
 
     {
       hygiene: [
-        { id: 1, desc: "Cleaning", cost: "1000" },
-        { id: 2, desc: "Plaque removal", cost: "1500" },
+        { id: 1, desc: "oral prophylaxis", cost: "1000" }
       ],
     },
+    {
+      prosthetics: [
+        { id: 1, desc: "PJC", cost: "1000" },
+        { id: 2, desc: "fixed bridge", cost: "1000" },
+        { id: 3, desc: "veneers", cost: "1000" },
+        { id: 4, desc: "partial denture", cost: "1000" },
+        { id: 5, desc: "complete denture", cost: "1000" }
+      ],
+    },
+        {
+        restoration: [
+            { id: 1, desc: "light cured filling", cost: "1000" },
+            { id: 2, desc: "temporary filling", cost: "1000" },
+            { id: 3, desc: "whitening", cost: "1000" }
+            ],
+        },
+        {
+        orthodontics: [
+            { id: 1, desc: "ortho appliance", cost: "1000" },
+            { id: 2, desc: "braces", cost: "15000" },
+            { id: 3, desc: "veneers", cost: "1000" },
+            { id: 4, desc: "partial denture", cost: "1000" },
+            { id: 5, desc: "complete denture", cost: "1000" }
+        ],
+        },
+        {
+        endodontics: [
+            { id: 1, desc: "mono rooted (RCT)", cost: "1000" },
+            { id: 2, desc: "bi-rooted", cost: "1000" },
+            { id: 3, desc: "tri-rooted", cost: "1000" }
+        ],
+        }
   ];
 
 // Dynamic change of procedure's description base on category change
@@ -94,8 +123,6 @@ $(document).ready(function() {
 
     const numbers = teethNumbers.map(toothNum => toothNum.textContent);
 
-    console.log(numbers);
-
     numbers.forEach(number => {
 
         newRoot[number -1];
@@ -112,7 +139,6 @@ $(document).ready(function() {
         });
     });
 
-    console.log("FROM TOOTH SELECTION");
 
 })();
 
@@ -126,4 +152,18 @@ $(document).ready(function() {
     for(i=0; i < teethMaps.length; i++) {
         teethMaps[i].setAttribute("width", upperTeethMapDiv.offsetWidth);
     }
+})();
+
+(function(){
+
+    const missingTeeth = document.querySelectorAll("#missing li");
+    missingTeeth.forEach(missing => {
+        const teeth = document.querySelectorAll("svg g g");
+        $(teeth[missing.id - 1]).children().each((t, tooth) => {
+            $(tooth).css({"stroke":"#303030", "pointer-events": "none"});
+        });
+        $(teeth[missing.id - 1]).find("ellipse").css("fill", "#303030");
+
+
+    });
 })();

@@ -30,7 +30,7 @@ public class TeethServiceImpl implements TeethService {
 
 
 	@Override
-	public Teeth getTeethById(Long id) {
-		return teethRepository.findById(id).orElseGet(null);
+	public Teeth getTeethById(String id) {
+		return teethRepository.findById(Long.parseLong(id)).orElseGet(null);
 	}
 }

@@ -6,39 +6,52 @@
     <div class="row">
         <div th:replace="fragments/layout/sidebar :: sidebar"></div>
         <div class="col-11 offset-1 my-4 pl-0 pr-5"><h5>Calendar Page</h5></div>
-        <div class="col-8 offset- my-4 pl-0">
+        <div class="col-7 offset-1 my-4 pl-0">
             <div class="container">
                 <div id="calendar"></div>
 
             </div>
 
         </div>
+        <div class="col-4 my-3 pr-5">
+            <h4 class="my-5">Procedure Details</h4>
+            <div class="card mt-4">
+                <div class="card-body">
+
+                    <p>Permanent Tooth Extraction</p>
+                    <h6 style="color: var(--info); font-weight: bold;">Surgery</h6>
+                    <span class="text-muted text-capitalize">
+                        Upper righr canine
+                        <span class="badge badge-pill badge-info">32</span>
+                    </span><br />
+                    <span class="text-muted" id="procedureDate">June 10, 2020</span><br />
+                    <br />
+                    <br />
+                    <p><span class="text-muted">Patient: </span>John Llave<small class="text-muted"> / 29 years old</small></p>
+
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body">
+
+                    <p>Permanent Tooth Extraction</p>
+                    <h6 style="color: var(--info); font-weight: bold;">Surgery</h6>
+                    <span class="text-muted text-capitalize">
+                        Upper righr canine
+                        <span class="badge badge-pill badge-primary">1</span>
+                    </span><br />
+                    <span class="text-muted">June 10, 2020</span><br />
+                    <br />
+                    <br />
+                    <p><span class="text-muted">Patient: </span>John Llave<small class="text-muted"> / 29 years old</small></p>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script th:src="@{/js/main.js}"></script>
-<script>
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'dayGrid', 'timeGrid', 'list', 'bootstrap', 'darkly' ],
-      timeZone: 'UTC',
-      themeSystem: 'bootstrap',
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-      },
-      weekNumbers: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: ['https://fullcalendar.io/demo-events.json']
-    });
-
-    calendar.render();
-  });
-
-</script>
+<script th:src="@{/js/calendar.js}"></script>
 </body>
 </html>

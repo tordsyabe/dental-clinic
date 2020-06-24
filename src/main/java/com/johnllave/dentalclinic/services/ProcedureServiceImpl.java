@@ -50,7 +50,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 
     @Override
     public PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto) {
-        Teeth teethToSave = teethService.getTeethById(Long.parseLong(procedureDto.getTeethId()));
+        Teeth teethToSave = teethService.getTeethById(procedureDto.getTeethId());
 
         Patient patient = patientService.getPatientById(Long.parseLong(patientId));
 
