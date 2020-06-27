@@ -28,7 +28,7 @@
 
                 <div class="row mt-5">
                     <div class="col-7 text-center">
-                        <div class="teeth-map">
+                        <div class="teeth-map" style="position: relative;">
                             <div class="row mb-5">
                                 <div class="col-12" id="upperTeethMap">
                                             <input type="radio" id="tooth1" name="tooth" value="1" class="tooth-toggle" th:field="*{teethId}"/>
@@ -49,6 +49,7 @@
                                             <input type="radio" id="tooth16" name="tooth" value="16" class="tooth-toggle" th:field="*{teethId}" />
 
                                             <div th:replace="fragments/upperTeethMap :: upperTeethMap"></div>
+
 
                                 </div>
 
@@ -76,8 +77,9 @@
                                 </div>
                             </div>
 
+                            <div class="dropdown-menu" id="context-menu">
 
-
+                            </div>
                         </div>
                     </div>
 
@@ -203,6 +205,8 @@
 
     const procedureDates = document.querySelectorAll('#procedureDate');
     formatNamedDate(procedureDates);
+
+
 
 
 </script>

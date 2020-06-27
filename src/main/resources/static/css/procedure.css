@@ -90,7 +90,7 @@ input[type=radio].with-font:focus ~ label,
 }
 
 .teeth-map {
-
+    position: relative;
     padding: 0 2rem;
     align-items: end;
     height: 100%;
@@ -115,6 +115,7 @@ input[type=radio].with-font:focus ~ label,
 .tooth__base {
     stroke-width: 0;
     transition: fill 100ms ease-in-out;
+
 }
 
 .tooth__base:hover {
@@ -126,7 +127,6 @@ input[type=radio].with-font:focus ~ label,
 input[id="tooth1"]:checked ~ svg #tooth1,
 input[id="tooth1"]:checked ~ svg #tooth1n {
     fill: rgba(225, 225, 225, 0.2);
-    stroke: red;
 }
 
 input[id="tooth2"]:checked ~ svg #tooth2,
@@ -289,7 +289,15 @@ input[id="tooth32"]:checked ~ svg #tooth32n {
     display: none;
 }
 
+ .dropdown-menu button:hover, .dropdown-menu button:focus {
+            background-image:none !important;
+ }
+ .dropdown-menu button:hover, .dropdown-menu button:focus {
+            background-color: var(--info);
+ }
 
-
+ .dropdown-menu button {
+    font-size: 0.875rem;
+ }
 
 

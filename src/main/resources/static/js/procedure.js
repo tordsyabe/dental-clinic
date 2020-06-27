@@ -160,10 +160,76 @@ $(document).ready(function() {
     missingTeeth.forEach(missing => {
         const teeth = document.querySelectorAll("svg g g");
         $(teeth[missing.id - 1]).children().each((t, tooth) => {
-            $(tooth).css({"stroke":"#303030", "pointer-events": "none"});
+            $(tooth).css({"stroke":"#303030"});
         });
         $(teeth[missing.id - 1]).find("ellipse").css("fill", "#303030");
+        $(teeth[missing.id - 1]).find(".tooth__base").addClass("missing");
 
 
     });
 })();
+
+//toggle missing tooth button
+$(".tooth__base").each(function(){
+    $(this).on("click", function(e){
+          const top = e.pageY -330;
+          const left = e.pageX - 100;
+          const toothId = this.getAttribute("data-tooth-number");
+
+          if($(this).hasClass("missing")) {
+              $("#context-menu").empty().append(`
+                    <button class="dropdown-item" type="button" onclick="unTagMissing(${toothId})">Untag missing</button>
+              `).css({
+                display: "block",
+                position: "absolute",
+                top: top,
+                left: left
+              }).addClass("show");
+          } else {
+              $("#context-menu").empty().append(`
+                            <button class="dropdown-item" type="button" onclick="hideDropdown()">Select for procedure</button>
+                            <button class="dropdown-item" type="button" onclick="tagAsMissing(${toothId})">Tag as missing</button>
+                      `).css({
+                        display: "block",
+                        position: "absolute",
+                        top: top,
+                        left: left
+                      }).addClass("show");
+          }
+
+
+    });
+
+});
+
+function hideDropdown() {
+     $("#context-menu").removeClass("show").hide();
+}
+
+function tagAsMissing(toothId) {
+    console.log(toothId);
+    $("#context-menu").removeClass("show").hide();
+    const teeth = document.querySelectorAll("svg g g");
+    $(teeth[toothId - 1]).children().each((t, tooth) => {
+        $(tooth).css({"stroke":"#303030"});
+
+    });
+    $(teeth[toothId - 1]).find(".tooth__base").addClass("missing");
+    $(teeth[toothId - 1]).find("ellipse").css("fill", "#303030");
+     const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
+                radioButton.checked = false;
+
+}
+
+function unTagMissing(toothId) {
+    $("#context-menu").removeClass("show").hide();
+    const teeth = document.querySelectorAll("svg g g");
+        $(teeth[toothId - 1]).find(".tooth__base").removeClass("missing");
+        $(teeth[toothId - 1]).find("ellipse").css("fill", "#0071bc");
+        $(teeth[toothId - 1]).find(".root__base").css("stroke", "gray");
+        $(teeth[toothId - 1]).find(".crown__base").css("stroke", "#fff");
+        $(teeth[toothId - 1]).find(".crown__line").css("stroke", "#fff");
+         const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
+                    radioButton.checked = false;
+
+}
