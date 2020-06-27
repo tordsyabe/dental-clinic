@@ -118,6 +118,10 @@ input[type=radio].with-font:focus ~ label,
 
 }
 
+ellipse {
+    fill: var(--info);
+}
+
 .tooth__base:hover {
     fill: rgba(225, 225, 225, 0.2);
 }
@@ -295,6 +299,10 @@ input[id="tooth32"]:checked ~ svg #tooth32n {
  .dropdown-menu button:hover, .dropdown-menu button:focus {
             background-color: var(--info);
  }
+
+  .dropdown-menu button:nth-last-child(1):hover, .dropdown-menu button:nth-last-child(1):focus {
+             background-color: var(--danger);
+  }
 
  .dropdown-menu button {
     font-size: 0.875rem;

@@ -108,7 +108,7 @@ $(document).ready(function() {
         procedureLabel.addEventListener('click', () => {
             const dataName = procedureLabel.getAttribute("aria-label");
             const costRadioButton = document.querySelector(`input[id="${dataName}"]`);
-            costRadioButton.checked = "true";
+            costRadioButton.checked = true;
         });
     });
 }
@@ -134,6 +134,7 @@ $(document).ready(function() {
     teeth.forEach((tooth, i) => {
 
         tooth.addEventListener('click', () => {
+        console.log(tooth.id);
             const radioButton = document.querySelector(`input[id=${tooth.id}]`);
             radioButton.checked = "true";
         });
@@ -159,12 +160,14 @@ $(document).ready(function() {
     const missingTeeth = document.querySelectorAll("#missing li");
     missingTeeth.forEach(missing => {
         const teeth = document.querySelectorAll("svg g g");
-        $(teeth[missing.id - 1]).children().each((t, tooth) => {
+        $('[data-test="the_exact_value"]')
+        $(`*[data-tooth-number=${missing.id}]`).siblings().each((t, tooth) => {
             $(tooth).css({"stroke":"#303030"});
         });
-        $(teeth[missing.id - 1]).find("ellipse").css("fill", "#303030");
-        $(teeth[missing.id - 1]).find(".tooth__base").addClass("missing");
 
+        $(`*[data-tooth-number=${missing.id}]`).addClass("missing");
+        $(`*[data-tooth-number=${missing.id}]`).siblings("text").css("stroke", "none");
+        $(`*[data-tooth-number=${missing.id}]`).siblings("ellipse").css({"fill":"var(--danger)", "stroke": "none"});
 
     });
 })();
@@ -187,14 +190,15 @@ $(".tooth__base").each(function(){
               }).addClass("show");
           } else {
               $("#context-menu").empty().append(`
-                            <button class="dropdown-item" type="button" onclick="hideDropdown()">Select for procedure</button>
-                            <button class="dropdown-item" type="button" onclick="tagAsMissing(${toothId})">Tag as missing</button>
-                      `).css({
-                        display: "block",
-                        position: "absolute",
-                        top: top,
-                        left: left
-                      }).addClass("show");
+                    <button class="dropdown-item" type="button" onclick="hideDropdown()">Select for procedure</button>
+                    <button class="dropdown-item" type="button" onclick="hideDropdown()">See list of procedures</button>
+                    <button class="dropdown-item" type="button" onclick="tagAsMissing(${toothId})">Tag as missing</button>
+              `).css({
+                display: "block",
+                position: "absolute",
+                top: top,
+                left: left
+              }).addClass("show");
           }
 
 
@@ -207,28 +211,32 @@ function hideDropdown() {
 }
 
 function tagAsMissing(toothId) {
+
     console.log(toothId);
     $("#context-menu").removeClass("show").hide();
     const teeth = document.querySelectorAll("svg g g");
-    $(teeth[toothId - 1]).children().each((t, tooth) => {
+    console.log(teeth);
+    $(`*[data-tooth-number=${toothId}]`).siblings().each((t, tooth) => {
         $(tooth).css({"stroke":"#303030"});
-
     });
-    $(teeth[toothId - 1]).find(".tooth__base").addClass("missing");
-    $(teeth[toothId - 1]).find("ellipse").css("fill", "#303030");
+    $(`*[data-tooth-number=${toothId}]`).addClass("missing");
+    $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
+    $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--danger)");
      const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
                 radioButton.checked = false;
 
 }
 
 function unTagMissing(toothId) {
+    console.log(toothId);
     $("#context-menu").removeClass("show").hide();
     const teeth = document.querySelectorAll("svg g g");
-        $(teeth[toothId - 1]).find(".tooth__base").removeClass("missing");
-        $(teeth[toothId - 1]).find("ellipse").css("fill", "#0071bc");
-        $(teeth[toothId - 1]).find(".root__base").css("stroke", "gray");
-        $(teeth[toothId - 1]).find(".crown__base").css("stroke", "#fff");
-        $(teeth[toothId - 1]).find(".crown__line").css("stroke", "#fff");
+        $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
+        $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--info)");
+        $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
+        $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "gray");
+        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
+        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
          const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
                     radioButton.checked = false;
 
