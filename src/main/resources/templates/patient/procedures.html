@@ -144,57 +144,64 @@
 
             </form>
 
-
-            <div class="row mt-5" id="procedure-card-lists">
-                <div class="col-4 mb-4" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <i class="fa fa-snowflake-o fa-2x mb-3" style="font-size: 1.5rem;"></i>
-
-                                <p class="small" th:if="${procedure.invoice == null}"></p>
-                                <p class="small" th:if="${procedure.invoice != null}">
-                                    <span class="text-muted">INVOICE NO.: </span><span th:text="${procedure.invoice.invoiceNo}"></span>
-                                </p>
-<!--                                -->
-                            </div>
-
-                            <p th:text="${procedure.description}"></p>
-                            <h6 style="color: var(--info); font-weight: bold;" th:text="${procedure.category}"></h6>
-                            <span class="text-muted text-capitalize" th:text="${procedure.teeth.description}"></span>
-                                <span class="badge badge-pill badge-info" th:text="${procedure.teeth.number}"></span><br />
-                            <span class="text-muted" id="procedureDate" th:text="${procedure.dateCreated}"></span><br />
-                            <br />
-                            <br />
-                            <p th:if="${procedure.invoice == null}">
-                                Upcoming
-                            </p>
-                            <p th:if="${procedure.invoice != null}">
-                                <span class="text-muted">Attended by:</span> Dr. Hillary Jovette Tan
-                            </p>
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div>Missing teeth</div>
-            <ul id="missing">
+            <ul style="display:none;" id="missing">
 
                 <li th:each="missing : ${patient.missingTeeth}" th:text="${missing.teeth.number}" th:id="${missing.teeth.number}"></li>
             </ul>
+            <ul style="display:none;" id="procedures">
 
-            <div>Procedured teeth</div>
-            <ul>
-
-                <li th:each="procedure : ${patient.procedures}" th:text="${procedure.teeth.number}"></li>
+                <li th:each="procedure : ${patient.procedures}" th:text="${procedure.teeth.number}" th:id="${procedure.teeth.number}"></li>
             </ul>
 
             <!-- END MAIN CONTENT DETAILS -->
         </div>
         <!-- MAIN CONTENT -->
+        <div class="side-overlay"></div>
+<!--        SIDE NAV -->
+        <div class="side-procedures">
+            <div class="side-content">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>List of procedures</h5>
+                    <i class="fa fa-times" onclick="closeSideProcedures()" style="cursor: pointer;"></i>
+                </div>
+
+                <div class="dropdown-divider my-3"></div>
+                <p>3rd Upper Right Molar</p>
+                <div class="mt-3" th:each="procedure : ${#lists.sort(patient.procedures, procedureDate)}">
+                    <p class="small text-muted pl-2" id="procedureDate" th:text="${procedure.dateCreated}"></p>
+
+                    <div class="card">
+                        <div class="card-body">
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-capitalize" th:text="${procedure.description}"></span>
+                                        <p class="small" th:if="${procedure.invoice == null}"></p>
+                                        <span class="small" th:if="${procedure.invoice != null}">
+                                            <span class="text-muted">INVOICE NO.: </span><span th:text="${procedure.invoice.invoiceNo}"></span>
+                                        </span>
+
+
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div>
+                                            <span style="color: var(--info);" class="text-capitalize" th:text="${procedure.category}"></span><br />
+                                        </div>
+
+                                        <span th:if="${procedure.invoice == null}" class="small">
+                                                    Upcoming
+                                                </span>
+                                        <span th:if="${procedure.invoice != null}" class="small">
+                                                    Dr. Hillary Jovette Tan
+                                    </span>
+                                    </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

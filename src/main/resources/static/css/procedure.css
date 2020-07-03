@@ -30,7 +30,7 @@
 
 .categories {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     grid-gap: 1rem;
 }
 
@@ -309,3 +309,13 @@ input[id="tooth32"]:checked ~ svg #tooth32n {
  }
 
 
+#toothProcedures {
+    height: 100%;
+    width: 100%;
+    align-text: center;
+
+}
+
+#with__procedure {
+    display: none;
+}

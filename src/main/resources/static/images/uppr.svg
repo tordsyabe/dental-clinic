@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108.85 394">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 320">
   <title>upper left 1st premolar</title>
   <g id="Layer_2" data-name="Layer 2">
     <g id="upper_left_1st_premolar" data-name="upper left 1st premolar">
@@ -14,10 +14,6 @@
           <polygon points="97.06 150.09 90.32 150.09 21.17 150.09 14.43 150.09 4.31 150.09 4.31 155.15 14.43 155.15 14.43 166.96 21.17 166.96 21.17 199 90.32 199 90.32 166.96 97.06 166.96 97.06 155.15 107.18 155.15 107.18 150.09 97.06 150.09" fill="#999"/>
         </g>
         <path id="crown__base" d="M86.43,171.49s23.1,39.1,19.54,65.76-19.54,37.32-19.54,37.32-21.33-3.56-24.89,0-23.1,8.88-40.87-14.22S-6,221.25,13.56,194.6s28.44-30.22,33.77-32S82.87,164.38,86.43,171.49Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="5"/>
-        <g>
-          <ellipse cx="52.33" cy="362.42" rx="31.29" ry="31.58" fill="#0071bc"/>
-          <text transform="translate(32.29 373.64)" font-size="33" fill="#fff" font-family="Arial-BoldMT, Arial" font-weight="700">12</text>
-        </g>
       </g>
     </g>
   </g>

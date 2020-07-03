@@ -51,7 +51,12 @@ const procedureItems = [
             { id: 2, desc: "bi-rooted", cost: "1000" },
             { id: 3, desc: "tri-rooted", cost: "1000" }
         ],
-        }
+        },
+        {
+                diagnosis: [
+                    { id: 1, desc: "consultation", cost: "250" },
+                ],
+                }
   ];
 
 // Dynamic change of procedure's description base on category change
@@ -155,6 +160,8 @@ $(document).ready(function() {
     }
 })();
 
+
+//TAG TOOTH THAT ARE MISSING ONLOAD
 (function(){
 
     const missingTeeth = document.querySelectorAll("#missing li");
@@ -167,7 +174,25 @@ $(document).ready(function() {
 
         $(`*[data-tooth-number=${missing.id}]`).addClass("missing");
         $(`*[data-tooth-number=${missing.id}]`).siblings("text").css("stroke", "none");
-        $(`*[data-tooth-number=${missing.id}]`).siblings("ellipse").css({"fill":"var(--danger)", "stroke": "none"});
+        $(`*[data-tooth-number=${missing.id}]`).siblings("ellipse").css({"fill":"var(--gray-dark)", "stroke": "none"});
+
+    });
+})();
+
+//TAG TOOTH WITH PROCEDURES ON LOAD
+(function(){
+
+    const toothWithProcedure = document.querySelectorAll("#procedures li");
+    toothWithProcedure.forEach(procedure => {
+        const teeth = document.querySelectorAll("svg g g");
+//        $(`*[data-tooth-number=${procedure.id}]`).siblings().each((t, tooth) => {
+//            $(tooth).css({"stroke":"var(--success)"});
+//        });
+
+        $(`*[data-tooth-number=${procedure.id}]`).addClass("with-procedure");
+        $(`*[data-tooth-number=${procedure.id}]`).siblings(".root__base").css({"stroke":"none"});
+        $(`*[data-tooth-number=${procedure.id}]`).siblings("#with__procedure").css({"display":"block"});
+        $(`*[data-tooth-number=${procedure.id}]`).siblings("ellipse").css({"fill":"var(--success)", "stroke": "none"});
 
     });
 })();
@@ -188,10 +213,21 @@ $(".tooth__base").each(function(){
                 top: top,
                 left: left
               }).addClass("show");
-          } else {
+          } else if($(this).hasClass("with-procedure")){
+               $("#context-menu").empty().append(`
+                       <button class="dropdown-item" type="button" onclick="hideDropdown()">Select for procedure</button>
+                       <button class="dropdown-item" type="button" onclick="openSideProcedures()">See list of procedures</a>
+                       <button class="dropdown-item" type="button" onclick="tagAsMissing(${toothId})">Tag as missing</button>
+
+                 `).css({
+                   display: "block",
+                   position: "absolute",
+                   top: top,
+                   left: left
+                 }).addClass("show");
+          }else {
               $("#context-menu").empty().append(`
                     <button class="dropdown-item" type="button" onclick="hideDropdown()">Select for procedure</button>
-                    <button class="dropdown-item" type="button" onclick="hideDropdown()">See list of procedures</button>
                     <button class="dropdown-item" type="button" onclick="tagAsMissing(${toothId})">Tag as missing</button>
               `).css({
                 display: "block",
@@ -221,7 +257,8 @@ function tagAsMissing(toothId) {
     });
     $(`*[data-tooth-number=${toothId}]`).addClass("missing");
     $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
-    $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--danger)");
+    $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").css("display", "none");
+    $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--gray-dark)");
      const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
                 radioButton.checked = false;
 
@@ -231,13 +268,37 @@ function unTagMissing(toothId) {
     console.log(toothId);
     $("#context-menu").removeClass("show").hide();
     const teeth = document.querySelectorAll("svg g g");
-        $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
-        $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--info)");
-        $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "gray");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
-         const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
-                    radioButton.checked = false;
+
+    if($(`*[data-tooth-number=${toothId}]`).hasClass("with-procedure")) {
+    $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
+        $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").css("display", "block");
+            $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
+            $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
+                $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "none");
+                $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--success)");
+    } else {
+          $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
+            $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--info)");
+            $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
+            $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "gray");
+            $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
+            $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
+                 const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
+                            radioButton.checked = false;
+    }
+
+
 
 }
+
+
+(function(){
+    $("#toothProcedures").attr("src", "/images/uppr.svg");
+})();
+
+
+(function(){
+    document.querySelector(".teeth-map").addEventListener("click", function(){
+        console.log("click")
+    });
+})();

@@ -93,5 +93,25 @@ const formatWeekDay = (dates) => {
 }
 
 
+function openSideProcedures(){
 
+    document.querySelector(".side-procedures").style.width = "430px";
+    document.querySelector(".side-content").style.opacity = "1";
+    document.querySelector(".side-content").style.visibility = "visible";
+    document.querySelector(".side-content").style.transition = "opacity 100ms ease-in-out 400ms";
+    document.querySelector(".side-overlay").style.display = "block";
+    $("#context-menu").removeClass("show").hide();
+
+}
+
+function closeSideProcedures(){
+    document.querySelector(".side-procedures").style.width = "0";
+
+    document.querySelector(".side-content").style.opacity = "0";
+    document.querySelector(".side-content").style.visibility = "hidden";
+    document.querySelector(".side-overlay").style.display = "none";
+    document.querySelector(".side-content").style.transition = "opacity ease-in-out 50ms";
+    document.querySelector(".side-content").style.transition = "visibility ease-in-out 50ms";
+    $("#context-menu").removeClass("show").hide();
+}
 
