@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.johnllave.dentalclinic.entity.Patient;
+import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,11 +62,11 @@ public class AWSS3ServiceImpl implements AWSS3Service {
 
         amazonS3.putObject(putObjectRequest);
 
-        Patient patient = patientService.getPatientById(Long.parseLong(patientId));
+        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(Long.parseLong(patientId)), new CycleAvoidingMappingContext());
 
         patient.setImage(endPoint + uniqueFileName);
 
-        patientService.savePatient(patientMapper.patientToPatientDto(patient));
+        patientService.savePatient(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext()));
     }
 
 

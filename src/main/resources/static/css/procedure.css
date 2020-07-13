@@ -38,9 +38,9 @@
     display: none;
 }
 
-.category-toggle:checked + label .card {
-    background-color: #3498db;
-}
+    .category-toggle:checked + label .card {
+        background-color: #3498db;
+    }
 
 .categories label .card {
     min-height: 7rem;
@@ -293,16 +293,13 @@ input[id="tooth32"]:checked ~ svg #tooth32n {
     display: none;
 }
 
- .dropdown-menu button:hover, .dropdown-menu button:focus {
-            background-image:none !important;
- }
- .dropdown-menu button:hover, .dropdown-menu button:focus {
-            background-color: var(--info);
- }
+.dropdown-menu button:hover, .dropdown-menu button:focus {
+        background-image:none !important;
+}
+.dropdown-menu button:hover, .dropdown-menu button:focus {
+        background-color: var(--info);
+}
 
-  .dropdown-menu button:nth-last-child(1):hover, .dropdown-menu button:nth-last-child(1):focus {
-             background-color: var(--danger);
-  }
 
  .dropdown-menu button {
     font-size: 0.875rem;

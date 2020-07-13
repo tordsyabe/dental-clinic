@@ -63,39 +63,64 @@ const loadFile = (event) => {
 	profileUploadLabel.style.display = "inline-block";
 
 };
-//Open create invoice  form for procedures
-(function() {
-    const createInvoiceBtn = document.querySelectorAll('#create-invoice-btn');
 
-    createInvoiceBtn.forEach(createInvBtn => {
-        createInvBtn.addEventListener('click', () => {
+//Open delete form for procedures
+function showProcedureDeleteForm(formId) {
 
-            const procedureId = createInvBtn.getAttribute('data-procedure-id');
-            const invoiceForm = document.querySelector(`[data-invoice-form-id="${procedureId}"]`);
-
-            invoiceForm.style.display = "inline-block";
-
-        });
+    $(`*[data-procedure-delete-form=${formId}]`).slideDown().css({
+        "opacity": "1",
+        "transition": "opacity 100ms ease-in-out 250ms"
     });
-})();
+
+    $(`[data-create-invoice-btn=${formId}]`).css("pointer-events", "none");
+    $(`[data-print-invoice-btn=${formId}]`).css("pointer-events", "none");
+}
+
+//Close delete form for procedures
+function closeProcedureDeleteForm(formId) {
+
+    $(`*[data-procedure-delete-form=${formId}]`).slideUp().css({
+        "opacity": "0",
+        "transition": "opacity 150ms ease-in-out"
+    });
+    $(`[data-create-invoice-btn=${formId}]`).css("pointer-events", "auto");
+    $(`[data-print-invoice-btn=${formId}]`).css("pointer-events", "auto");
+}
+
+
+
+//Open create invoice  form for procedures
+function showProcedureInvoiceForm(formId) {
+    $(`*[data-invoice-form=${formId}]`).slideDown().css({
+        "opacity": "1",
+        "transition": "opacity 100ms ease-in-out 250ms"
+    });
+
+    $(`*[data-delete-procedure-btn=${formId}]`).css("pointer-events", "none");
+}
 
 //Close create invoice form for procedures
-const handleCloseInvoiceForm = (invoiceFormId) => {
-    const invoiceForm = document.querySelector(`[data-invoice-form-id="${invoiceFormId}"]`);
-    invoiceForm.style.display = "none";
+function closeProcedureInvoiceForm(formId) {
+    $(`*[data-invoice-form=${formId}]`).slideUp().css({
+         "opacity": "0",
+         "transition": "opacity 150ms ease-in-out"
+     });
 
+    $(`[data-delete-procedure-btn=${formId}]`).css("pointer-events", "auto");
 }
 
 //handle submit of create invoice for procedures
 
-const submitProcedureInvoice = (event, formId) => {
+const submitInvoiceProcedure = (event, formId) => {
     event.preventDefault();
 
-    const invoiceFormToSubmit = document.querySelector(`#invoice-form-${formId}`);
+    const invoiceFormToSubmit = document.querySelector(`[data-invoice-form="${formId}"]`).firstElementChild;
+
+    console.log(invoiceFormToSubmit);
 
     const invoiceCost = invoiceFormToSubmit.elements[1].value;
     const invoiceDate = invoiceFormToSubmit.elements[2].value;
-
+    console.log(invoiceCost, invoiceDate);
 
 
         $.ajax({
@@ -111,10 +136,10 @@ const submitProcedureInvoice = (event, formId) => {
             success: function(result) {
                 console.log(result);
                 //remove invoice form from DOM
-                $(`*[data-invoice-form-id="${formId}"]`).remove();
+                $(`*[data-invoice-form="${formId}"]`).remove();
 
 
-                const procedureCard = $(`*[data-procedure-id="${result.id}"]`);
+                const procedureCard = $(`*[data-procedure-card="${result.id}"]`);
 
                     procedureCard.find("i#procedureIcon").removeClass("fa fa-circle fa-lg")
                     .addClass("fa fa-check-circle fa-lg")
@@ -122,19 +147,69 @@ const submitProcedureInvoice = (event, formId) => {
 
                     procedureCard.find(".col-3").addClass("d-flex justify-content-end align-items-center pr-4");
 
-                    procedureCard.find("#create-invoice-btn").replaceWith(`
+                    procedureCard.find("[data-create-invoice-btn]").replaceWith(`
                         <i class="fa fa-print icon-button"></i>
                     `);
+
+                    procedureCard.find("[data-delete-procedure-btn]").css("pointer-events", "auto");
 
                 toastr.success("Procedure invoiced", "Success");
 
             },
             error: function(e) {
-                console.log(e);
+                toastr.error("There was an error on creating invoice", "Error");
             }
         });
 
     return false;
+}
+
+function openComplaintDeleteForm(complaintId) {
+    console.log(complaintId);
+
+    $(`*[data-complaint-delete-form=${complaintId}]`).slideDown().css({
+        "opacity": "1",
+        "transition": "opacity 100ms ease-in-out 250ms"
+    });
+}
+
+function closeComplaintDeleteForm(complaintId) {
+
+    $(`*[data-complaint-delete-form=${complaintId}]`).slideUp().css({
+        "opacity": "0",
+        "transition": "opacity 150ms ease-in-out"
+    });
+}
+
+function openAllergyDeleteForm(allergyId) {
+    console.log(allergyId);
+
+    $(`*[data-allergy-delete-form=${allergyId}]`).slideDown().css({
+        "opacity": "1",
+        "transition": "opacity 100ms ease-in-out 250ms"
+    });
+}
+
+function closeAllergyDeleteForm(allergyId) {
+
+    $(`*[data-allergy-delete-form=${allergyId}]`).slideUp().css({
+        "opacity": "0",
+        "transition": "opacity 150ms ease-in-out"
+    });
+}
+
+function openMedHistDeleteForm(medHistId) {
+    $(`*[data-med-hist-delete-form=${medHistId}]`).slideDown().css({
+        "opacity": "1",
+        "transition": "opacity 100ms ease-in-out 250ms"
+    });
+}
+
+function closeMedHistDeleteForm(medHistId) {
+    $(`*[data-med-hist-delete-form=${medHistId}]`).slideUp().css({
+        "opacity": "0",
+        "transition": "opacity 150ms ease-in-out"
+    });
 }
 
 //toggle-health-form and submit
@@ -143,13 +218,10 @@ $(document).ready(function() {
         $(toggle).on("click", function() {
             $(toggle).toggleClass("fa-plus fa-minus");
 
-            if($(toggle).hasClass("fa-plus")) {
-                $(".healthNoteForms").eq(index).css("display", "none");
-            } else {
-                $(".healthNoteForms").eq(index).css("display", "block");
-            }
-
-
+                $(".healthNoteForms").eq(index).slideToggle().css({
+                    "opacity":"1",
+                    "transition": "opacity 100ms ease-in-out 250ms"
+                });
         });
 
             $(".healthNoteForms").eq(index).find("form").submit(function(event) {
@@ -195,7 +267,7 @@ $(document).ready(function() {
                                 case "complaints":
                                 console.log("FROM COMPLAINTS CASE");
                                     $(".complaint-list").prepend(`
-                                    <div class="card mt-3" data-comp-id=${data.id}>
+                                    <div class="card mb-3" data-comp-id=${data.id}>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-sm-10">
@@ -204,8 +276,17 @@ $(document).ready(function() {
                                                 </div>
                                                 <div class="col-sm-2 d-flex justify-content-center align-items-center">
                                                     <i class="fa fa-trash icon-button"
-                                                        onclick="handleDeleteComplaint(${data.id})"
+                                                        onclick="openComplaintDeleteForm(${data.id})"
                                                         style="display: none;"></i>
+
+                                                </div>
+                                                <div class="col-sm-12" data-complaint-delete-form="${data.id}">
+                                                        <span class="text-muted small">Are you sure you want to delete this procedure?</span>
+                                                        <div style="float: right;">
+                                                            <a class="btn btn-secondary btn-sm" onclick="closeComplaintDeleteForm('${data.id}')">Cancel</a>
+                                                            <a class="btn btn-danger btn-sm" onclick="handleDeleteComplaint('${data.id}')">Delete</a>
+                                                        </div>
+
 
                                                 </div>
                                             </div>
@@ -226,9 +307,17 @@ $(document).ready(function() {
                                     console.log("FROM ALLERGIES CASE");
                                      if($(".allergy-list").find("ul").length > 0) {
                                           $(".allergy-list").find("ul").append(`
-                                              <li class="py-1" data-allergy-id=${data.id} onclick="handleDeleteAllergy(${data.id})">
+                                              <li class="py-1">
                                                  <i class="fa fa-check-circle pr-2"></i>
-                                                 <span>${data.description}</span>
+                                                 <span onclick="openAllergyDeleteForm('${data.id}')">${data.description}</span>
+
+                                                  <div  data-allergy-delete-form="${data.id}">
+                                                     <span class="text-muted small">Are you sure you want to delete this procedure?</span>
+                                                     <div style="float: right;">
+                                                         <a class="btn btn-secondary btn-sm" onclick="closeAllergyDeleteForm('${data.id}')">Cancel</a>
+                                                         <a class="btn btn-danger btn-sm" onclick="handleDeleteAllergy('${data.id}')">Delete</a>
+                                                     </div>
+                                                 </div>
                                               </li>
                                           `);
                                      } else {
@@ -255,7 +344,15 @@ $(document).ready(function() {
                                            $(".medical-history-list").find("ul").append(`
                                                <li class="py-1" data-medicalhistory-id=${data.id} onclick="handleDeleteMedicalHistory(${data.id})">
                                                   <i class="fa fa-check-circle pr-2"></i>
-                                                  <span>${data.description}</span>
+                                                  <span class="med-hist-desc" onclick="openMedHistDeleteForm(${data.id})">${data.description}</span>
+
+                                                  <div data-med-hist-delete-form="${data.id}">
+                                                      <span class="text-muted small">Are you sure you want to delete this procedure?</span>
+                                                      <div style="float: right;">
+                                                          <a class="btn btn-secondary btn-sm" onclick="closeMedHistDeleteForm('${data.id}')">Cancel</a>
+                                                          <a class="btn btn-danger btn-sm" onclick="handleDeleteMedHist('${data.id}')">Delete</a>
+                                                      </div>
+                                                  </div>
                                                </li>
                                            `);
                                       } else {
@@ -321,7 +418,7 @@ const handleDeleteAllergy = (id) => {
 }
 
 //DELETING MEDICAL HISTORY AJAX
-const handleDeleteMedicalHistory = (id) => {
+const handleDeleteMedHist = (id) => {
     $.ajax({
         type: "DELETE",
         url: "/api/medicalhistories/" + id,
@@ -356,14 +453,14 @@ function showComplaintActionBtn() {
 
 
 //PROCEDURE DELETE AJAX
-const handleDeleteProcedure = (id) => {
+const deleteProcedure = (procedureId) => {
     $.ajax({
         type: "DELETE",
-        url: "/api/procedures/" + id,
+        url: "/api/procedures/" + procedureId,
         contentType: "application/json",
         success: function() {
             console.log("Deleted");
-            $(`*[data-procedure-item="${id}"]`).remove();
+            $(`*[data-procedure="${procedureId}"]`).remove();
 
             if($("#procedure-card-item").find(".card-body").children().length === 0) {
                 const url = window.location.pathname;

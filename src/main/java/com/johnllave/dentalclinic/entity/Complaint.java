@@ -1,5 +1,6 @@
 package com.johnllave.dentalclinic.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +19,5 @@ public class Complaint extends BaseEntity {
     private LocalDate dateCreated;
 
     @ManyToOne
-    Patient patient;
+    private Patient patient;
 }

@@ -1,10 +1,12 @@
 package com.johnllave.dentalclinic.controllers;
 
+import com.johnllave.dentalclinic.dto.ComplaintDto;
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Complaint;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Procedure;
+import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,8 +37,7 @@ public class PatientController {
 	public String showPatients(Model model) {
 
 		model.addAttribute("patients", patientService.getPatients());
-		model.addAttribute("lastName", Comparator.comparing((PatientDto patient) -> patient.getLastName()));
-		System.out.println(patientService.getPatients().toString());
+		model.addAttribute("lastName", Comparator.comparing((PatientDto patientDto) -> patientDto.getLastName()));
 		return "patient/list";
 	}
 
@@ -59,12 +60,10 @@ public class PatientController {
 	@GetMapping("/patient/details/{id}")
 	public String showPatientById(@PathVariable String id, Model model) {
 
-		Patient patient = patientService.getPatientById(Long.parseLong(id));
+		model.addAttribute("patient", patientService.getPatientById(Long.parseLong(id)));
+		model.addAttribute("procedureDate", Comparator.comparing(ProcedureDto::getDateCreated).reversed());
+		model.addAttribute("complaintDate", Comparator.comparing((ComplaintDto complaintDto) -> complaintDto.getDateCreated()).reversed());
 
-
-		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
-		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDateCreated).reversed());
-		model.addAttribute("complaintDate", Comparator.comparing((Complaint complaint) -> complaint.getDateCreated()).reversed());
 
 		return "patient/details";
 	}
@@ -72,16 +71,12 @@ public class PatientController {
 	@GetMapping("/patient/procedures/{id}")
 	public String showPatientProcedures(@PathVariable String id, Model model) {
 
-		Patient patient = patientService.getPatientById(Long.parseLong(id));
+		PatientDto patientDto = patientService.getPatientById(Long.parseLong(id));
 
-		model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
-		model.addAttribute("procedureDate", Comparator.comparing(Procedure::getDateCreated).reversed());
+
+		model.addAttribute("patient", patientDto);
+		model.addAttribute("procedureDate", Comparator.comparing(ProcedureDto::getDateCreated).reversed());
 		model.addAttribute("procedureDto", new ProcedureDto());
-
-
-
-		System.out.println(patientMapper.patientToPatientDto(patient).toString());
-		System.out.println(patient.getProcedures().toString());
 
 		return "patient/procedures";
 	}

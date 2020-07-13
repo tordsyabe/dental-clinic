@@ -25,6 +25,14 @@ public class ProcedureRestController {
         return procedureService.getProcedures();
     }
 
+    @GetMapping("/{dateCreated}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProcedureDto> getProceduresByDate(@PathVariable String dateCreated){
+
+        return procedureService.getProceduresByDate(dateCreated);
+
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProcedureDto createInvoice(@PathVariable String id, @RequestBody InvoiceDto invoiceDto) {

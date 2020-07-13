@@ -1,13 +1,17 @@
 package com.johnllave.dentalclinic.dto;
 
+import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.johnllave.dentalclinic.entity.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +22,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class PatientDto {
 	
-	private Long id;
+	private String id;
 
 	@NotEmpty
 	@Size(min = 2, max = 20)
@@ -52,14 +55,19 @@ public class PatientDto {
 
 	private int age;
 
-	private Set<Complaint> complaints = new HashSet<>();
+	@JsonIgnoreProperties("patientDto")
+	private List<ComplaintDto> complaintsDto = new ArrayList<>();
 
-	private Set<Procedure> procedures  = new HashSet<>();
+	@JsonIgnoreProperties("patientDto")
+	private List<ProcedureDto> proceduresDto  = new ArrayList<>();
 
-	private Set<Allergy> allergies = new HashSet<>();
+	@JsonIgnoreProperties("patientDto")
+	private List<AllergyDto> allergiesDto = new ArrayList<>();
 
-	private Set<MedicalHistory> medicalHistories = new HashSet<>();
+	@JsonIgnoreProperties("patientDto")
+	private List<MedicalHistoryDto> medicalHistoriesDto = new ArrayList<>();
 
-	private Set<MissingTooth> missingTeeth = new HashSet<>();
+	@JsonIgnoreProperties("patientDto")
+	private List<MissingToothDto> missingTeethDto = new ArrayList<>();
 
 }

@@ -1,6 +1,6 @@
 <div th:fragment="complaints">
 
-    <div class="d-flex justify-content-between align-items-center px-2">
+    <div class="d-flex justify-content-between align-items-center px-2 mb-3">
         <h6 class="card-subtitle">Complaints</h6>
         <i class="fa fa-plus icon-button toggle-health-form" id="addComplaint"></i>
     </div>
@@ -8,9 +8,9 @@
     <div th:replace="fragments/forms/complaint-form :: complaintForm"></div>
 
 
-    <div class="complaint-list" th:if="${patient.complaints.size() > 0}">
-        <div class="card mt-3" th:data-comp-id="${complaint.id}"
-             th:each="complaint : ${#lists.sort(patient.complaints, complaintDate)}">
+    <div class="complaint-list" th:if="${patient.complaintsDto.size() > 0}">
+        <div class="card mb-2" th:data-comp-id="${complaint.id}"
+             th:each="complaint : ${#lists.sort(patient.complaintsDto, complaintDate)}">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-10">
@@ -18,17 +18,22 @@
                         <small class="text-muted" th:text="${complaint.dateCreated}"></small>
                     </div>
                     <div class="col-sm-2 d-flex justify-content-center align-items-center">
-                        <i class="fa fa-trash icon-button"
-                           th:onclick="|handleDeleteComplaint('${complaint.id}')|"
-                           style="display: none;"></i>
+                        <i class="fa fa-trash icon-button" style="display: none;" th:attr="onclick='openComplaintDeleteForm(\'' + ${complaint.id}+'\')'"></i>
+                    </div>
 
+                    <div class="col-sm-12" th:data-complaint-delete-form="${complaint.id}">
+                            <span class="text-muted small">Are you sure you want to delete this procedure?</span>
+                            <div style="float: right;">
+                                <a class="btn btn-secondary btn-sm" th:attr="onclick='closeComplaintDeleteForm(\'' + ${complaint.id}+'\')'">Cancel</a>
+                                <a class="btn btn-danger btn-sm" th:attr="onclick='handleDeleteComplaint(\'' + ${complaint.id}+'\')'">Delete</a>
+                            </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
-    <div class="complaint-list" th:unless="${patient.complaints.size() > 0}">
+    <div class="complaint-list" th:unless="${patient.complaintsDto.size() > 0}">
         <h5 class="text-muted mt-3 pl-2" id="noComplaintP">No Complaints</h5>
     </div>
 </div>

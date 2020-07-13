@@ -57,6 +57,7 @@ td > a > i {
     color: grey;
     cursor: pointer;
     padding: 5px 6px;
+    z-index: 10;
 }
 
 .icon-button:hover {
@@ -105,6 +106,24 @@ html {
 }
 
 
+.side-procedures::-webkit-scrollbar {
+  width: 11px;
+}
+.side-procedures {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+.side-procedures::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+.side-procedures::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 20px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+
+
 
 #calendar {
     overflow: hidden !important;
@@ -121,7 +140,7 @@ html {
     right: 0;
     top: 0;
     background: #222222;
-    z-index: 2;
+    z-index: 99;
     transition: width 500ms ease-in-out;
     overflow-x: hidden;
 }
@@ -141,4 +160,20 @@ html {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
+    z-index: 50;
+}
+
+.footer {
+    width: 100%;
+    height: 80px;
+}
+
+#calendar button {
+    background: var(--secondary);
+    border: 1px solid var(--secondary);
+}
+
+#calendar button:hover {
+    background: #313131;
+    border: 1px solid #2b2a2a;
 }

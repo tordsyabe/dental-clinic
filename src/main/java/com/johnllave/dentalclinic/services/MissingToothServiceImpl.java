@@ -4,6 +4,7 @@ import com.johnllave.dentalclinic.dto.MissingToothDto;
 import com.johnllave.dentalclinic.entity.MissingTooth;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Teeth;
+import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.MissingToothMapper;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.mapper.TeethMapper;
@@ -40,7 +41,7 @@ public class MissingToothServiceImpl implements MissingToothService {
 
         Teeth tooth = teethService.getTeethById(teethId);
 
-        Patient patient = patientService.getPatientById(Long.parseLong(patientId));
+        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(Long.parseLong(patientId)), new CycleAvoidingMappingContext());
 
         MissingTooth missingTooth = new MissingTooth();
 
@@ -48,10 +49,10 @@ public class MissingToothServiceImpl implements MissingToothService {
 
         patient.addMissingTooth(missingTooth);
 
-        patientService.savePatient(patientMapper.patientToPatientDto(patient));
+        patientService.savePatient(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext()));
 
 
-        return missingToothMapper.missingToothToMissingToothDto(missingTooth);
+        return missingToothMapper.missingToothToMissingToothDto(missingTooth, new CycleAvoidingMappingContext());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Procedure;
+import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.services.PatientService;
 import com.johnllave.dentalclinic.services.ProcedureService;
@@ -34,9 +35,7 @@ public class ProcedureController {
 
         if(bindingResult.hasErrors()) {
 
-            Patient patient = patientService.getPatientById(Long.parseLong(patientId));
-
-            model.addAttribute("patient", patientMapper.patientToPatientDto(patient));
+            model.addAttribute("patient", patientService.getPatientById(Long.parseLong(patientId)));
             return "patient/procedures";
         }
 

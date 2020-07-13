@@ -2,15 +2,13 @@ package com.johnllave.dentalclinic.entity;
 
 import java.time.LocalDate;
 
-import java.time.Period;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -34,19 +32,19 @@ public class Patient extends Person {
 	private LocalDate dateUpdated;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
-	private Set<MissingTooth> missingTeeth = new HashSet<>();
+	private List<MissingTooth> missingTeeth = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
-	private Set<Complaint> complaints = new HashSet<>();
+	private List<Complaint> complaints = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
-	private Set<Procedure> procedures = new HashSet<>();
+	private List<Procedure> procedures = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
-	private Set<Allergy> allergies = new HashSet<>();
+	private List<Allergy> allergies = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
-	private Set<MedicalHistory> medicalHistories = new HashSet<>();
+	private List<MedicalHistory> medicalHistories = new ArrayList<>();
 
 	public Patient addProcedure(Procedure procedure) {
 		procedure.setPatient(this);

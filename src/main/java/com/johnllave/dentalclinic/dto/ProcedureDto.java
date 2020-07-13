@@ -1,11 +1,13 @@
 package com.johnllave.dentalclinic.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -32,6 +34,11 @@ public class ProcedureDto {
     @NotBlank
     private String teethId;
 
+    private TeethDto teeth;
+
+    private InvoiceDto invoiceDto;
+
+    @JsonIgnoreProperties("proceduresDto")
     private PatientDto patientDto;
 
 

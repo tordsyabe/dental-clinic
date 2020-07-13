@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'dayGrid', 'timeGrid', 'list', 'bootstrap', 'darkly' ],
+      plugins: [ 'dayGrid', 'timeGrid', 'list', 'bootstrap', 'interaction' ],
+      selectable: true,
       timeZone: 'UTC',
       themeSystem: 'bootstrap',
       header: {
@@ -18,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 url: "/api/procedures",
                 dataType: "json",
                 success: function(doc) {
-                    console.log(doc);
                     let events = [];
                     doc.forEach(procedure => {
                        events.push({
@@ -30,7 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
       },
-      eventColor: 'red',
+      dateClick: (info) => {
+          console.log(info.dateStr);
+      },
+      eventClick: function(info){
+        console.log(info.event.title);
+      },
+      eventColor: 'var(--secondary)',
 
     });
 

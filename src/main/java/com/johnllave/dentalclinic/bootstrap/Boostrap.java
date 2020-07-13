@@ -54,7 +54,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		if (!upperLeftCentralIncisor.isPresent()) {
 			throw new RuntimeException("Expected Teeth Not Found");
 		}
-		
+
 		Optional<Teeth> lowerright2ndBicuspid = teethRepository.findByDescription("lower right 2nd bicuspid");
 
 		if (!lowerright2ndBicuspid.isPresent()) {
@@ -81,7 +81,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		hillary.setProvince("Negros Occidental");
 		hillary.addMissingTooth(missingTooth1);
 		hillary.addMissingTooth(missingTooth2);
-		
+
 		Patient john = new Patient();
 
 		john.setFirstName("John");
@@ -103,7 +103,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure1.setPaid(false);
 		procedure1.setTeeth(upperRight3rdMolar.orElse(null));
 		procedure1.setDateCreated(LocalDate.of(2020, 3, 2));
-		
+
 		Procedure procedure2 = new Procedure();
 
 		procedure2.setCategory("Restoration");
@@ -113,8 +113,8 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure2.setTeeth(upperLeftCentralIncisor.orElse(null));
 		procedure2.setDateCreated(LocalDate.now());
 
-		
-		
+
+
 		Procedure procedure3 = new Procedure();
 
 		procedure3.setCategory("Root Canal");
@@ -123,7 +123,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure3.setPaid(true);
 		procedure3.setTeeth(lowerright2ndBicuspid.orElse(null));
 		procedure3.setDateCreated(LocalDate.of(2020, 1, 1));
-		
+
 		Procedure procedure4 = new Procedure();
 
 		procedure4.setCategory("Prosthetics");

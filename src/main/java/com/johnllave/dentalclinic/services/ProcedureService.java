@@ -10,6 +10,8 @@ public interface ProcedureService {
 
     List<ProcedureDto> getProcedures();
 
+    List<ProcedureDto> getProceduresByDate(String date);
+
     PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto);
 
     ProcedureDto createInvoiceByProcedureId(Long id, InvoiceDto invoiceDto);

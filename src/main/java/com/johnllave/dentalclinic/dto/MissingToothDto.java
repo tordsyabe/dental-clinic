@@ -1,5 +1,6 @@
 package com.johnllave.dentalclinic.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MissingToothDto {
 
+    private String id;
+
     private String teethId;
     private String patientId;
+
+    private TeethDto teeth;
+
+    @JsonIgnoreProperties("missingTeethDto")
+    private PatientDto patientDto;
 }

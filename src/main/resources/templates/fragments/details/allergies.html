@@ -1,23 +1,31 @@
 
     <div style="height: 50%;" th:fragment="allergies">
-        <div class="d-flex justify-content-between align-items-center px-2">
+        <div class="d-flex justify-content-between align-items-center px-2 mb-3">
             <h6 class="card-subtitle">Allergies</h6>
             <i class="fa fa-plus icon-button toggle-health-form" id="addAllergy"></i>
         </div>
 
         <div th:replace="fragments/forms/allergy-form :: allergyForm"></div>
 
-        <div class="allergy-list" th:if="${patient.allergies.size() > 0}">
+        <div class="allergy-list" th:if="${patient.allergiesDto.size() > 0}">
             <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
-                <li class="py-1" th:each="allergy : ${patient.allergies}"
-                    th:data-allergy-id="${allergy.id}"  th:onclick="|handleDeleteAllergy('${allergy.id}')|">
+                <li class="py-1" th:each="allergy : ${patient.allergiesDto}"
+                    th:data-allergy-id="${allergy.id}">
                     <i class="fa fa-check-circle pr-2"></i>
-                    <span th:text="${allergy.description}"></span>
+                    <span class="allergy-desc" th:text="${allergy.description}" th:attr="onclick='openAllergyDeleteForm(\'' + ${allergy.id}+'\')'"></span>
+
+                    <div th:data-allergy-delete-form="${allergy.id}">
+                        <span class="text-muted small">Are you sure you want to delete this procedure?</span>
+                        <div style="float: right;">
+                            <a class="btn btn-secondary btn-sm" th:attr="onclick='closeAllergyDeleteForm(\'' + ${allergy.id}+'\')'">Cancel</a>
+                            <a class="btn btn-danger btn-sm" th:attr="onclick='handleDeleteAllergy(\'' + ${allergy.id}+'\')'">Delete</a>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
 
-        <div class="allergy-list" th:unless="${patient.allergies.size() > 0}">
+        <div class="allergy-list" th:unless="${patient.allergiesDto.size() > 0}">
             <h5 class="text-muted mt-3 pl-2" id="noAllergiesP">No Allergies</h5>
         </div>
 

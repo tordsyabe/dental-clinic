@@ -1,5 +1,7 @@
 .healthNoteForms {
     display: none;
+    opacity: 0;
+
 }
 
 .allergy-list ul li i,
@@ -7,13 +9,13 @@
     color: var(--info);
 }
 
-.allergy-list ul li,
-.medical-history-list ul li {
+.allergy-list ul li .allergy-desc,
+.medical-history-list ul li .med-hist-desc {
     cursor: pointer;
 }
 
-.allergy-list ul li:hover,
-.medical-history-list ul li:hover{
+.allergy-list ul li .allergy-desc:hover,
+.medical-history-list ul li .med-hist-desc:hover{
     text-decoration: line-through;
 }
 
@@ -56,9 +58,48 @@
     display: none;
 }
 
-[data-invoice-form-id] {
+
+[data-invoice-form] {
     display: none;
+    opacity: 0;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
 }
+
+[data-invoice-form] .form-group,
+ [data-invoice-form] label{
+    margin-bottom: 0 !important;
+}
+
+[data-procedure-delete-form] {
+    display: none;
+    opacity: 0;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+[data-complaint-delete-form] {
+    display: none;
+    opacity: 0;
+    margin-top: 1rem;
+}
+
+[data-allergy-delete-form] {
+    display: none;
+    opacity: 0;
+    height: 2rem;
+    margin-top: 1rem;
+}
+
+[data-med-hist-delete-form] {
+    display: none;
+    opacity: 0;
+    height: 2rem;
+    margin-top: 1rem;
+}
+
 
 
 
