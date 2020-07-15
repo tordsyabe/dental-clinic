@@ -10,9 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MedicalHistoryDto {
-
-    private String id;
+public class MedicalHistoryDto extends BaseDto {
 
     private String description;
 

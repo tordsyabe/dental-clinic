@@ -10,11 +10,13 @@ public interface ProcedureService {
 
     List<ProcedureDto> getProcedures();
 
+    ProcedureDto getProcedureById(String id);
+
     List<ProcedureDto> getProceduresByDate(String date);
 
-    PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto);
+    ProcedureDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto);
 
-    ProcedureDto createInvoiceByProcedureId(Long id, InvoiceDto invoiceDto);
+    List<ProcedureDto> getProceduresByPatientIdAndToothId(String patientId, String toothId);
 
-    void deleteProcedureById(String id);
+    void deleteProcedure(String id);
 }

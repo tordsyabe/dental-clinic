@@ -294,16 +294,17 @@ input[id="tooth32"]:checked ~ svg #tooth32n {
 }
 
 .dropdown-menu button:hover, .dropdown-menu button:focus {
-        background-image:none !important;
+    background-image:none !important;
 }
+
 .dropdown-menu button:hover, .dropdown-menu button:focus {
-        background-color: var(--info);
+    background-color: var(--info);
 }
 
 
- .dropdown-menu button {
+.dropdown-menu button {
     font-size: 0.875rem;
- }
+}
 
 
 #toothProcedures {
@@ -316,3 +317,4 @@ input[id="tooth32"]:checked ~ svg #tooth32n {
 #with__procedure {
     display: none;
 }
+

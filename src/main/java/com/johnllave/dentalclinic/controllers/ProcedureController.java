@@ -33,15 +33,15 @@ public class ProcedureController {
     public String saveProcedure(@PathVariable String patientId, @Valid @ModelAttribute ProcedureDto procedureDto,
                                 BindingResult bindingResult, Model model) {
 
-        if(bindingResult.hasErrors()) {
+//        if(bindingResult.hasErrors()) {
+//
+//            model.addAttribute("patient", patientService.getPatientById(patientId));
+//            return "patient/procedures";
+//        }
 
-            model.addAttribute("patient", patientService.getPatientById(Long.parseLong(patientId)));
-            return "patient/procedures";
-        }
+        procedureService.saveProcedureByPatientId(patientId, procedureDto);
 
-        PatientDto savedPatientProcedure = procedureService.saveProcedureByPatientId(patientId, procedureDto);
-
-        return "redirect:/patient/details/" + savedPatientProcedure.getId();
+        return "redirect:/patient/details/" + patientId;
     }
 
 

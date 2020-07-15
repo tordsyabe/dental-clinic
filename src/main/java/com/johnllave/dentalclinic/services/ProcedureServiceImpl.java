@@ -1,42 +1,40 @@
 package com.johnllave.dentalclinic.services;
 
 import com.johnllave.dentalclinic.dto.InvoiceDto;
-import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Invoice;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.Procedure;
-import com.johnllave.dentalclinic.entity.Teeth;
+import com.johnllave.dentalclinic.entity.Tooth;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
+import com.johnllave.dentalclinic.mapper.InvoiceMapper;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.mapper.ProcedureMapper;
 import com.johnllave.dentalclinic.repository.ProcedureRepository;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
 public class ProcedureServiceImpl implements ProcedureService {
 
-    private final TeethService teethService;
+    private final ToothService toothService;
     private final PatientService patientService;
     private final ProcedureMapper procedureMapper;
     private final PatientMapper patientMapper;
     private final ProcedureRepository procedureRepository;
+    private final InvoiceMapper invoiceMapper;
 
-    public ProcedureServiceImpl(TeethService teethService, PatientService patientService, ProcedureMapper procedureMapper, PatientMapper patientMapper, ProcedureRepository procedureRepository) {
-        this.teethService = teethService;
+    public ProcedureServiceImpl(ToothService toothService, PatientService patientService, ProcedureMapper procedureMapper, PatientMapper patientMapper, ProcedureRepository procedureRepository, InvoiceMapper invoiceMapper) {
+        this.toothService = toothService;
         this.patientService = patientService;
         this.procedureMapper = procedureMapper;
-
         this.patientMapper = patientMapper;
         this.procedureRepository = procedureRepository;
+        this.invoiceMapper = invoiceMapper;
     }
 
 
@@ -48,6 +46,14 @@ public class ProcedureServiceImpl implements ProcedureService {
         procedureRepository.findAll().forEach(procedure -> procedures.add(procedureMapper.procedureToProcedureDto(procedure, new CycleAvoidingMappingContext())));
 
         return procedures;
+    }
+
+    @Override
+    public ProcedureDto getProcedureById(String id) {
+
+        Procedure procedure = procedureRepository.findByUuid(id);
+
+        return procedureMapper.procedureToProcedureDto(procedure, new CycleAvoidingMappingContext());
     }
 
     @Override
@@ -63,44 +69,47 @@ public class ProcedureServiceImpl implements ProcedureService {
     }
 
     @Override
-    public PatientDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto) {
-        Teeth teethToSave = teethService.getTeethById(procedureDto.getTeethId());
+    public ProcedureDto saveProcedureByPatientId(String patientId, ProcedureDto procedureDto) {
+        Tooth toothToSave = toothService.getToothById(procedureDto.getTeethId());
 
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(Long.parseLong(patientId)), new CycleAvoidingMappingContext());
+        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
 
         procedureDto.setPaid(false);
 
         Procedure procedure = procedureMapper.procedureDtoToProcedure(procedureDto, new CycleAvoidingMappingContext());
 
-        procedure.setTeeth(teethToSave);
+        procedure.setTooth(toothToSave);
 
-        patient.addProcedure(procedure);
+        procedure.setPatient(patient);
 
-        PatientDto patientDto = patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext());
+        procedure.setUuid(UUID.randomUUID().toString());
 
-        return patientService.savePatient(patientDto);
+        procedureRepository.save(procedure);
+
+        return procedureMapper.procedureToProcedureDto(procedureRepository.save(procedure), new CycleAvoidingMappingContext());
+    }
+
+
+    @Override
+    public List<ProcedureDto> getProceduresByPatientIdAndToothId(String patientId, String toothId) {
+
+        List<ProcedureDto> procedures = new ArrayList<>();
+
+        procedureRepository
+                .findAllByPatientIdAndToothId(patientId, toothId)
+                .forEach(procedure -> procedures
+                        .add(procedureMapper.procedureToProcedureDto(procedure, new CycleAvoidingMappingContext())));
+
+
+        return procedures;
     }
 
     @Override
-    public ProcedureDto createInvoiceByProcedureId(Long id, InvoiceDto invoiceDto) {
+    public void deleteProcedure(String id) {
 
-        Procedure procedure =  procedureRepository.findById(id).orElse(null);
-        procedure.setPaid(true);
-        procedure.setInvoice(new Invoice(LocalDate.now()
-                .toString()
-                .replace("-", "") + "-0" + procedure.getId(),
-                LocalDate.parse(invoiceDto.getDatePaid()),
-                Integer.parseInt(invoiceDto.getCost()),
-                LocalDate.now()));
+        Procedure procedure = procedureRepository.findByUuid(id);
 
-        Procedure savedProcedure = procedureRepository.save(procedure);
-
-        return procedureMapper.procedureToProcedureDto(savedProcedure, new CycleAvoidingMappingContext());
-    }
-
-    @Override
-    public void deleteProcedureById(String id) {
-        procedureRepository.deleteById(Long.parseLong(id));
+        procedureRepository.delete(procedure);
     }
 
 }

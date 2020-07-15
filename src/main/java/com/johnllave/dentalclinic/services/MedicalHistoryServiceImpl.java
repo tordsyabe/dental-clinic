@@ -9,6 +9,8 @@ import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.repository.MedicalHistoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 
@@ -27,9 +29,11 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     @Override
     public MedicalHistoryDto saveMedicalHistoryByPatientId(String id, MedicalHistoryDto medicalHistoryDto) {
 
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(Long.parseLong(id)), new CycleAvoidingMappingContext());
+        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(id), new CycleAvoidingMappingContext());
 
         MedicalHistory medicalHistory = medicalHistoryMapper.medicalHistoryDtoToMedicalHistory(medicalHistoryDto, new CycleAvoidingMappingContext());
+
+        medicalHistory.setUuid(UUID.randomUUID().toString());
 
         medicalHistory.setPatient(patient);
 
@@ -37,7 +41,10 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     }
 
     @Override
-    public void deleteMedicalHistoryById(String id) {
-        medicalHistoryRepository.deleteById(Long.parseLong(id));
+    public void deleteMedicalHistory(String id) {
+
+        MedicalHistory medicalHistory = medicalHistoryRepository.findByUuid(id);
+
+        medicalHistoryRepository.delete(medicalHistory);
     }
 }

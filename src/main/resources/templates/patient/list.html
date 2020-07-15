@@ -56,7 +56,7 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="patient : ${#lists.sort(patients, lastName)}" class="clickable-row" th:data-href="${'/patient/details/' + patient.id}">
+						<tr th:each="patient : ${#lists.sort(patients, lastName)}" class="clickable-row" th:data-href="${'/patient/details/' + patient.uuid}">
 							<th scope="row">
 								<img th:if="${patient.image == null || patient.image == ''}"
 									 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}"

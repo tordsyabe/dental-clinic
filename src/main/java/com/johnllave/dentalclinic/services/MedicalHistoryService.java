@@ -6,5 +6,5 @@ public interface MedicalHistoryService {
 
     MedicalHistoryDto saveMedicalHistoryByPatientId(String id, MedicalHistoryDto medicalHistoryDto);
 
-    void deleteMedicalHistoryById(String id);
+    void deleteMedicalHistory(String id);
 }

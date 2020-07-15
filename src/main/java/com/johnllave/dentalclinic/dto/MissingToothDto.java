@@ -8,14 +8,12 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class MissingToothDto {
-
-    private String id;
+public class MissingToothDto extends BaseDto {
 
     private String teethId;
     private String patientId;
 
-    private TeethDto teeth;
+    private ToothDto toothDto;
 
     @JsonIgnoreProperties("missingTeethDto")
     private PatientDto patientDto;

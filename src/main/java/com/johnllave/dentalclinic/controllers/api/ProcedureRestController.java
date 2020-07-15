@@ -33,17 +33,17 @@ public class ProcedureRestController {
 
     }
 
-    @PutMapping("/{id}")
+    @GetMapping("/patient/{patientId}/tooth/{toothId}")
     @ResponseStatus(HttpStatus.OK)
-    public ProcedureDto createInvoice(@PathVariable String id, @RequestBody InvoiceDto invoiceDto) {
+    public List<ProcedureDto> getProceduresByPatientIdAndToothId(@PathVariable String patientId, @PathVariable String toothId) {
 
-        return procedureService.createInvoiceByProcedureId(Long.parseLong(id), invoiceDto);
+        return procedureService.getProceduresByPatientIdAndToothId(patientId, toothId);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteProcedure(@PathVariable String id) {
-        procedureService.deleteProcedureById(id);
+        procedureService.deleteProcedure(id);
     }
 
 }

@@ -22,7 +22,7 @@
 
             <!-- MAIN CONTENT DETAILS -->
                 <!-- PROCEDURE CATEGORIES -->
-            <form class="needs-validation" novalidate th:object="${procedureDto}" th:action="@{'/patient/procedures/' + ${patient.id}}" method="post">
+            <form class="needs-validation" novalidate th:object="${procedureDto}" th:action="@{'/patient/procedures/' + ${patient.uuid}}" method="post">
 
             <div th:replace="fragments/procedureCategory :: procedureCategory"></div>
 
@@ -138,18 +138,18 @@
 
             <ul style="display:none;" id="missing">
 
-                <li th:each="missing : ${patient.missingTeethDto}" th:text="${missing.teeth.number}" th:id="${missing.teeth.number}"></li>
+                <li th:each="missing : ${patient.missingTeethDto}" th:text="${missing.toothDto.number}" th:id="${missing.toothDto.number}"></li>
             </ul>
             <ul style="display:none;" id="procedures">
 
-                <li th:each="procedure : ${patient.proceduresDto}" th:text="${procedure.teeth.number}" th:id="${procedure.teeth.number}"></li>
+                <li th:each="procedure : ${patient.proceduresDto}" th:text="${procedure.toothDto.number}" th:id="${procedure.toothDto.number}"></li>
             </ul>
             <ul style="display:none;" id="extracted">
 
                 <li th:each="procedure : ${patient.proceduresDto}"
                     th:if="${procedure.category == 'extraction'}"
-                    th:text="${procedure.teeth.number}"
-                    th:id="${procedure.teeth.number}"></li>
+                    th:text="${procedure.tooth.number}"
+                    th:id="${procedure.tooth.number}"></li>
             </ul>
 
             <!-- END MAIN CONTENT DETAILS -->
@@ -176,7 +176,7 @@
                                         <span class="text-capitalize" th:text="${procedure.description}"></span>
                                         <p class="small" th:if="${procedure.invoiceDto == null}"></p>
                                         <span class="small" th:if="${procedure.invoiceDto != null}">
-                                            <span class="text-muted">INVOICE NO.: </span><span th:text="${procedure.invoice.invoiceNo}"></span>
+                                            <span class="text-muted">INVOICE NO.: </span><span th:text="${procedure.invoiceDto.invoiceNo}"></span>
                                         </span>
 
 

@@ -29,6 +29,6 @@ public class ComplaintRestController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteComplaint(@PathVariable String id) {
 
-        complaintService.deleteComplaintById(id);
+        complaintService.deleteComplaint(id);
     }
 }

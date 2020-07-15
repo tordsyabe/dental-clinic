@@ -29,6 +29,6 @@ public class MedicalHsitoryRestController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteMedicalHistory(@PathVariable String id) {
 
-        medicalHistoryService.deleteMedicalHistoryById(id);
+        medicalHistoryService.deleteMedicalHistory(id);
     }
 }

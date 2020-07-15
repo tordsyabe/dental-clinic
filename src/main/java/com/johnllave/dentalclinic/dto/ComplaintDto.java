@@ -8,9 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ComplaintDto {
+public class ComplaintDto extends BaseDto {
 
-    private String id;
     private String description;
     private String dateCreated;
     private String patientId;

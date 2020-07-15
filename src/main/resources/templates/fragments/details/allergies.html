@@ -10,15 +10,15 @@
         <div class="allergy-list" th:if="${patient.allergiesDto.size() > 0}">
             <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
                 <li class="py-1" th:each="allergy : ${patient.allergiesDto}"
-                    th:data-allergy-id="${allergy.id}">
+                    th:data-allergy-id="${allergy.uuid}">
                     <i class="fa fa-check-circle pr-2"></i>
-                    <span class="allergy-desc" th:text="${allergy.description}" th:attr="onclick='openAllergyDeleteForm(\'' + ${allergy.id}+'\')'"></span>
+                    <span class="allergy-desc" th:text="${allergy.description}" th:attr="onclick='openAllergyDeleteForm(\'' + ${allergy.uuid}+'\')'"></span>
 
-                    <div th:data-allergy-delete-form="${allergy.id}">
+                    <div th:data-allergy-delete-form="${allergy.uuid}">
                         <span class="text-muted small">Are you sure you want to delete this procedure?</span>
                         <div style="float: right;">
-                            <a class="btn btn-secondary btn-sm" th:attr="onclick='closeAllergyDeleteForm(\'' + ${allergy.id}+'\')'">Cancel</a>
-                            <a class="btn btn-danger btn-sm" th:attr="onclick='handleDeleteAllergy(\'' + ${allergy.id}+'\')'">Delete</a>
+                            <a class="btn btn-secondary btn-sm" th:attr="onclick='closeAllergyDeleteForm(\'' + ${allergy.uuid}+'\')'">Cancel</a>
+                            <a class="btn btn-danger btn-sm" th:attr="onclick='handleDeleteAllergy(\'' + ${allergy.uuid}+'\')'">Delete</a>
                         </div>
                     </div>
                 </li>

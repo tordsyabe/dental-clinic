@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.*;
+
 @Getter
 @Setter
 @Entity
@@ -15,7 +17,7 @@ import javax.persistence.*;
 public class MissingTooth extends BaseEntity {
 
     @OneToOne
-    private Teeth teeth;
+    private Tooth tooth;
 
     @ManyToOne
     private Patient patient;

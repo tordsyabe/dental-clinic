@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
-import com.johnllave.dentalclinic.dto.ProcedureDto;
-import com.johnllave.dentalclinic.entity.Procedure;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.mapper.ProcedureMapper;
@@ -42,22 +40,26 @@ public class PatientServiceImpl implements PatientService{
 		
 		patientRepository.findAll().forEach(patient -> patientsDto.add(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext())));
 
-//		patientsDto.forEach(patient -> patient.setAge(Period.between(LocalDate.parse(patient.getBirthDate()), LocalDate.now()).getYears()));
+		patientsDto.forEach(patient -> patient.setAge(Period.between(LocalDate.parse(patient.getBirthDate()), LocalDate.now()).getYears()));
 		
 		return patientsDto;
 	}
 
 
 	@Override
-	public PatientDto getPatientById(Long id) {
+	public PatientDto getPatientById(String id) {
 
-		Patient patient = patientRepository.findById(id).orElse(null);
+		Patient patient = patientRepository.findByUuid(id);
 
 		if(patient != null) {
 			patient.setAge(Period.between(patient.getBirthDate(), LocalDate.now()).getYears());
 		}
 
-		return patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext());
+		PatientDto patientDto = patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext());
+
+		System.out.println("DONE");
+
+		return patientDto;
 
 	}
 
@@ -66,7 +68,7 @@ public class PatientServiceImpl implements PatientService{
 
 		Patient patient = patientMapper.patientDtoToPatient(patientDto, new CycleAvoidingMappingContext());
 
-		if(patientDto.getId() == null) {
+		if(patientDto.getUuid() == null) {
 			patient.setDateCreated(LocalDate.now());
 		}
 

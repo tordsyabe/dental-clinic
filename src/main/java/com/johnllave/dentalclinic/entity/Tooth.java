@@ -14,17 +14,17 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-public class Teeth  extends BaseEntity{
+public class Tooth  extends BaseEntity{
 	
 	private String description;
 	private String category;
 	private Integer number;
 
-	public Teeth() {
+	public Tooth() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Teeth(String description, String category, Integer number) {
+	public Tooth(String description, String category, Integer number) {
 		this.description = description;
 		this.category = category;
 		this.number = number;

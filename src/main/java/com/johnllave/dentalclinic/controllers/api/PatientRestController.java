@@ -29,6 +29,6 @@ public class PatientRestController {
     @ResponseStatus(HttpStatus.OK)
     public PatientDto getPatient(@PathVariable String id) {
 //        System.out.println(patientService.getPatientById(Long.parseLong(id)));
-        return patientService.getPatientById(Long.parseLong(id));
+        return patientService.getPatientById(id);
     }
 }

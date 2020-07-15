@@ -1,6 +1,7 @@
 package com.johnllave.dentalclinic.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,8 @@ public class BaseEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Long id;
+
+	private String uuid = UUID.randomUUID().toString();
 	
 	
 

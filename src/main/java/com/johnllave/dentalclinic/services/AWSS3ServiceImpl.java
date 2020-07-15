@@ -62,7 +62,7 @@ public class AWSS3ServiceImpl implements AWSS3Service {
 
         amazonS3.putObject(putObjectRequest);
 
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(Long.parseLong(patientId)), new CycleAvoidingMappingContext());
+        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
 
         patient.setImage(endPoint + uniqueFileName);
 

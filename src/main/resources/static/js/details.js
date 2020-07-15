@@ -124,14 +124,14 @@ const submitInvoiceProcedure = (event, formId) => {
 
 
         $.ajax({
-            type: "PUT",
+            type: "POST",
             contentType: "application/JSON",
-            url: "/api/procedures/" + formId,
+            url: "/api/invoices",
             dataType: "json",
             data: JSON.stringify({
                 datePaid: invoiceDate,
                 cost: invoiceCost,
-                dateCreated: Date.now()
+                procedureId: formId
             }),
             success: function(result) {
                 console.log(result);
@@ -139,7 +139,7 @@ const submitInvoiceProcedure = (event, formId) => {
                 $(`*[data-invoice-form="${formId}"]`).remove();
 
 
-                const procedureCard = $(`*[data-procedure-card="${result.id}"]`);
+                const procedureCard = $(`*[data-procedure-card="${result.procedureDto.uuid}"]`);
 
                     procedureCard.find("i#procedureIcon").removeClass("fa fa-circle fa-lg")
                     .addClass("fa fa-check-circle fa-lg")
@@ -267,7 +267,7 @@ $(document).ready(function() {
                                 case "complaints":
                                 console.log("FROM COMPLAINTS CASE");
                                     $(".complaint-list").prepend(`
-                                    <div class="card mb-3" data-comp-id=${data.id}>
+                                    <div class="card mb-3" data-comp-id="${data.uuid}">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-sm-10">
@@ -276,15 +276,15 @@ $(document).ready(function() {
                                                 </div>
                                                 <div class="col-sm-2 d-flex justify-content-center align-items-center">
                                                     <i class="fa fa-trash icon-button"
-                                                        onclick="openComplaintDeleteForm(${data.id})"
+                                                        onclick="openComplaintDeleteForm('${data.uuid}')"
                                                         style="display: none;"></i>
 
                                                 </div>
-                                                <div class="col-sm-12" data-complaint-delete-form="${data.id}">
+                                                <div class="col-sm-12" data-complaint-delete-form="${data.uuid}">
                                                         <span class="text-muted small">Are you sure you want to delete this procedure?</span>
                                                         <div style="float: right;">
-                                                            <a class="btn btn-secondary btn-sm" onclick="closeComplaintDeleteForm('${data.id}')">Cancel</a>
-                                                            <a class="btn btn-danger btn-sm" onclick="handleDeleteComplaint('${data.id}')">Delete</a>
+                                                            <a class="btn btn-secondary btn-sm" onclick="closeComplaintDeleteForm('${data.uuid}')">Cancel</a>
+                                                            <a class="btn btn-danger btn-sm" onclick="handleDeleteComplaint('${data.uuid}')">Delete</a>
                                                         </div>
 
 
@@ -307,15 +307,15 @@ $(document).ready(function() {
                                     console.log("FROM ALLERGIES CASE");
                                      if($(".allergy-list").find("ul").length > 0) {
                                           $(".allergy-list").find("ul").append(`
-                                              <li class="py-1">
+                                              <li class="py-1" data-allergy-id=${data.uuid}>
                                                  <i class="fa fa-check-circle pr-2"></i>
-                                                 <span onclick="openAllergyDeleteForm('${data.id}')">${data.description}</span>
+                                                 <span class="allergy-desc" onclick="openAllergyDeleteForm('${data.uuid}')">${data.description}</span>
 
-                                                  <div  data-allergy-delete-form="${data.id}">
+                                                  <div  data-allergy-delete-form="${data.uuid}">
                                                      <span class="text-muted small">Are you sure you want to delete this procedure?</span>
                                                      <div style="float: right;">
-                                                         <a class="btn btn-secondary btn-sm" onclick="closeAllergyDeleteForm('${data.id}')">Cancel</a>
-                                                         <a class="btn btn-danger btn-sm" onclick="handleDeleteAllergy('${data.id}')">Delete</a>
+                                                         <a class="btn btn-secondary btn-sm" onclick="closeAllergyDeleteForm('${data.uuid}')">Cancel</a>
+                                                         <a class="btn btn-danger btn-sm" onclick="handleDeleteAllergy('${data.uuid}')">Delete</a>
                                                      </div>
                                                  </div>
                                               </li>
@@ -323,9 +323,9 @@ $(document).ready(function() {
                                      } else {
                                         $(".allergy-list").append(`
                                         <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
-                                            <li class="py-1" data-allergy-id=${data.id} onclick="handleDeleteAllergy(${data.id})">
+                                            <li class="py-1" data-allergy-id=${data.uuid} onclick="handleDeleteAllergy('${data.uuid}')">
                                                  <i class="fa fa-check-circle pr-2"></i>
-                                                 <span>${data.description}</span>
+                                                 <span class="allergy-desc">${data.description}</span>
                                             </li>
                                         </ul>
                                         `);
@@ -342,15 +342,15 @@ $(document).ready(function() {
                                      console.log("FROM MEDICAL HISTORY CASE");
                                       if($(".medical-history-list").find("ul").length > 0) {
                                            $(".medical-history-list").find("ul").append(`
-                                               <li class="py-1" data-medicalhistory-id=${data.id} onclick="handleDeleteMedicalHistory(${data.id})">
+                                               <li class="py-1" data-medicalhistory-id=${data.uuid} onclick="handleDeleteMedicalHistory('${data.uuid}')">
                                                   <i class="fa fa-check-circle pr-2"></i>
-                                                  <span class="med-hist-desc" onclick="openMedHistDeleteForm(${data.id})">${data.description}</span>
+                                                  <span class="med-hist-desc" onclick="openMedHistDeleteForm('${data.uuid}')">${data.description}</span>
 
-                                                  <div data-med-hist-delete-form="${data.id}">
+                                                  <div data-med-hist-delete-form="${data.uuid}">
                                                       <span class="text-muted small">Are you sure you want to delete this procedure?</span>
                                                       <div style="float: right;">
-                                                          <a class="btn btn-secondary btn-sm" onclick="closeMedHistDeleteForm('${data.id}')">Cancel</a>
-                                                          <a class="btn btn-danger btn-sm" onclick="handleDeleteMedHist('${data.id}')">Delete</a>
+                                                          <a class="btn btn-secondary btn-sm" onclick="closeMedHistDeleteForm('${data.uuid}')">Cancel</a>
+                                                          <a class="btn btn-danger btn-sm" onclick="handleDeleteMedHist('${data.uuid}')">Delete</a>
                                                       </div>
                                                   </div>
                                                </li>
@@ -358,9 +358,9 @@ $(document).ready(function() {
                                       } else {
                                          $(".medical-history-list").append(`
                                          <ul class="mt-2" style="list-style: none; padding-left: 30px;" >
-                                             <li class="py-1" data-medicalhistory-id=${data.id} onclick="handleDeleteMedicalHistory(${data.id})">
+                                             <li class="py-1" data-medicalhistory-id=${data.uuid} onclick="handleDeleteMedicalHistory('${data.uuid}')">
                                                   <i class="fa fa-check-circle pr-2"></i>
-                                                  <span>${data.description}</span>
+                                                  <span class="med-hist-desc">${data.description}</span>
                                              </li>
                                          </ul>
                                          `);

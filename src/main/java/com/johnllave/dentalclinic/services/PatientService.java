@@ -10,7 +10,7 @@ public interface PatientService {
 	
 	List<PatientDto> getPatients();
 	
-	PatientDto getPatientById(Long id);
+	PatientDto getPatientById(String id);
 
 	PatientDto savePatient(PatientDto patientDto);
 

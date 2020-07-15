@@ -22,9 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PatientDto {
-	
-	private String id;
+public class PatientDto extends BaseDto{
 
 	@NotEmpty
 	@Size(min = 2, max = 20)

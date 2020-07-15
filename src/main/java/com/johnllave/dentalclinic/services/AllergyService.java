@@ -1,10 +1,11 @@
 package com.johnllave.dentalclinic.services;
 
 import com.johnllave.dentalclinic.dto.AllergyDto;
+import com.johnllave.dentalclinic.entity.Allergy;
 
 public interface AllergyService {
 
-    AllergyDto saveAllergyByPatientId(String id, AllergyDto allergyDto);
+    AllergyDto saveAllergy(AllergyDto allergyDto);
 
-    void deleteAllergyById(String id);
+    void deleteAllergy(String id);
 }

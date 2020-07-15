@@ -3,11 +3,10 @@ package com.johnllave.dentalclinic.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -23,13 +22,9 @@ public class Invoice extends BaseEntity {
 
     private LocalDate dateCreated;
 
-    public Invoice() {
-    }
+    @OneToOne
+    @JoinColumn(name = "procedure_id")
+    private Procedure procedure;
 
-    public Invoice(String invoiceNo, LocalDate datePaid, Integer cost, LocalDate dateCreated) {
-        this.invoiceNo = invoiceNo;
-        this.datePaid = datePaid;
-        this.cost = cost;
-        this.dateCreated = dateCreated;
-    }
+
 }

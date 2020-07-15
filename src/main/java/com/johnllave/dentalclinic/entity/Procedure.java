@@ -1,19 +1,14 @@
 package com.johnllave.dentalclinic.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
+
+import static javax.persistence.CascadeType.*;
 
 @Getter
 @Setter
@@ -29,9 +24,9 @@ public class Procedure extends BaseEntity {
 	private String category;
 	
 	@OneToOne
-	private Teeth teeth;
+	private Tooth tooth;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = ALL, mappedBy = "procedure")
 	private Invoice invoice;
 
 	@ManyToOne

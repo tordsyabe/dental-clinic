@@ -1,18 +1,17 @@
 package com.johnllave.dentalclinic.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-public class TeethDto {
+public class BaseDto {
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String id;
-    private String description;
-    private String category;
-    private Integer number;
+
+    private String uuid;
 }

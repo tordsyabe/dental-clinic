@@ -3,34 +3,34 @@ package com.johnllave.dentalclinic.services;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.johnllave.dentalclinic.entity.Tooth;
+import com.johnllave.dentalclinic.repository.ToothRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.johnllave.dentalclinic.entity.Teeth;
-import com.johnllave.dentalclinic.repository.TeethRepository;
 
 @Service
-public class TeethServiceImpl implements TeethService {
+public class TeethServiceImpl implements ToothService {
 
-	private final TeethRepository teethRepository;
+	private final ToothRepository toothRepository;
 
 	@Autowired
-	public TeethServiceImpl(TeethRepository teethRepository) {
-		this.teethRepository = teethRepository;
+	public TeethServiceImpl(ToothRepository toothRepository) {
+		this.toothRepository = toothRepository;
 	}
 
 	@Override
-	public Set<Teeth> getTeeth() {
+	public Set<Tooth> getTooth() {
 
-		Set<Teeth> teeth = new HashSet<>();
+		Set<Tooth> teeth = new HashSet<>();
 
-		teethRepository.findAll().forEach(tooth -> teeth.add(tooth));
+		toothRepository.findAll().forEach(tooth -> teeth.add(tooth));
 		return teeth;
 	}
 
 
 	@Override
-	public Teeth getTeethById(String id) {
-		return teethRepository.findById(Long.parseLong(id)).orElseGet(null);
+	public Tooth getToothById(String id) {
+		return toothRepository.findById(Long.parseLong(id)).orElseGet(null);
 	}
 }

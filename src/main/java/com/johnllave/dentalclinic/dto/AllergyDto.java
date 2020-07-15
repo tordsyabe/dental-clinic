@@ -10,9 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AllergyDto {
-
-    private String id;
+public class AllergyDto extends BaseDto{
 
     private String description;
 

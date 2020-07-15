@@ -16,11 +16,13 @@ public interface InvoiceMapper {
     @Mapping(target = "dateCreated", source = "invoice.dateCreated", dateFormat = "yyyy-MM-dd")
     @Mapping(target = "cost", source = "invoice.cost")
     @Mapping(target = "datePaid", source = "invoice.datePaid", dateFormat = "yyyy-MM-dd")
+    @Mapping(target = "procedureDto", source = "invoice.procedure")
     InvoiceDto invoiceToInvoiceDto(Invoice invoice, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
     @Mapping(target = "id", source = "invoiceDto.id")
     @Mapping(target = "dateCreated", source = "invoiceDto.dateCreated", dateFormat = "yyyy-MM-dd")
     @Mapping(target = "cost", source = "invoiceDto.cost")
     @Mapping(target = "datePaid", source = "invoiceDto.datePaid", dateFormat = "yyyy-MM-dd")
+    @Mapping(target = "procedure", source = "invoiceDto.procedureDto")
     Invoice invoiceDtoToInvoice(InvoiceDto invoiceDto, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 }

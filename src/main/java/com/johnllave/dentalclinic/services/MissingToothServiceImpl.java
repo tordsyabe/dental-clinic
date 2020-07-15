@@ -3,11 +3,11 @@ package com.johnllave.dentalclinic.services;
 import com.johnllave.dentalclinic.dto.MissingToothDto;
 import com.johnllave.dentalclinic.entity.MissingTooth;
 import com.johnllave.dentalclinic.entity.Patient;
-import com.johnllave.dentalclinic.entity.Teeth;
+import com.johnllave.dentalclinic.entity.Tooth;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.MissingToothMapper;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
-import com.johnllave.dentalclinic.mapper.TeethMapper;
+import com.johnllave.dentalclinic.mapper.ToothMapper;
 import com.johnllave.dentalclinic.repository.MissingToothRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,36 +16,35 @@ import org.springframework.stereotype.Service;
 public class MissingToothServiceImpl implements MissingToothService {
 
 
-    private final TeethMapper teethMapper;
     private final PatientService patientService;
     private final MissingToothRepository missingToothRepository;
     private final MissingToothMapper missingToothMapper;
-    private final TeethService teethService;
+    private final ToothService toothService;
     private final PatientMapper patientMapper;
-
+    private final ToothMapper toothMapper;
 
 
     @Autowired
-    public MissingToothServiceImpl(TeethMapper teethMapper, PatientService patientService, MissingToothRepository missingToothRepository, MissingToothMapper missingToothMapper, TeethService teethService, PatientMapper patientMapper) {
-        this.teethMapper = teethMapper;
+    public MissingToothServiceImpl(PatientService patientService, MissingToothRepository missingToothRepository, MissingToothMapper missingToothMapper, ToothService toothService, PatientMapper patientMapper, ToothMapper toothMapper) {
+
         this.patientService = patientService;
         this.missingToothRepository = missingToothRepository;
         this.missingToothMapper = missingToothMapper;
-        this.teethService = teethService;
-
+        this.toothService = toothService;
         this.patientMapper = patientMapper;
+        this.toothMapper = toothMapper;
     }
 
     @Override
     public MissingToothDto addMissingToothByPatientId(String patientId, String teethId) {
 
-        Teeth tooth = teethService.getTeethById(teethId);
+        Tooth tooth = toothService.getToothById(teethId);
 
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(Long.parseLong(patientId)), new CycleAvoidingMappingContext());
+        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
 
         MissingTooth missingTooth = new MissingTooth();
 
-        missingTooth.setTeeth(tooth);
+        missingTooth.setTooth(tooth);
 
         patient.addMissingTooth(missingTooth);
 

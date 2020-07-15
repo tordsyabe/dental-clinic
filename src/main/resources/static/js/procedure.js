@@ -218,7 +218,7 @@ $(".tooth__base").each(function(){
           } else if($(this).hasClass("with-procedure")){
                $("#context-menu").empty().append(`
                        <button class="dropdown-item" type="button" onclick="selectForProcedure(${toothId})">Select for procedure</button>
-                       <button class="dropdown-item" type="button" onclick="openSideProcedures()">See list of procedures</a>
+                       <button class="dropdown-item" type="button" onclick="getToothProcedures(${toothId})">See list of procedures</a>
                        <button class="dropdown-item" type="button" onclick="tagAsMissing(${toothId})">Tag as missing</button>
 
                  `).css({
@@ -229,7 +229,7 @@ $(".tooth__base").each(function(){
                  }).addClass("show");
           } else if($(this).hasClass("extracted")) {
                 $("#context-menu").empty().append(`
-                       <button class="dropdown-item" type="button" onclick="openSideProcedures()">See list of procedures</a>
+                       <button class="dropdown-item" type="button" onclick="getToothProcedures(${toothId})">See list of procedures</a>
                  `).css({
                    display: "block",
                    position: "absolute",
@@ -308,3 +308,35 @@ function unTagMissing(toothId) {
     }
 
 }
+
+function getToothProcedures(toothNumber) {
+
+    console.log(toothNumber);
+    openSideProcedures();
+
+}
+
+
+
+function openSideProcedures(){
+
+    $(".side-procedures").animate({
+        "right": "0",
+
+    });
+
+    $(".side-overlay").show();
+    $("#context-menu").removeClass("show").hide();
+}
+
+function closeSideProcedures(){
+
+    $(".side-procedures").animate({
+        "right": "-450px",
+
+    });
+    $(".side-overlay").hide();
+    $("#context-menu").removeClass("show").hide();
+
+}
+

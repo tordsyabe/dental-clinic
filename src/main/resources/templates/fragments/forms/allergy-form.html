@@ -1,7 +1,7 @@
 <div class="card mb-2 healthNoteForms" th:fragment="allergyForm">
     <div class="card-body">
         <form class="form-inline justify-content-between" id="allergyForm">
-            <input type="hidden" th:value="${patient.id}" name="patientId" id="allergyPatientId">
+            <input type="hidden" th:value="${patient.uuid}" name="patientId" id="allergyPatientId">
             <div class="form-group input-group-sm">
                 <input type="text" class="form-control"
                        required

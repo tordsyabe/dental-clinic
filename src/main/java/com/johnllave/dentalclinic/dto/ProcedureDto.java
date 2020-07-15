@@ -7,15 +7,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class ProcedureDto {
-
-    private String id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ProcedureDto extends BaseDto {
 
     @NotBlank
     private String dateCreated;
@@ -34,8 +32,11 @@ public class ProcedureDto {
     @NotBlank
     private String teethId;
 
-    private TeethDto teeth;
+    private String patientId;
 
+    private ToothDto toothDto;
+
+    @JsonIgnoreProperties("proceduresDto")
     private InvoiceDto invoiceDto;
 
     @JsonIgnoreProperties("proceduresDto")

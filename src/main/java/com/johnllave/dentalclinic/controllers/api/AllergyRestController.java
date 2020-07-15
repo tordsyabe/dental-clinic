@@ -22,13 +22,13 @@ public class AllergyRestController {
     @ResponseStatus(HttpStatus.OK)
     public AllergyDto saveAllergy(@RequestBody AllergyDto allergyDto) {
 
-        return allergyService.saveAllergyByPatientId(allergyDto.getPatientId(), allergyDto);
+        return allergyService.saveAllergy(allergyDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteAllergy(@PathVariable String id) {
 
-        allergyService.deleteAllergyById(id);
+        allergyService.deleteAllergy(id);
     }
 }

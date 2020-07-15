@@ -54,13 +54,13 @@ public class PatientController {
 
 		PatientDto savedPatient = patientService.savePatient(patientDto);
 
-		return "redirect:/patient/details/" + savedPatient.getId();
+		return "redirect:/patient/details/" + savedPatient.getUuid();
 	}
 
 	@GetMapping("/patient/details/{id}")
 	public String showPatientById(@PathVariable String id, Model model) {
 
-		model.addAttribute("patient", patientService.getPatientById(Long.parseLong(id)));
+		model.addAttribute("patient", patientService.getPatientById(id));
 		model.addAttribute("procedureDate", Comparator.comparing(ProcedureDto::getDateCreated).reversed());
 		model.addAttribute("complaintDate", Comparator.comparing((ComplaintDto complaintDto) -> complaintDto.getDateCreated()).reversed());
 
@@ -71,7 +71,7 @@ public class PatientController {
 	@GetMapping("/patient/procedures/{id}")
 	public String showPatientProcedures(@PathVariable String id, Model model) {
 
-		PatientDto patientDto = patientService.getPatientById(Long.parseLong(id));
+		PatientDto patientDto = patientService.getPatientById(id);
 
 
 		model.addAttribute("patient", patientDto);

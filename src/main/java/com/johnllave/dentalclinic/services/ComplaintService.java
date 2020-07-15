@@ -7,5 +7,5 @@ public interface ComplaintService {
 
     ComplaintDto saveComplaintByPatientId(String id, ComplaintDto complaintDto);
 
-    void deleteComplaintById(String id);
+    void deleteComplaint(String id);
 }

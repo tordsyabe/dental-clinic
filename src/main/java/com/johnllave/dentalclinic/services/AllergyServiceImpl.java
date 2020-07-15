@@ -1,6 +1,7 @@
 package com.johnllave.dentalclinic.services;
 
 import com.johnllave.dentalclinic.dto.AllergyDto;
+import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.entity.Allergy;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.mapper.AllergyMapper;
@@ -8,6 +9,8 @@ import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import com.johnllave.dentalclinic.repository.AllergyRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class AllergyServiceImpl implements AllergyService {
@@ -25,19 +28,27 @@ public class AllergyServiceImpl implements AllergyService {
     }
 
     @Override
-    public AllergyDto saveAllergyByPatientId(String id, AllergyDto allergyDto) {
+    public AllergyDto saveAllergy(AllergyDto allergyDto) {
 
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(Long.parseLong(id)), new CycleAvoidingMappingContext());
+        PatientDto patientDto = patientService.getPatientById(allergyDto.getPatientId());
+
+        Patient patient = patientMapper.patientDtoToPatient(patientDto, new CycleAvoidingMappingContext());
+
 
         Allergy allergy = allergyMapper.allergyDtoToAllergy(allergyDto, new CycleAvoidingMappingContext());
 
         allergy.setPatient(patient);
+        allergy.setUuid(UUID.randomUUID().toString());
+
 
         return allergyMapper.allergyToAllergyDto(allergyRepository.save(allergy), new CycleAvoidingMappingContext());
     }
 
     @Override
-    public void deleteAllergyById(String id) {
-        allergyRepository.deleteById(Long.parseLong(id));
+    public void deleteAllergy(String id) {
+
+        Allergy allergy = allergyRepository.findByUuid(id);
+
+        allergyRepository.delete(allergy);
     }
 }

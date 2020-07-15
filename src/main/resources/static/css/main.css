@@ -53,19 +53,36 @@ td > a > i {
 	color: #303030 !important;
 }
 
+#sticky-sidebar i {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        display: inline-block;
+        line-height: 50px;
+        text-align: center;
+        cursor: pointer;
+}
+
+#sticky-sidebar i:hover {
+
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+}
+
 .icon-button {
-    color: grey;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    display: inline-block;
+    line-height: 25px;
+    text-align: center;
     cursor: pointer;
-    padding: 5px 6px;
-    z-index: 10;
+    color: #999;
 }
 
 .icon-button:hover {
-    color: #fff;
     background: rgba(0, 0, 0, 0.3);
-    padding: 5px 6px;
-    border-radius: 50%;
-
+    color: #fff;
 }
 
 .form-control {
@@ -106,6 +123,15 @@ html {
 }
 
 
+
+#calendar {
+    overflow: hidden !important;
+}
+
+#calendar table {
+    border-top: 1px solid #444 !important;
+}
+
 .side-procedures::-webkit-scrollbar {
   width: 11px;
 }
@@ -123,35 +149,6 @@ html {
 }
 
 
-
-
-#calendar {
-    overflow: hidden !important;
-}
-
-#calendar table {
-    border-top: 1px solid #444 !important;
-}
-
-.side-procedures {
-    width: 0;
-    height: 100%;
-    position: fixed;
-    right: 0;
-    top: 0;
-    background: #222222;
-    z-index: 99;
-    transition: width 500ms ease-in-out;
-    overflow-x: hidden;
-}
-
-.side-content {
-    padding: 1.2rem;
-    opacity: 0;
-    visibility: hidden;
-
-}
-
 .side-overlay {
     display: none;
     position: fixed;
@@ -161,6 +158,23 @@ html {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 50;
+}
+
+.side-content {
+    margin-bottom: 1rem;
+}
+
+.side-procedures {
+    z-index: 100;
+    background: #222222;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    right: -450px;
+    width: 450px;
+    height: 100%;
+    overflow-x: hidden;
+
 }
 
 .footer {

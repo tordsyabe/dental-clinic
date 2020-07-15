@@ -11,6 +11,8 @@ import com.johnllave.dentalclinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class ComplaintServiceImpl implements ComplaintService {
 
@@ -32,9 +34,11 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Override
     public ComplaintDto saveComplaintByPatientId(String id, ComplaintDto complaintDto) {
 
-        PatientDto patientDto = patientService.getPatientById(Long.parseLong(id));
+        PatientDto patientDto = patientService.getPatientById(id);
 
         Complaint complaint = complaintMapper.complaintDtoToComplaint(complaintDto, new CycleAvoidingMappingContext());
+
+        complaint.setUuid(UUID.randomUUID().toString());
 
         complaint.setPatient(patientMapper.patientDtoToPatient(patientDto, new CycleAvoidingMappingContext()));
 
@@ -42,7 +46,10 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public void deleteComplaintById(String id) {
-        complaintRepository.deleteById(Long.parseLong(id));
+    public void deleteComplaint(String id) {
+
+        Complaint complaint = complaintRepository.findByUuid(id);
+
+        complaintRepository.delete(complaint);
     }
 }

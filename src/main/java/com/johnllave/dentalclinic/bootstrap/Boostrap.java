@@ -9,24 +9,24 @@ import java.util.Optional;
 
 import com.johnllave.dentalclinic.entity.*;
 import com.johnllave.dentalclinic.repository.ComplaintRepository;
+import com.johnllave.dentalclinic.repository.ToothRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.johnllave.dentalclinic.repository.PatientRepository;
-import com.johnllave.dentalclinic.repository.TeethRepository;
 
 @Component
 public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 
-	private final TeethRepository teethRepository;
+	private final ToothRepository toothRepository;
 	private final PatientRepository patientRepository;
 	private final ComplaintRepository complaintRepository;
 
-	public Boostrap(TeethRepository teethRepository, PatientRepository patientRepository, ComplaintRepository complaintRepository) {
+	public Boostrap(ToothRepository toothRepository, PatientRepository patientRepository, ComplaintRepository complaintRepository) {
 
-		this.teethRepository = teethRepository;
+		this.toothRepository = toothRepository;
 		this.patientRepository = patientRepository;
 		this.complaintRepository = complaintRepository;
 	}
@@ -43,29 +43,29 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 
 		List<Patient> patients = new ArrayList<Patient>();
 
-		Optional<Teeth> upperRight3rdMolar = teethRepository.findByDescription("upper right 3rd molar");
+		Optional<Tooth> upperRight3rdMolar = toothRepository.findByDescription("upper right 3rd molar");
 
 		if (!upperRight3rdMolar.isPresent()) {
 			throw new RuntimeException("Expected Teeth Not Found");
 		}
 
-		Optional<Teeth> upperLeftCentralIncisor = teethRepository.findByDescription("upper left central incisor");
+		Optional<Tooth> upperLeftCentralIncisor = toothRepository.findByDescription("upper left central incisor");
 
 		if (!upperLeftCentralIncisor.isPresent()) {
 			throw new RuntimeException("Expected Teeth Not Found");
 		}
 
-		Optional<Teeth> lowerright2ndBicuspid = teethRepository.findByDescription("lower right 2nd bicuspid");
+		Optional<Tooth> lowerright2ndBicuspid = toothRepository.findByDescription("lower right 2nd bicuspid");
 
 		if (!lowerright2ndBicuspid.isPresent()) {
 			throw new RuntimeException("Expected Teeth Not Found");
 		}
 
 		MissingTooth missingTooth1 = new MissingTooth();
-		missingTooth1.setTeeth(upperLeftCentralIncisor.orElse(null));
+		missingTooth1.setTooth(upperLeftCentralIncisor.orElse(null));
 
 		MissingTooth missingTooth2 = new MissingTooth();
-		missingTooth2.setTeeth(lowerright2ndBicuspid.orElse(null));
+		missingTooth2.setTooth(lowerright2ndBicuspid.orElse(null));
 
 //		SET PATIENT DETAILS
 		Patient hillary = new Patient();
@@ -101,7 +101,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure1.setCost(960);
 		procedure1.setDescription("Permanent tooth extraction");
 		procedure1.setPaid(false);
-		procedure1.setTeeth(upperRight3rdMolar.orElse(null));
+		procedure1.setTooth(upperRight3rdMolar.orElse(null));
 		procedure1.setDateCreated(LocalDate.of(2020, 3, 2));
 
 		Procedure procedure2 = new Procedure();
@@ -110,7 +110,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure2.setCost(960);
 		procedure2.setDescription("Restoration of teeth");
 		procedure2.setPaid(false);
-		procedure2.setTeeth(upperLeftCentralIncisor.orElse(null));
+		procedure2.setTooth(upperLeftCentralIncisor.orElse(null));
 		procedure2.setDateCreated(LocalDate.now());
 
 
@@ -121,7 +121,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure3.setCost(960);
 		procedure3.setDescription("Canalization of the teeth");
 		procedure3.setPaid(true);
-		procedure3.setTeeth(lowerright2ndBicuspid.orElse(null));
+		procedure3.setTooth(lowerright2ndBicuspid.orElse(null));
 		procedure3.setDateCreated(LocalDate.of(2020, 1, 1));
 
 		Procedure procedure4 = new Procedure();
@@ -130,7 +130,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure4.setCost(3000);
 		procedure4.setDescription("Compisite veneers");
 		procedure4.setPaid(true);
-		procedure4.setTeeth(lowerright2ndBicuspid.orElse(null));
+		procedure4.setTooth(lowerright2ndBicuspid.orElse(null));
 		procedure4.setDateCreated(LocalDate.of(2020, 4, 1));
 
 		Complaint complaint1 = new Complaint();
