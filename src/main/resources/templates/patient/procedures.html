@@ -165,40 +165,7 @@
                 </div>
 
                 <div class="dropdown-divider my-3"></div>
-                <p>3rd Upper Right Molar</p>
-                <div class="mt-3" th:each="procedure : ${#lists.sort(patient.proceduresDto, procedureDate)}">
-                    <p class="small text-muted pl-2" id="procedureDate" th:text="${procedure.dateCreated}"></p>
 
-                    <div class="card">
-                        <div class="card-body">
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-capitalize" th:text="${procedure.description}"></span>
-                                        <p class="small" th:if="${procedure.invoiceDto == null}"></p>
-                                        <span class="small" th:if="${procedure.invoiceDto != null}">
-                                            <span class="text-muted">INVOICE NO.: </span><span th:text="${procedure.invoiceDto.invoiceNo}"></span>
-                                        </span>
-
-
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-end">
-                                        <div>
-                                            <span style="color: var(--info);" class="text-capitalize" th:text="${procedure.category}"></span><br />
-                                        </div>
-
-                                        <span th:if="${procedure.invoiceDto == null}" class="small">
-                                                    Upcoming
-                                                </span>
-                                        <span th:if="${procedure.invoiceDto != null}" class="small">
-                                                    Dr. Hillary Jovette Tan
-                                    </span>
-                                    </div>
-
-
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>
@@ -210,14 +177,5 @@
 
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/procedure.js}"></script>
-<script>
-
-    const procedureDates = document.querySelectorAll('#procedureDate');
-    formatNamedDate(procedureDates);
-
-
-
-
-</script>
 </body>
 </html>

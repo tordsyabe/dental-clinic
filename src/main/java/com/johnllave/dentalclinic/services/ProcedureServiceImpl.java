@@ -1,6 +1,7 @@
 package com.johnllave.dentalclinic.services;
 
 import com.johnllave.dentalclinic.dto.InvoiceDto;
+import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
 import com.johnllave.dentalclinic.entity.Invoice;
 import com.johnllave.dentalclinic.entity.Patient;
@@ -93,10 +94,12 @@ public class ProcedureServiceImpl implements ProcedureService {
     @Override
     public List<ProcedureDto> getProceduresByPatientIdAndToothId(String patientId, String toothId) {
 
+        PatientDto patientDto = patientService.getPatientById(patientId);
+
         List<ProcedureDto> procedures = new ArrayList<>();
 
         procedureRepository
-                .findAllByPatientIdAndToothId(patientId, toothId)
+                .findAllByPatientIdAndToothId(Long.parseLong(patientDto.getId()), Long.parseLong(toothId))
                 .forEach(procedure -> procedures
                         .add(procedureMapper.procedureToProcedureDto(procedure, new CycleAvoidingMappingContext())));
 

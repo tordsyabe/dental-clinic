@@ -54,6 +54,7 @@ const clickableRows = document.querySelectorAll('.clickable-row');
 
 // Function for formatting date to eg. January 1, 2020
 const formatNamedDate = (dates) => {
+
 	dates.forEach(date => {
 
 

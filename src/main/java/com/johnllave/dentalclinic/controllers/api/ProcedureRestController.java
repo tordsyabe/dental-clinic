@@ -2,6 +2,7 @@ package com.johnllave.dentalclinic.controllers.api;
 
 import com.johnllave.dentalclinic.dto.InvoiceDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
+import com.johnllave.dentalclinic.request.model.ProcedureRequestModel;
 import com.johnllave.dentalclinic.services.ProcedureService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +34,11 @@ public class ProcedureRestController {
 
     }
 
-    @GetMapping("/patient/{patientId}/tooth/{toothId}")
+    @PostMapping("/tooth")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProcedureDto> getProceduresByPatientIdAndToothId(@PathVariable String patientId, @PathVariable String toothId) {
+    public List<ProcedureDto> getProceduresByPatientIdAndToothId(@RequestBody ProcedureRequestModel procedureRequestModel) {
 
-        return procedureService.getProceduresByPatientIdAndToothId(patientId, toothId);
+        return procedureService.getProceduresByPatientIdAndToothId(procedureRequestModel.getPatientId(), procedureRequestModel.getToothId());
     }
 
     @DeleteMapping("/{id}")

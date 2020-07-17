@@ -311,7 +311,71 @@ function unTagMissing(toothId) {
 
 function getToothProcedures(toothNumber) {
 
-    console.log(toothNumber);
+    const patientId = window.location.pathname.split("/").pop();
+
+    console.log(JSON.stringify({
+                            patientId: patientId,
+                            toothId: toothNumber.toString()
+                        }));
+
+
+    $.ajax({
+        type: "POST",
+        url: "/api/procedures/tooth",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+            patientId: patientId,
+            toothId: toothNumber
+        }),
+        success: function(data) {
+
+
+            data.forEach(procedure => {
+
+                $(".side-procedures .side-content").append(`
+
+                    <div class="mt-3">
+                        <p class="small text-muted pl-2" id="procedure-date">${procedure.dateCreated}</p>
+
+                        <div class="card">
+                            <div class="card-body">
+
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-capitalize">${procedure.description}</span>
+                                            <span class="small">
+                                                <span class="text-muted">INVOICE NO.: </span><span>Invoice no.</span>
+                                            </span>
+
+
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-end">
+                                            <div>
+                                                <span style="color: var(--info);" class="text-capitalize">${procedure.category}</span><br />
+                                            </div>
+
+                                            <span class="small">Upcoming</span>
+                                        </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                `);
+
+
+            const procedureDates = document.querySelectorAll('.side-procedures .side-content #procedure-date');
+
+            formatNamedDate(procedureDates);
+            })
+        },
+        error: function(e) {
+            console.log(e);
+        },
+    })
+
+
     openSideProcedures();
 
 }
@@ -333,8 +397,11 @@ function closeSideProcedures(){
 
     $(".side-procedures").animate({
         "right": "-450px",
-
+    }, function() {
+        $(".side-procedures .side-content").find(".mt-3").remove();
     });
+
+
     $(".side-overlay").hide();
     $("#context-menu").removeClass("show").hide();
 

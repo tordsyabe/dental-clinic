@@ -13,5 +13,5 @@ public interface ProcedureRepository extends JpaRepository<Procedure, Long> {
 
     Procedure findByUuid(String id);
 
-    List<Procedure> findAllByPatientIdAndToothId(String patientId, String toothId);
+    List<Procedure> findAllByPatientIdAndToothId(Long patientId, Long toothId);
 }
