@@ -20,5 +20,6 @@ public class MissingTooth extends BaseEntity {
     private Tooth tooth;
 
     @ManyToOne
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 }

@@ -8,14 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.johnllave.dentalclinic.entity.*;
-import com.johnllave.dentalclinic.repository.ComplaintRepository;
-import com.johnllave.dentalclinic.repository.ToothRepository;
+import com.johnllave.dentalclinic.repository.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.johnllave.dentalclinic.repository.PatientRepository;
 
 @Component
 public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -23,12 +20,16 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 	private final ToothRepository toothRepository;
 	private final PatientRepository patientRepository;
 	private final ComplaintRepository complaintRepository;
+	private final MissingToothRepository missingToothRepository;
+	private final ProcedureRepository procedureRepository;
 
-	public Boostrap(ToothRepository toothRepository, PatientRepository patientRepository, ComplaintRepository complaintRepository) {
+	public Boostrap(ToothRepository toothRepository, PatientRepository patientRepository, ComplaintRepository complaintRepository, MissingToothRepository missingToothRepository, ProcedureRepository procedureRepository) {
 
 		this.toothRepository = toothRepository;
 		this.patientRepository = patientRepository;
 		this.complaintRepository = complaintRepository;
+		this.missingToothRepository = missingToothRepository;
+		this.procedureRepository = procedureRepository;
 	}
 
 	@Override
@@ -36,6 +37,7 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
 		patientRepository.saveAll(loadPatients());
+
 
 	}
 

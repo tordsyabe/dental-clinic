@@ -7,7 +7,6 @@ import com.johnllave.dentalclinic.entity.Tooth;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.MissingToothMapper;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
-import com.johnllave.dentalclinic.mapper.ToothMapper;
 import com.johnllave.dentalclinic.repository.MissingToothRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,18 +20,15 @@ public class MissingToothServiceImpl implements MissingToothService {
     private final MissingToothMapper missingToothMapper;
     private final ToothService toothService;
     private final PatientMapper patientMapper;
-    private final ToothMapper toothMapper;
-
 
     @Autowired
-    public MissingToothServiceImpl(PatientService patientService, MissingToothRepository missingToothRepository, MissingToothMapper missingToothMapper, ToothService toothService, PatientMapper patientMapper, ToothMapper toothMapper) {
 
+    public MissingToothServiceImpl(PatientService patientService, MissingToothRepository missingToothRepository, MissingToothMapper missingToothMapper, ToothService toothService, PatientMapper patientMapper) {
         this.patientService = patientService;
         this.missingToothRepository = missingToothRepository;
         this.missingToothMapper = missingToothMapper;
         this.toothService = toothService;
         this.patientMapper = patientMapper;
-        this.toothMapper = toothMapper;
     }
 
     @Override
@@ -46,16 +42,18 @@ public class MissingToothServiceImpl implements MissingToothService {
 
         missingTooth.setTooth(tooth);
 
-        patient.addMissingTooth(missingTooth);
+        missingTooth.setPatient(patient);
 
-        patientService.savePatient(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext()));
+        return missingToothMapper.missingToothToMissingToothDto(missingToothRepository.save(missingTooth),
+                new CycleAvoidingMappingContext());
 
-
-        return missingToothMapper.missingToothToMissingToothDto(missingTooth, new CycleAvoidingMappingContext());
     }
 
     @Override
-    public void deleteMissingTooth(String toothId) {
-        missingToothRepository.deleteById(Long.parseLong(toothId));
+    public void deleteMissingTooth(String id) {
+
+        MissingTooth missingTooth = missingToothRepository.findByUuid(id);
+
+        missingToothRepository.delete(missingTooth);
     }
 }

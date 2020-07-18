@@ -156,13 +156,14 @@ $(document).ready(function() {
     const missingTeeth = document.querySelectorAll("#missing li");
     missingTeeth.forEach(missing => {
         const teeth = document.querySelectorAll("svg g g");
-        $(`*[data-tooth-number=${missing.id}]`).siblings().each((t, tooth) => {
+        $(`*[data-tooth-number=${missing.textContent}]`).siblings().each((t, tooth) => {
             $(tooth).css({"stroke":"#303030"});
         });
-
-        $(`*[data-tooth-number=${missing.id}]`).addClass("missing");
-        $(`*[data-tooth-number=${missing.id}]`).siblings("text").css("stroke", "none");
-        $(`*[data-tooth-number=${missing.id}]`).siblings("ellipse").css({"fill":"var(--gray-dark)", "stroke": "none"});
+        $(`*[data-tooth-number=${missing.textContent}]`).attr("data-missing-id", missing.id);
+        $(`*[data-tooth-number=${missing.textContent}]`).addClass("missing");
+        $(`*[data-tooth-number=${missing.textContent}]`).siblings("text").css("stroke", "none");
+        $(`*[data-tooth-number=${missing.textContent}]`).siblings("ellipse").css({"fill":"var(--gray-dark)", "stroke": "none"});
+        $(`*[data-tooth-number=${missing.textContent}]`).siblings("#with__procedure").children().css({"fill":"#303030"});
 
     });
 })();
@@ -206,9 +207,11 @@ $(".tooth__base").each(function(){
           const left = e.pageX - 100;
           const toothId = this.getAttribute("data-tooth-number");
 
+          const missingToothId = this.getAttribute("data-missing-id");
+
           if($(this).hasClass("missing")) {
               $("#context-menu").empty().append(`
-                    <button class="dropdown-item" type="button" onclick="unTagMissing(${toothId})">Untag missing</button>
+                    <button class="dropdown-item" type="button" onclick="unTagMissing('${missingToothId}','${toothId}')">Untag missing</button>
               `).css({
                 display: "block",
                 position: "absolute",
@@ -219,7 +222,6 @@ $(".tooth__base").each(function(){
                $("#context-menu").empty().append(`
                        <button class="dropdown-item" type="button" onclick="selectForProcedure(${toothId})">Select for procedure</button>
                        <button class="dropdown-item" type="button" onclick="getToothProcedures(${toothId})">See list of procedures</a>
-                       <button class="dropdown-item" type="button" onclick="tagAsMissing(${toothId})">Tag as missing</button>
 
                  `).css({
                    display: "block",
@@ -268,56 +270,99 @@ function hideDropdown() {
 
 function tagAsMissing(toothId) {
 
-    hideDropdown();
-    const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
+        const patientId = window.location.pathname.split("/").pop();
 
-    const teeth = document.querySelectorAll("svg g g");
-    $(`*[data-tooth-number=${toothId}]`).siblings().each((t, tooth) => {
-        $(tooth).css({"stroke":"#303030"});
-    });
-    $(`*[data-tooth-number=${toothId}]`).addClass("missing");
-    $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
-    $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").css("display", "none");
-    $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--gray-dark)");
-    radioButton.checked = false;
+        $.ajax({
+           type: "POST",
+           url: "/api/missing-tooth",
+           contentType: "application/json",
+           data: JSON.stringify({
+                toothId: toothId,
+                patientId: patientId
+           }),
+           success: function(data) {
+               hideDropdown();
+               const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
 
+                const teeth = document.querySelectorAll("svg g g");
+
+
+               if($(`*[data-tooth-number=${toothId}]`).hasClass("with-procedure")) {
+                     $(`*[data-tooth-number=${toothId}]`).siblings().each((t, tooth) => {
+                         $(tooth).css({"stroke":"#303030"});
+                     });
+                     $(`*[data-tooth-number=${toothId}]`).attr("data-missing-id", data.uuid);
+                     $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("display","none");
+                     $(`*[data-tooth-number=${toothId}]`).addClass("missing");
+                     $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
+                     $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").css("display", "block");
+                     $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").children().css({"fill":"#303030"});
+                     $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--gray-dark)");
+                     radioButton.checked = false;
+               } else {
+                    $(`*[data-tooth-number=${toothId}]`).siblings().each((t, tooth) => {
+                      $(tooth).css({"stroke":"#303030"});
+                  });
+                  $(`*[data-tooth-number=${toothId}]`).attr("data-missing-id", data.uuid);
+                  $(`*[data-tooth-number=${toothId}]`).addClass("missing");
+                  $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
+                  $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").css("display", "none");
+                  $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--gray-dark)");
+                  radioButton.checked = false;
+               }
+
+
+           },
+           error: function(e){
+                console.log(e);
+           }
+        });
 }
 
-function unTagMissing(toothId) {
+function unTagMissing(missingToothId, toothId) {
 
-    hideDropdown();
-    const teeth = document.querySelectorAll("svg g g");
-    const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
+    console.log(missingToothId)
 
-    if($(`*[data-tooth-number=${toothId}]`).hasClass("with-procedure")) {
-        $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
-        $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").css("display", "block");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "none");
-        $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--success)");
-        radioButton.checked = false;
-    } else {
-        $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
-        $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--info)");
-        $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "gray");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
-        $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
-        radioButton.checked = false;
-    }
+    $.ajax({
+        type: "DELETE",
+        url: "/api/missing-tooth/" + missingToothId,
+        contentType: "application/json",
+        success: function() {
+        hideDropdown();
+            const teeth = document.querySelectorAll("svg g g");
+            const radioButton = document.querySelector(`input[id=tooth${toothId}]`);
+
+            if($(`*[data-tooth-number=${toothId}]`).hasClass("with-procedure")) {
+                $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
+                $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").css("display", "block");
+                $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
+                $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
+                $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "none");
+                $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--success)");
+                $(`*[data-tooth-number=${toothId}]`).siblings("#with__procedure").children().css({"fill":"#999999"});
+                radioButton.checked = false;
+            } else {
+                $(`*[data-tooth-number=${toothId}]`).removeClass("missing");
+                $(`*[data-tooth-number=${toothId}]`).siblings("ellipse").css("fill", "var(--info)");
+                $(`*[data-tooth-number=${toothId}]`).siblings("text").css("stroke", "none");
+                $(`*[data-tooth-number=${toothId}]`).siblings(".root__base").css("stroke", "gray");
+                $(`*[data-tooth-number=${toothId}]`).siblings(".crown__base").css("stroke", "#fff");
+                $(`*[data-tooth-number=${toothId}]`).siblings(".crown__line").css("stroke", "#fff");
+                radioButton.checked = false;
+            }
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+
+
 
 }
 
 function getToothProcedures(toothNumber) {
 
     const patientId = window.location.pathname.split("/").pop();
-
-    console.log(JSON.stringify({
-                            patientId: patientId,
-                            toothId: toothNumber.toString()
-                        }));
-
 
     $.ajax({
         type: "POST",
@@ -330,23 +375,24 @@ function getToothProcedures(toothNumber) {
         }),
         success: function(data) {
 
+            $(".side-procedures .side-content").find("h5").after(`
+                <span class="text-muted text-capitalize">${data[0].toothDto.description}</span>
+            `)
+
 
             data.forEach(procedure => {
 
                 $(".side-procedures .side-content").append(`
 
                     <div class="mt-3">
-                        <p class="small text-muted pl-2" id="procedure-date">${procedure.dateCreated}</p>
+
 
                         <div class="card">
                             <div class="card-body">
 
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="text-capitalize">${procedure.description}</span>
-                                            <span class="small">
-                                                <span class="text-muted">INVOICE NO.: </span><span>Invoice no.</span>
-                                            </span>
-
+                                            <span class="small text-muted pl-2" id="procedure-date">${procedure.dateCreated}</span>
 
                                         </div>
                                         <div class="d-flex justify-content-between align-items-end">
@@ -399,7 +445,10 @@ function closeSideProcedures(){
         "right": "-450px",
     }, function() {
         $(".side-procedures .side-content").find(".mt-3").remove();
+        $(".side-procedures .side-content").find("h5 + span").remove();
     });
+
+
 
 
     $(".side-overlay").hide();

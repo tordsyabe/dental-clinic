@@ -6,5 +6,5 @@ public interface MissingToothService {
 
     MissingToothDto addMissingToothByPatientId(String patientId, String toothId);
 
-    void deleteMissingTooth(String toothId);
+    void deleteMissingTooth(String id);
 }

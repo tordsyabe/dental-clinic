@@ -2,6 +2,7 @@ package com.johnllave.dentalclinic.controllers.api;
 
 import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.johnllave.dentalclinic.dto.PatientDto;
+import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.services.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 public class PatientRestController {
 
     private final PatientService patientService;
+
 
     public PatientRestController(PatientService patientService) {
         this.patientService = patientService;
@@ -28,7 +30,13 @@ public class PatientRestController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PatientDto getPatient(@PathVariable String id) {
-//        System.out.println(patientService.getPatientById(Long.parseLong(id)));
         return patientService.getPatientById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletePatient(@PathVariable String id) {
+
+        patientService.deletePatientById(id);
     }
 }

@@ -31,7 +31,7 @@ public class Patient extends Person {
 	private LocalDate dateCreated;
 	private LocalDate dateUpdated;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient", orphanRemoval = true)
 	private List<MissingTooth> missingTeeth = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")

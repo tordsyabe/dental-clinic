@@ -16,7 +16,7 @@ import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.repository.PatientRepository;
 
 @Service
-public class PatientServiceImpl implements PatientService{
+public class PatientServiceImpl implements PatientService {
 	
 	private final PatientRepository patientRepository;
 	private final PatientMapper patientMapper;
@@ -57,7 +57,6 @@ public class PatientServiceImpl implements PatientService{
 
 		PatientDto patientDto = patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext());
 
-		System.out.println("DONE");
 
 		return patientDto;
 
@@ -77,6 +76,15 @@ public class PatientServiceImpl implements PatientService{
 		Patient savePatient = patientRepository.save(patient);
 
 		return patientMapper.patientToPatientDto(savePatient, new CycleAvoidingMappingContext());
+
+	}
+
+	@Override
+	public void deletePatientById(String id) {
+
+		Patient patient = patientRepository.findByUuid(id);
+
+		patientRepository.delete(patient);
 
 	}
 

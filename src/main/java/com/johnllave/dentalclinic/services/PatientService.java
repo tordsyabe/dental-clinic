@@ -14,5 +14,7 @@ public interface PatientService {
 
 	PatientDto savePatient(PatientDto patientDto);
 
+	void deletePatientById(String id);
+
 
 }
