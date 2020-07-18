@@ -20,14 +20,16 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 	private final ToothRepository toothRepository;
 	private final PatientRepository patientRepository;
 	private final ComplaintRepository complaintRepository;
+	private final DentalProcedureCategoryRepository dentalProcedureCategoryRepository;
 	private final MissingToothRepository missingToothRepository;
 	private final ProcedureRepository procedureRepository;
 
-	public Boostrap(ToothRepository toothRepository, PatientRepository patientRepository, ComplaintRepository complaintRepository, MissingToothRepository missingToothRepository, ProcedureRepository procedureRepository) {
+	public Boostrap(ToothRepository toothRepository, PatientRepository patientRepository, ComplaintRepository complaintRepository, DentalProcedureCategoryRepository dentalProcedureCategoryRepository, MissingToothRepository missingToothRepository, ProcedureRepository procedureRepository) {
 
 		this.toothRepository = toothRepository;
 		this.patientRepository = patientRepository;
 		this.complaintRepository = complaintRepository;
+		this.dentalProcedureCategoryRepository = dentalProcedureCategoryRepository;
 		this.missingToothRepository = missingToothRepository;
 		this.procedureRepository = procedureRepository;
 	}
@@ -38,7 +40,154 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 
 		patientRepository.saveAll(loadPatients());
 
+		dentalProcedureCategoryRepository.saveAll(loadDentalCategories());
 
+
+	}
+
+	private List<DentalProcedureCategory> loadDentalCategories() {
+
+		List<DentalProcedureCategory> dentalProcedureCategories = new ArrayList<>();
+
+		DentalProcedureCategory surgery = new DentalProcedureCategory();
+		DentalProcedureCategory extraction = new DentalProcedureCategory();
+		DentalProcedureCategory hygiene = new DentalProcedureCategory();
+		DentalProcedureCategory prosthetics = new DentalProcedureCategory();
+		DentalProcedureCategory restoration = new DentalProcedureCategory();
+		DentalProcedureCategory orthodontics = new DentalProcedureCategory();
+		DentalProcedureCategory endodontics = new DentalProcedureCategory();
+		DentalProcedureCategory diagnosis = new DentalProcedureCategory();
+
+		DentalProcedure odontectomy = new DentalProcedure();
+		DentalProcedure adultExo = new DentalProcedure();
+		DentalProcedure pedoExo = new DentalProcedure();
+		DentalProcedure oralProphylaxis = new DentalProcedure();
+		DentalProcedure pcj = new DentalProcedure();
+		DentalProcedure fixedBridge = new DentalProcedure();
+		DentalProcedure veneers = new DentalProcedure();
+		DentalProcedure partialDenture = new DentalProcedure();
+		DentalProcedure completeDenture = new DentalProcedure();
+		DentalProcedure lightCuredFilling = new DentalProcedure();
+		DentalProcedure temporaryFilling = new DentalProcedure();
+		DentalProcedure whitening = new DentalProcedure();
+		DentalProcedure orthoAppliance = new DentalProcedure();
+		DentalProcedure braces = new DentalProcedure();
+		DentalProcedure monoRooted = new DentalProcedure();
+		DentalProcedure biRooted = new DentalProcedure();
+		DentalProcedure triRooted = new DentalProcedure();
+		DentalProcedure consultation = new DentalProcedure();
+
+		//Surgery
+		odontectomy.setDescription("odontectomy");
+		odontectomy.setCost(150);
+
+		surgery.setName("surgery");
+		surgery.addDentalProcedure(odontectomy);
+
+		//Extraction
+		adultExo.setDescription("adult exo");
+		adultExo.setCost(200);
+
+		pedoExo.setDescription("pedo exo");
+		pedoExo.setCost(250);
+
+
+		extraction.setName("extraction");
+		extraction.addDentalProcedure(adultExo);
+		extraction.addDentalProcedure(pedoExo);
+
+		//hygiene
+		oralProphylaxis.setCost(300);
+		oralProphylaxis.setDescription("oral prophylaxis");
+
+		hygiene.setName("hygiene");
+		hygiene.addDentalProcedure(oralProphylaxis);
+
+		//prosthetics
+		pcj.setDescription("PCJ");
+		pcj.setCost(350);
+
+		fixedBridge.setCost(400);
+		fixedBridge.setDescription("Fixed Bridge");
+
+		veneers.setCost(500);
+		veneers.setDescription("veneers");
+
+		partialDenture.setDescription("partial denture");
+		partialDenture.setCost(550);
+
+		completeDenture.setCost(650);
+		completeDenture.setDescription("complete denture");
+
+
+		prosthetics.setName("prosthetics");
+		prosthetics.addDentalProcedure(pcj);
+		prosthetics.addDentalProcedure(fixedBridge);
+		prosthetics.addDentalProcedure(veneers);
+		prosthetics.addDentalProcedure(partialDenture);
+		prosthetics.addDentalProcedure(completeDenture);
+
+
+		//restoration
+		lightCuredFilling.setDescription("light cured filling");
+		lightCuredFilling.setCost(700);
+
+		temporaryFilling.setDescription("temporary filling");
+		temporaryFilling.setCost(750);
+
+		whitening.setCost(800);
+		whitening.setDescription("whitening");
+
+		restoration.setName("restoration");
+		restoration.addDentalProcedure(lightCuredFilling);
+		restoration.addDentalProcedure(temporaryFilling);
+		restoration.addDentalProcedure(whitening);
+
+		//orthodontics
+		orthoAppliance.setDescription("ortho appliance");
+		orthoAppliance.setCost(1000);
+
+		braces.setDescription("braces");
+		braces.setCost(1500);
+
+		orthodontics.setName("orthodontics");
+		orthodontics.addDentalProcedure(orthoAppliance);
+		orthodontics.addDentalProcedure(braces);
+
+		//endodontics
+		monoRooted.setDescription("mono rooted (RCT)");
+		monoRooted.setCost(2000);
+
+		biRooted.setCost(2500);
+		biRooted.setDescription("bi-rooted");
+
+		triRooted.setDescription("tri-rooted");
+		triRooted.setCost(3500);
+
+		endodontics.setName("endodontics");
+		endodontics.addDentalProcedure(monoRooted);
+		endodontics.addDentalProcedure(biRooted);
+		endodontics.addDentalProcedure(triRooted);
+
+
+		//diagnosis
+		consultation.setCost(250);
+		consultation.setDescription("consultation");
+
+		diagnosis.setName("diagnosis");
+		diagnosis.addDentalProcedure(consultation);
+
+
+		dentalProcedureCategories.add(surgery);
+		dentalProcedureCategories.add(extraction);
+		dentalProcedureCategories.add(hygiene);
+		dentalProcedureCategories.add(prosthetics);
+		dentalProcedureCategories.add(restoration);
+		dentalProcedureCategories.add(orthodontics);
+		dentalProcedureCategories.add(endodontics);
+		dentalProcedureCategories.add(diagnosis);
+
+		return dentalProcedureCategories;
 	}
 
 	private List<Patient> loadPatients() {

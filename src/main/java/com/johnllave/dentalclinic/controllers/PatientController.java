@@ -73,7 +73,6 @@ public class PatientController {
 
 		PatientDto patientDto = patientService.getPatientById(id);
 
-
 		model.addAttribute("patient", patientDto);
 		model.addAttribute("procedureDate", Comparator.comparing(ProcedureDto::getDateCreated).reversed());
 		model.addAttribute("procedureDto", new ProcedureDto());
