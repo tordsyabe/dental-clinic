@@ -1,4 +1,4 @@
-<ul class="nav nav-pills mt-5" th:fragment="contentNav">
+<ul class="nav nav-pills mt-5 content-nav" th:fragment="contentNav">
 	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/details/' + ${patient.uuid}}">Personal
 			Information</a></li>
@@ -11,4 +11,7 @@
 							th:href="@{'/patient/documents/' + ${patient.uuid}}">Documents</a></li>
 	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/bills/' + ${patient.uuid}}">Bills</a></li>
+
+	<li class="nav-item"><a class="nav-link main btn btn-secondary btn-sm"
+							th:href="@{/patient/list}">Back to Patients List</a></li>
 </ul>

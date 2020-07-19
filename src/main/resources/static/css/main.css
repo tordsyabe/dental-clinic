@@ -65,8 +65,19 @@ td > a > i {
 
 #sticky-sidebar i:hover {
 
-            background: rgba(0, 0, 0, 0.3);
-            color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+}
+.content-nav li {
+    margin-right: 5px;
+}
+
+.content-nav li:last-child {
+    margin-left: auto;
+}
+
+.content-nav li a:hover {
+    border-radius: 5px;
+    background: #303030;
 }
 
 .icon-button {

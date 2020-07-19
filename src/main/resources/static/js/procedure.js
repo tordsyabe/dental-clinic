@@ -364,6 +364,8 @@ function getToothProcedures(toothNumber) {
 
     const patientId = window.location.pathname.split("/").pop();
 
+    console.log(toothNumber);
+
     $.ajax({
         type: "POST",
         url: "/api/procedures/tooth",
@@ -376,7 +378,8 @@ function getToothProcedures(toothNumber) {
         success: function(data) {
 
             $(".side-procedures .side-content").find("h5").after(`
-                <span class="text-muted text-capitalize">${data[0].toothDto.description}</span>
+                <span id="tooth-desc" class="text-muted text-capitalize">${data[0].toothDto.description}</span>
+                <span id="tooth-number" class="badge badge-pill badge-info">${data[0].toothDto.number}</span>
             `)
 
 
@@ -445,7 +448,8 @@ function closeSideProcedures(){
         "right": "-450px",
     }, function() {
         $(".side-procedures .side-content").find(".mt-3").remove();
-        $(".side-procedures .side-content").find("h5 + span").remove();
+        $(".side-procedures .side-content").find("h5 + #tooth-desc").remove();
+        $(".side-procedures .side-content").find("h5 + #tooth-number").remove();
     });
 
 
@@ -456,3 +460,27 @@ function closeSideProcedures(){
 
 }
 
+
+$(document).mouseup(function(e){
+
+    const contextMenu = $("#context-menu");
+
+    const sideProcedures = $(".side-procedures");
+
+    if(!contextMenu.is(e.target) && contextMenu.has(e.target).length === 0) {
+        $("#context-menu").removeClass("show").hide();
+    }
+
+//    if(!sideProcedures.is(e.target) && sideProcedures.has(e.target).length === 0) {
+//        closeSideProcedures();
+//    }
+});
+
+$(document).keyup(function(e){
+
+    const contextMenu = $("#context-menu");
+
+    if(e.key === "Escape") {
+        $("#context-menu").removeClass("show").hide();
+    }
+});
