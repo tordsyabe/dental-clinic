@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div th:replace="fragments/layout/sidebar :: sidebar"></div>
+        <!-- MAIN CONTENT -->
+        <div class="col-11 offset-1 mt-4 pl-0 pr-5">
+
+            <!-- MAIN CONTENT HEADER -->
+            <div th:replace="fragments/patientName :: patientName"></div>
+
+            <div th:replace="fragments/contentNav :: contentNav"></div>
+
+            <div class="dropdown-divider"></div>
+            <!-- END MAIN CONTENT HEADER -->
+
+            <!-- MAIN CONTENT DETAILS -->
+
+            <div class="row mt-5" style="min-height: calc(100% - 100px);">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2 text-center">
+                                <div class="mb-3">
+                                    <img th:src="${'/images/pdf.svg'}" width="80px">
+                                </div>
+                                <span class="text-muted">filename.pdf</span>
+                                <br />
+                            <a href="#" class="small">Download</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">View</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">Remove</a>
+                        </div>
+
+                        <div class="col-2 text-center">
+                            <div class="mb-3">
+                                <img th:src="${'/images/jpg.svg'}" width="80px">
+                            </div>
+                            <span class="text-muted">filename.jpg</span>
+                            <br />
+                            <a href="#" class="small">Download</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">View</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">Remove</a>
+                        </div>
+
+                        <div class="col-2 text-center">
+                            <div class="mb-3">
+                                <img th:src="${'/images/png.svg'}" width="80px">
+                            </div>
+                            <span class="text-muted">filename.jpg</span>
+                            <br />
+                            <a href="#" class="small">Download</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">View</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">Remove</a>
+                        </div>
+
+                        <div class="col-2 text-center">
+                            <div class="mb-3">
+                                <img th:src="${'/images/word.svg'}" width="80px">
+                            </div>
+                            <span class="text-muted">filename.jpg</span>
+                            <br />
+                            <a href="#" class="small">Download</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">View</a>
+                            <span class="text-muted">|</span>
+                            <a href="#" class="small">Remove</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 100%">
+                        <a class="btn btn-info">Add Document</a>
+
+                    </div>
+                </div>
+<!--                <div class="col-12">-->
+<!--                    <div class="d-flex flex-column justify-content-center align-items-center">-->
+<!--                        <img th:src="${'/images/docs.svg'}" width="80px">-->
+<!--                        <p class="mt-4">Let's add some documents</p>-->
+<!--                        <p class="text-muted small">Keep a record of patient documents for references.</p>-->
+<!--                        <a class="btn btn-info">Add Document</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+
+            </div>
+
+            <footer class="footer d-flex justify-content-center text-muted align-items-center small">
+                Copyright 2020. | Dr. Hillary Joevette Tan Dental Clinic.
+            </footer>
+
+            <!-- END MAIN CONTENT DETAILS -->
+        </div>
+        <!-- MAIN CONTENT -->
+    </div>
+
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+<script>
+
+</script>
+</body>
+</html>

@@ -18,6 +18,8 @@ public class DentalProcedureCategory extends BaseEntity{
 
     private String name;
 
+    private String icon;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dentalProcedureCategory")
     private List<DentalProcedure> dentalProcedures = new ArrayList<>();
 

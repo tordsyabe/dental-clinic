@@ -80,4 +80,14 @@ public class PatientController {
 		return "patient/procedures";
 	}
 
+	@GetMapping("/patient/documents/{id}")
+	public String showPatientDocuments(@PathVariable String id, Model model) {
+
+		PatientDto patientDto = patientService.getPatientById(id);
+
+		model.addAttribute("patient", patientDto);
+
+		return "patient/documents";
+	}
+
 }

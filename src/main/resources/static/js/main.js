@@ -15,6 +15,9 @@
         navLinks.forEach(navLink => {
             navLink.classList.add("disabled");
         });
+
+
+        $(".toggle-health-form").css({"pointer-events": "none"});
     }
 
 })();

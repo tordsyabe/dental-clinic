@@ -4,14 +4,16 @@
 			Information</a></li>
 	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/procedures/' + ${patient.uuid}}">Procedures</a></li>
-	<li class="nav-item"><a class="nav-link main"
-		th:href="@{'/patient/treatmentplans/' + ${patient.uuid}}">Treatment
-			Plan</a></li>
+
 	<li class="nav-item"><a class="nav-link main"
 							th:href="@{'/patient/documents/' + ${patient.uuid}}">Documents</a></li>
 	<li class="nav-item"><a class="nav-link main"
 		th:href="@{'/patient/bills/' + ${patient.uuid}}">Bills</a></li>
+	<li class="nav-item"><a class="nav-link main disabled" style="text-decoration: line-through"
+							th:href="@{'/patient/treatment-plans/' + ${patient.uuid}}">Treatment
+		Plan</a></li>
 
 	<li class="nav-item"><a class="nav-link main btn btn-secondary btn-sm"
 							th:href="@{/patient/list}">Back to Patients List</a></li>
+
 </ul>

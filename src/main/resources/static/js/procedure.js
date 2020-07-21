@@ -1,141 +1,8 @@
 
 // Data for procedure's description
 
-const procedureItems = [
-    {
-      surgery: [
-        { id: 1, desc: "odontectomy", cost: "5000" },
-      ],
-    },
+var procedureItems = [];
 
-    {
-      extraction: [
-        { id: 1, desc: "adult exo", cost: "650" },
-        { id: 2, desc: "pedo exo", cost: "650" },
-      ],
-    },
-
-    {
-      hygiene: [
-        { id: 1, desc: "oral prophylaxis", cost: "1000" }
-      ],
-    },
-    {
-      prosthetics: [
-        { id: 1, desc: "PJC", cost: "1000" },
-        { id: 2, desc: "fixed bridge", cost: "1000" },
-        { id: 3, desc: "veneers", cost: "1000" },
-        { id: 4, desc: "partial denture", cost: "1000" },
-        { id: 5, desc: "complete denture", cost: "1000" }
-      ],
-    },
-        {
-        restoration: [
-            { id: 1, desc: "light cured filling", cost: "1000" },
-            { id: 2, desc: "temporary filling", cost: "1000" },
-            { id: 3, desc: "whitening", cost: "1000" }
-            ],
-        },
-        {
-        orthodontics: [
-            { id: 1, desc: "ortho appliance", cost: "1000" },
-            { id: 2, desc: "braces", cost: "15000" }
-        ],
-        },
-        {
-        endodontics: [
-            { id: 1, desc: "mono rooted (RCT)", cost: "1000" },
-            { id: 2, desc: "bi-rooted", cost: "1000" },
-            { id: 3, desc: "tri-rooted", cost: "1000" }
-        ],
-        },
-        {
-                diagnosis: [
-                    { id: 1, desc: "consultation", cost: "250" },
-                ],
-                }
-  ];
-
-// Dynamic change of procedure's description base on category change
-$(document).ready(function() {
-
-    $(".categories").find(".category-toggle").first().attr("checked", true);
-    $("#procedure-items").find("input[name='description']").first().attr("checked", true);
-    $("#procedure-items").find("input[name='cost']").first().attr("checked", true);
-
-
-    $(".categories").find("label").each(function(i, label){
-        $(this).on("click", () => {
-
-          const procedures = $("#procedure-items").find("#procedure-items-list");
-
-          console.log(procedures);
-
-
-          const processes = document.createElement("div");
-          processes.className = "p-5";
-          processes.setAttribute("id", "procedure-items-list");
-
-          procedureItems[i][label.getAttribute("for")].forEach((process, i) => {
-            processes.innerHTML += `
-                <div class="d-flex justify-content-between">
-                        <input required id=${process.id} name="description" type="radio" class="with-font" value="${process.desc}" th:field="*{description}" >
-                        <label aria-label=${process.cost + "-" + process.id} class="procedureDesc" for=${process.id}>${process.desc}</label>
-
-                    <p class="text-muted">${process.cost}</p>
-                    <input required class="with-font" id=${process.cost + "-" + process.id} name="cost" type="radio" value="${process.cost}" th:field="*{cost}" >
-                </div>`;
-          });
-
-          $(procedures).replaceWith(processes);
-          $("#procedure-items").find("input[name='description']").first().attr("checked", true);
-          $("#procedure-items").find("input[name='cost']").first().attr("checked", true);
-
-          setCostAndDesc()
-        });
-    });
-
-});
-
-//FILL procedure list for 1st category
-(function(){
-
-    const category = $("input[name='category']").attr("id");
-    console.log(category);
-
-    const items = procedureItems[0][category];
-    console.log(procedureItems[0][category]);
-
-    items.forEach(item => {
-            $("#procedure-items-list").append(
-                `<div class="d-flex justify-content-between">
-                        <input required id=${item.id} name="description" type="radio" class="with-font" value="${item.desc}" th:field="*{description}" >
-                        <label aria-label=${item.cost + "-" + item.id} class="procedureDesc" for=${item.id}>${item.desc}</label>
-
-                    <p class="text-muted">${item.cost}</p>
-                    <input required class="with-font" id=${item.cost + "-" + item.id} name="cost" type="radio" value="${item.cost}" th:field="*{cost}" >
-                </div>`
-            );
-    });
-
-
-})();
-
-
-
-
-// Selecting cost and description
-    function setCostAndDesc() {
-
-    const procedureLabels = document.querySelectorAll('.procedureDesc');
-    procedureLabels.forEach((procedureLabel, i) => {
-        procedureLabel.addEventListener('click', () => {
-            const dataName = procedureLabel.getAttribute("aria-label");
-            const costRadioButton = document.querySelector(`input[id="${dataName}"]`);
-            costRadioButton.checked = true;
-        });
-    });
-}
 
 // Setting toot width dynamically
 
@@ -359,7 +226,7 @@ function unTagMissing(missingToothId, toothId) {
 
 
 }
-
+//GETTING PER TOOTH PROCEDURES AJAX
 function getToothProcedures(toothNumber) {
 
     const patientId = window.location.pathname.split("/").pop();
@@ -430,7 +297,6 @@ function getToothProcedures(toothNumber) {
 }
 
 
-
 function openSideProcedures(){
 
     $(".side-procedures").animate({
@@ -465,7 +331,7 @@ $(document).mouseup(function(e){
 
     const contextMenu = $("#context-menu");
 
-    const sideProcedures = $(".side-procedures");
+//    const sideProcedures = $(".side-procedures");
 
     if(!contextMenu.is(e.target) && contextMenu.has(e.target).length === 0) {
         $("#context-menu").removeClass("show").hide();
@@ -484,3 +350,93 @@ $(document).keyup(function(e){
         $("#context-menu").removeClass("show").hide();
     }
 });
+
+(function(){
+
+    $.ajax({
+        type: "GET",
+        url: "/api/dental-procedure-categories",
+        contentType: "application/json",
+        dataType: "json",
+        success: function(data) {
+            procedureItems = data;
+
+            data.forEach(dentalProcedure => {
+                $(".categories").append(`
+                    <input type="radio" id=${dentalProcedure.name} name="category" value=${dentalProcedure.name} class="category-toggle">
+                        <label class="text-center" for=${dentalProcedure.name} onclick="handleChangeProcedureOptions('${dentalProcedure.name}')">
+                            <div class="card text-center">
+                                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+
+                                    <img src="/images/dental.svg" width="50px" />
+                                    <span class="small text-capitalize mt-2">${dentalProcedure.name}</span>
+
+                                </div>
+                            </div>
+                        </label>
+
+                `);
+
+            });
+
+                const firstCategory = procedureItems[0].dentalProceduresDto;
+
+                firstCategory.forEach(item => {
+                        $("#procedure-items-list").append(
+                            `<div class="d-flex justify-content-between">
+                                    <input required id=${item.uuid} name="description" type="radio" class="with-font" value="${item.description}" th:field="*{description}" >
+                                    <label onclick="selectCost('${item.uuid}', '${item.cost}')" class="procedureDesc text-capitalize" for=${item.uuid}>${item.description}</label>
+
+                                <p class="text-muted">${item.cost}</p>
+                                <input required class="with-font" id=${item.uuid} name="cost" type="radio" value="${item.cost}" th:field="*{cost}" >
+                            </div>`
+                        );
+                });
+
+                    $(".categories").find(".category-toggle").first().attr("checked", true);
+                    $("#procedure-items").find("input[name='description']").first().attr("checked", true);
+                    $("#procedure-items").find("input[name='cost']").first().attr("checked", true);
+
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+})();
+
+
+// Dynamic change of procedure's description base on category change
+function handleChangeProcedureOptions(category){
+
+    $("#procedure-items").find("#procedure-items-list").children().remove();
+
+    const procedure = procedureItems.find(procedure => procedure.name === category);
+
+
+    procedure.dentalProceduresDto.forEach(procedure => {
+
+        $("#procedure-items").find("#procedure-items-list").append(`
+              <div class="d-flex justify-content-between">
+                      <input required id=${procedure.uuid} name="description" type="radio" class="with-font" value="${procedure.description}">
+                      <label class="procedureDesc text-capitalize" onclick="selectCost('${procedure.uuid}', '${procedure.cost}')" for=${procedure.uuid}>${procedure.description}</label>
+
+                  <p class="text-muted">${procedure.cost}</p>
+                  <input required id=${procedure.uuid + "-" + procedure.cost} class="with-font" name="cost" type="radio" value="${procedure.cost}">
+              </div>
+        `);
+
+    });
+
+    $(".categories").find(".category-toggle").first().attr("checked", true);
+    $("#procedure-items-list").find("input[name='description']").first().attr("checked", true);
+    $("#procedure-items-list").find("input[name='cost']").first().attr("checked", true);
+
+}
+
+// Selecting cost and description
+function selectCost(costId, cost) {
+    $("#procedure-items-list").find(`#${costId}-${cost}`).attr("checked", true);
+
+}
+
+

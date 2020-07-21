@@ -27,10 +27,10 @@ public class IndexController {
 		return "data";
 	}
 
-	@RequestMapping("/setting")
+	@RequestMapping("/settings")
 	public String settingsPage(Model model) {
 
-		return "setting";
+		return "settings";
 	}
 
 

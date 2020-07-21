@@ -38,9 +38,9 @@
     display: none;
 }
 
-    .category-toggle:checked + label .card {
-        background-color: #3498db;
-    }
+.category-toggle:checked + label .card {
+    background-color: #3498db;
+}
 
 .categories label .card {
     min-height: 7rem;

@@ -15,6 +15,8 @@ public class DentalProcedureCategoryDto extends BaseDto{
 
     private String name;
 
+    private String icon;
+
     @JsonIgnoreProperties("dentalProcedureCategoryDto")
     private List<DentalProcedureDto> dentalProceduresDto  = new ArrayList<>();
 }
