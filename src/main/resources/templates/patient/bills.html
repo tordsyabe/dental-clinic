@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div th:replace="fragments/layout/sidebar :: sidebar"></div>
+        <!-- MAIN CONTENT -->
+        <div class="col-11 offset-1 mt-4 pl-0 pr-5">
+
+            <!-- MAIN CONTENT HEADER -->
+            <div th:replace="fragments/patientName :: patientName"></div>
+
+            <div th:replace="fragments/contentNav :: contentNav"></div>
+
+            <div class="dropdown-divider"></div>
+            <!-- END MAIN CONTENT HEADER -->
+
+            <!-- MAIN CONTENT DETAILS -->
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h5 class="text-muted">Billing History</h5>
+                </div>
+
+                <div class="col-12">
+                    <div class="card mt-3" style="border: none; background: none; font-weight: bold;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">Date</div>
+                                <div class="col-3">Procedure</div>
+                                <div class="col-3">Invoice no.</div>
+                                <div class="col-2">Cost</div>
+                                <div class="col-2">Status</div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-2" th:each="procedure : ${patient.proceduresDto}" th:if="${procedure.invoiceDto != null}">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2" th:text="${procedure.invoiceDto.datePaid}" id="billing-date"></div>
+                                <div class="col-3" th:text="${procedure.description}"></div>
+                                <div class="col-3" th:text="${procedure.invoiceDto.invoiceNo}">2020-12801202</div>
+                                <div class="col-2" th:text="${procedure.cost}"></div>
+                                <div class="col-2" th:text="${procedure.paid} ? 'Paid' : 'Pending'"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-2" th:if="${patient.proceduresDto.isEmpty()}">
+                        <div class="card-body">
+                            <p>No paid procedure</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/bills.js}"></script>
+<script>
+    const billingDate = document.querySelectorAll("#billing-date");
+    formatNamedDate(billingDate);
+</script>
+</body>
+</html>

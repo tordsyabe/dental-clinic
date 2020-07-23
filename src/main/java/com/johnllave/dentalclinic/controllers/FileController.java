@@ -27,4 +27,14 @@ public class FileController {
 
         return "redirect:/patient/details/" + patientId;
     }
+
+    @PostMapping("uploadFile")
+    public String uploadDocumentFile(@RequestPart(value = "file") MultipartFile multipartFile,
+                                     @RequestParam(value = "patientId") String patientId,
+                                     @RequestParam(value = "filename") String filename) {
+
+        awss3Service.uploadFile(multipartFile, patientId, filename);
+
+        return "redirect:/patient/documents/" + patientId;
+    }
 }

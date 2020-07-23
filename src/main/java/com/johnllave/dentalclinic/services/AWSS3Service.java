@@ -6,4 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 public interface AWSS3Service {
 
     void uploadFile(MultipartFile multipartFile, String patientId);
+
+    void uploadFile(MultipartFile multipartFile, String patientId, String filename);
 }

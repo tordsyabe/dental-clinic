@@ -297,36 +297,6 @@ function getToothProcedures(toothNumber) {
 }
 
 
-function openSideProcedures(){
-
-    $(".side-procedures").animate({
-        "right": "0",
-
-    });
-
-    $(".side-overlay").show();
-    $("#context-menu").removeClass("show").hide();
-}
-
-function closeSideProcedures(){
-
-    $(".side-procedures").animate({
-        "right": "-450px",
-    }, function() {
-        $(".side-procedures .side-content").find(".mt-3").remove();
-        $(".side-procedures .side-content").find("h5 + #tooth-desc").remove();
-        $(".side-procedures .side-content").find("h5 + #tooth-number").remove();
-    });
-
-
-
-
-    $(".side-overlay").hide();
-    $("#context-menu").removeClass("show").hide();
-
-}
-
-
 $(document).mouseup(function(e){
 
     const contextMenu = $("#context-menu");

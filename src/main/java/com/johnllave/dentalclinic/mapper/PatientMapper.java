@@ -6,7 +6,7 @@ import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(uses = {ProcedureMapper.class, AllergyMapper.class, ComplaintMapper.class, MedicalHistoryMapper.class,
-		MissingToothMapper.class}
+		MissingToothMapper.class, PatientDocumentMapper.class}
 		,unmappedSourcePolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface PatientMapper {
 	
@@ -21,6 +21,7 @@ public interface PatientMapper {
 	@Mapping(target = "allergiesDto", source = "patient.allergies")
 	@Mapping(target = "medicalHistoriesDto", source = "patient.medicalHistories")
 	@Mapping(target = "missingTeethDto", source = "patient.missingTeeth")
+	@Mapping(target = "patientDocumentsDto", source = "patient.documents")
 	PatientDto patientToPatientDto(Patient patient, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
 	@Mapping(target="dateCreated", source = "patientDto.dateCreated",dateFormat = "yyyy-MM-dd")
@@ -32,6 +33,7 @@ public interface PatientMapper {
 	@Mapping(target = "allergies", source = "patientDto.allergiesDto")
 	@Mapping(target = "medicalHistories", source = "patientDto.medicalHistoriesDto")
 	@Mapping(target = "missingTeeth", source = "patientDto.missingTeethDto")
+	@Mapping(target = "documents", source = "patientDto.patientDocumentsDto")
 	Patient patientDtoToPatient(PatientDto patientDto, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
 }

@@ -90,4 +90,14 @@ public class PatientController {
 		return "patient/documents";
 	}
 
+	@GetMapping("/patient/bills/{id}")
+	public String showPatientBills(@PathVariable String id, Model model) {
+
+		PatientDto patientDto = patientService.getPatientById(id);
+
+		model.addAttribute("patient", patientDto);
+
+		return "patient/bills";
+	}
+
 }

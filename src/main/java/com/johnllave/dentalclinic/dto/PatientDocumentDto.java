@@ -10,11 +10,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PatientDocumentDto extends BaseDto {
 
-    private String filName;
+    private String fileName;
+
+    private String link;
 
     private String dateUploaded;
 
-    @JsonIgnoreProperties("documentsDto")
+    private String fileType;
+
+    @JsonIgnoreProperties("patientDocumentsDto")
     private PatientDto patientDto;
 
 }

@@ -22,96 +22,119 @@
 
             <!-- MAIN CONTENT DETAILS -->
 
-            <div class="row mt-5" style="min-height: calc(100% - 70px);">
-                <div class="col-12">
+            <div class="row mt-5 align-content-between" style="min-height: calc(100% - 70px);">
+                <div class="col-12" th:if="${!patient.patientDocumentsDto.isEmpty()}">
                     <div class="row">
-                        <div class="col-2 text-center">
-                                <div class="mb-3">
-                                    <img th:src="${'/images/pdf.svg'}" width="60px">
+                        <div class="col-3" id="patient-file" th:each="document : ${patient.patientDocumentsDto}">
+                                <div class="mb-3" style="height: 120px; width: 120px;" >
+                                    <img th:src="${document.link}" th:alt="${document.fileName}"
+                                         th:if="${document.fileType == 'png' || document.fileType == 'jpg'}">
+
+                                    <img src="/images/pdf.svg" th:alt="${document.fileName}"
+                                         th:if="${document.fileType == 'pdf'}" style="padding: 2rem;">
                                 </div>
-                                <span class="text-muted">filename.pdf</span>
+                                <span th:text="${document.fileName}"></span>
                                 <br />
-                            <a href="#" class="small">Download</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">View</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">Remove</a>
+                                <span  class="small">
+                                    <span class="text-muted">uploaded</span>
+                                    <span id="file-date-uploaded" th:text="${document.dateUploaded}"></span>
+                                </span>
+                            <div>
+                                <a href="#" class="small">Download</a>
+                                <span class="text-muted">|</span>
+                                <a href="#" class="small">View</a>
+                                <span class="text-muted">|</span>
+                                <a href="#" class="small">Remove</a>
+                            </div>
+
                         </div>
 
-                        <div class="col-2 text-center">
-                            <div class="mb-3">
-                                <img th:src="${'/images/jpg.svg'}" width="60px">
-                            </div>
-                            <span class="text-muted">filename.jpg</span>
-                            <br />
-                            <a href="#" class="small">Download</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">View</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">Remove</a>
-                        </div>
 
-                        <div class="col-2 text-center">
-                            <div class="mb-3">
-                                <img th:src="${'/images/png.svg'}" width="60px">
-                            </div>
-                            <span class="text-muted">filename.jpg</span>
-                            <br />
-                            <a href="#" class="small">Download</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">View</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">Remove</a>
-                        </div>
-
-                        <div class="col-2 text-center">
-                            <div class="mb-3">
-                                <img th:src="${'/images/word.svg'}" width="60px">
-                            </div>
-                            <span class="text-muted">filename.jpg</span>
-                            <br />
-                            <a href="#" class="small">Download</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">View</a>
-                            <span class="text-muted">|</span>
-                            <a href="#" class="small">Remove</a>
-                        </div>
                     </div>
 
+
                 </div>
+
+                <div class="col-12" th:unless="${!patient.patientDocumentsDto.isEmpty()}">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <img th:src="${'/images/docs.svg'}" width="60px">
+                        <p class="mt-4">Let's add some documents</p>
+                        <p class="text-muted small">Keep a record of patient documents for references.</p>
+                    </div>
+                </div>
+
                 <div class="col-12">
-                    <div class="d-flex justify-content-center align-items-center" style="height: 100%">
-                        <a class="btn btn-info">Add Document</a>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <label for="upload-file">
+                            <a class="btn btn-info">Add document</a>
+                        </label>
 
                     </div>
                 </div>
-<!--                <div class="col-12">-->
-<!--                    <div class="d-flex flex-column justify-content-center align-items-center">-->
-<!--                        <img th:src="${'/images/docs.svg'}" width="80px">-->
-<!--                        <p class="mt-4">Let's add some documents</p>-->
-<!--                        <p class="text-muted small">Keep a record of patient documents for references.</p>-->
-<!--                        <a class="btn btn-info">Add Document</a>-->
-<!--                    </div>-->
-<!--                </div>-->
+
+
+
+
 
 
 
             </div>
 
-            <footer class="footer d-flex justify-content-center text-muted align-items-center small">
-                Copyright 2020. | Dr. Hillary Joevette Tan Dental Clinic.
-            </footer>
+
 
             <!-- END MAIN CONTENT DETAILS -->
         </div>
         <!-- MAIN CONTENT -->
+        <div class="side-overlay"></div>
+        <!--        SIDE NAV -->
+        <div class="side-procedures">
+            <div class="side-content pt-3">
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <div>
+                        <h5>Upload Files</h5>
+                    </div>
+
+                    <i class="fa fa-times" onclick="closeSideProcedures()" style="cursor: pointer;"></i>
+                </div>
+
+                <div class="dropdown-divider my-3">
+
+                </div>
+                <embed src="" id="for-upload">
+
+
+                <form  th:action="@{/uploadFile/}" method="post" enctype="multipart/form-data" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
+                    <input type="hidden" th:value="${patient.uuid}" name="patientId">
+                    <input type="file" name="file" id="upload-file" accept="*" onchange="setImage(event)">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="form-group input-group" style="width: 80%; margin-bottom:0;">
+                            <input type="text" class="form-control" required
+                                   placeholder="Rename file"
+                                   value=""
+                                   id="filename" name="filename">
+
+
+                        </div>
+                        <input class="btn btn-info" type="submit" value="Upload">
+                    </div>
+
+
+                </form>
+
+
+
+            </div>
+        </div>
+
     </div>
 
 </div>
 
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/documents.js}"></script>
 <script>
-
+    const fileDateUploaded = document.querySelectorAll("#file-date-uploaded");
+    formatNamedDate(fileDateUploaded);
 </script>
 </body>
 </html>
