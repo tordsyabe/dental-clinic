@@ -46,6 +46,16 @@ public class Patient extends Person {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
 	private List<MedicalHistory> medicalHistories = new ArrayList<>();
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
+	private List<PatientDocument> documents = new ArrayList<>();
+
+
+	public Patient addDocument(PatientDocument patientDocument) {
+		patientDocument.setPatient(this);
+		this.documents.add(patientDocument);
+		return this;
+	}
+
 	public Patient addProcedure(Procedure procedure) {
 		procedure.setPatient(this);
 		this.procedures.add(procedure);

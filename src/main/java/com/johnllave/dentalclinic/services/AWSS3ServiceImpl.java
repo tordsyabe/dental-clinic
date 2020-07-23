@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.johnllave.dentalclinic.entity.Patient;
+import com.johnllave.dentalclinic.entity.PatientDocument;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -48,7 +50,6 @@ public class AWSS3ServiceImpl implements AWSS3Service {
             uploadFileToS3Bucket(bucketName, file, patientId);
 
 
-
             file.delete();
         } catch (AmazonServiceException e) {
             e.printStackTrace();
@@ -64,7 +65,12 @@ public class AWSS3ServiceImpl implements AWSS3Service {
 
         Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
 
-        patient.setImage(endPoint + uniqueFileName);
+        PatientDocument patientDocument = new PatientDocument();
+
+        patientDocument.setFileName(endPoint + uniqueFileName);
+        patientDocument.setDateUploaded(LocalDate.now());
+
+        patient.addDocument(patientDocument);
 
         patientService.savePatient(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext()));
     }

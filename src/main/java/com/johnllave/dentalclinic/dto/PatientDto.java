@@ -68,4 +68,7 @@ public class PatientDto extends BaseDto{
 	@JsonIgnoreProperties("patientDto")
 	private List<MissingToothDto> missingTeethDto = new ArrayList<>();
 
+	@JsonIgnoreProperties("patientDto")
+	private List<PatientDocumentDto> patientDocumentsDto = new ArrayList<>();
+
 }

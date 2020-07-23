@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
@@ -65,18 +66,31 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public PatientDto savePatient(PatientDto patientDto) {
 
+
 		Patient patient = patientMapper.patientDtoToPatient(patientDto, new CycleAvoidingMappingContext());
 
-		if(patientDto.getUuid() == null) {
-			patient.setDateCreated(LocalDate.now());
+		if(!patientDto.getUuid().isEmpty()) {
+
+			Patient patientFromDb = patientRepository.findByUuid(patientDto.getUuid());
+			patient.setId(patientFromDb.getId());
+			patient.setDateUpdated(LocalDate.now());
+
+			return patientMapper.patientToPatientDto(patientRepository.save(patient),
+					new CycleAvoidingMappingContext());
+
 		}
 
-		patient.setDateUpdated(LocalDate.now());
+		patient.setDateCreated(LocalDate.now());
 
-		Patient savePatient = patientRepository.save(patient);
+		patient.setUuid(UUID.randomUUID().toString());
 
-		return patientMapper.patientToPatientDto(savePatient, new CycleAvoidingMappingContext());
+		return patientMapper.patientToPatientDto(patientRepository.save(patient), new CycleAvoidingMappingContext());
 
+	}
+
+	@Override
+	public PatientDto updatePatient(PatientDto patientDto) {
+		return null;
 	}
 
 	@Override
