@@ -7,31 +7,93 @@
         <div th:replace="fragments/layout/sidebar :: sidebar"></div>
         <div class="col-11 offset-1 my-4 pl-0 pr-5">
 
-            <h5 class="">Calendar Page</h5>
+        <div class="row">
 
-            <div style="width: 65%;" class="mt-5">
-                <div id="calendar"></div>
+            <div class="col-7">
+                    <div id="calendar"></div>
+
 
             </div>
-        </div>
-<!--        <div class="side-overlay"></div>-->
-        <!--        SIDE NAV -->
-        <div class="side-procedures">
-            <div class="side-content">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5>List of procedures</h5>
-                    <i class="fa fa-times" onclick="closeSideProcedures()" style="cursor: pointer;"></i>
-                </div>
+            <div class="col-5">
+                <h5 id="date-today">Today's list of procedures</h5>
 
-                <div class="dropdown-divider my-3"></div>
-                <p>July 5, 2020</p>
+
+                        <div class="dropdown-divider my-4"></div>
+
+                        <div class="procedure-list">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Veneers / <span class="text-muted">Upper left incisor</span></span>
+                                        <span style="color: var(--info); font-weight: bold;">Restoration</span>
+                                    </div>
+                                    <span>John Llave, <span class="small text-muted">28 years old</span> </span>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Male</span>
+                                        <span class="small">Upcoming</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Adult Exo / <span class="text-muted">Upper left incisor</span></span>
+                                        <span style="color: var(--info); font-weight: bold;">Extraction</span>
+                                    </div>
+                                    <span>Hillary Jovette Tan, <span class="small text-muted">28 years old</span> </span>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Female</span>
+                                        <span class="small">Upcoming</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Adult Exo / <span class="text-muted">Upper left incisor</span></span>
+                                        <span style="color: var(--info); font-weight: bold;">Extraction</span>
+                                    </div>
+                                    <span>Hillary Jovette Tan, <span class="small text-muted">28 years old</span> </span>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Female</span>
+                                        <span class="small">Upcoming</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Adult Exo / <span class="text-muted">Upper left incisor</span></span>
+                                        <span style="color: var(--info); font-weight: bold;">Extraction</span>
+                                    </div>
+                                    <span>Hillary Jovette Tan, <span class="small text-muted">28 years old</span> </span>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Female</span>
+                                        <span class="small">Upcoming</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
             </div>
         </div>
+
+
+        </div>
+
 
     </div>
 </div>
 
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/calendar.js}"></script>
+
+<script>
+
+
+</script>
 </body>
 </html>

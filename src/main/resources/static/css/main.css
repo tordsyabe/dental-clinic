@@ -202,3 +202,15 @@ html {
     background: #313131;
     border: 1px solid #2b2a2a;
 }
+
+.list-group-item {
+    border-bottom: 1px solid #444 !important;
+}
+
+.tab-pane {
+    background: none !important;
+}
+
+.list-group {
+    border: none !important;
+}

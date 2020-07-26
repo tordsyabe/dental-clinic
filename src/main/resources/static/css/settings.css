@@ -1,0 +1,33 @@
+.settings-lists {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.settings-item-list {
+    padding: 0.6rem;
+    border-bottom: 1px solid #444;
+    position: relative;
+}
+
+#categories-lists .settings-item-list {
+    padding: 0.6rem;
+    border-bottom: 1px solid #444;
+    position: relative;
+}
+
+.settings-item-list:first-letter {
+
+    text-transform: capitalize;
+}
+
+.settings-item-list:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.settings-lists .active{
+     border-bottom: 1px solid #444 !important;
+     outline: 1px solid var(--info);
+     background: rgba(0, 0, 0, 0.2) !important;
+}

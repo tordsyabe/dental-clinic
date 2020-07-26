@@ -5,10 +5,147 @@
 <div class="container-fluid">
     <div class="row">
         <div th:replace="fragments/layout/sidebar :: sidebar"></div>
-        <div class="col-11 offset-1 my-4 pl-0 pr-5"><h5>Settings Page</h5></div>
+        <div class="col-11 offset-1 my-4 pl-0 pr-5">
+            <h5>Settings</h5>
+
+
+            <div class="row mt-5">
+                <div class="col-4">
+                    <ul class="settings-lists" id="settings-lists" role="tablist">
+                        <li class="settings-item-list list-group-item-action" id="list-dental-list"
+                            data-toggle="list" href="#list-dental" role="tab">
+                            <span>Dental Procedures</span><br/>
+                            <span class="small text-muted">Manage categories and procedure list (add, edit, delete)</span>
+                        </li>
+                        <li class="settings-item-list list-group-item-action" id="list-profile-list"
+                            data-toggle="list" href="#list-profile" role="tab">
+                            <span>Your Profile</span><br/>
+                            <span class="small text-muted">Details about your personal information</span>
+                        </li>
+                        <li class="settings-item-list list-group-item-action" id="list-users-list"
+                            data-toggle="list" href="#list-users" role="tab">
+                            <span>User Account Management</span><br/>
+                            <span class="small text-muted">Manage categories and procedure list (add, edit, delete)</span>
+                        </li>
+                        <li class="settings-item-list list-group-item-action" id="list-tooth-list"
+                            data-toggle="list" href="#list-tooth" role="tab">
+                            <span>Tooth</span><br/>
+                            <span class="small text-muted">Manage details about tooth</span>
+                        </li>
+                        <li class="settings-item-list">
+                            <span>Theme</span><br/>
+                            <span class="small text-muted">Choose between dark or light mode</span>
+                        </li>
+                        <li class="settings-item-list">
+                            <span>Logout</span><br/>
+                            <span class="small text-muted">Exit application, see you soon!</span>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="col-8">
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="list-dental" role="tabpanel" aria-labelledby="list-dental-list">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Dental Procedures</h5>
+                                    <p class="small text-muted">Manage dental procedure categories listed on the procedures page and its list of subcategories</p>
+                                    <div class="row mt-4">
+                                        <div class="col-5">
+                                            <ul class="settings-lists" id="categories-lists" role="tablist">
+                                                <li class="settings-item-list list-group-item-action"
+                                                    data-toggle="list" href="#list-tooth" role="tab"
+                                                    th:each="dentalCategory :${dentalCategories}"
+                                                    th:id="${'list-' + dentalCategory.uuid + '-list'}"
+                                                    th:href="${'#list-' + dentalCategory.uuid}"
+                                                    >[[${dentalCategory.name}]]
+                                                    <i class="fa fa-edit icon-button pull-right"></i>
+                                                    <i class="fa fa-trash icon-button pull-right"></i>
+
+                                                </li>
+                                            </ul>
+<!--                                            FORM FOR ADDING/ EDITING CATEGORIES GOES HERE-->
+
+                                        </div>
+
+                                        <div class="col-7">
+                                            <div class="tab-content">
+                                                <div class="tab-pane categories-tab-pane"
+                                                     th:each="dentalCategory : ${dentalCategories}"
+                                                     th:id="${'list-' + dentalCategory.uuid}"
+                                                     role="tabpanel" th:aria-labelledby="${'list-' + dentalCategory.uuid + '-list'}">
+                                                   <div class="card" style="border: 1px solid #444;">
+                                                       <div class="card-body">
+                                                           <span class="text-capitalize" th:text="${dentalCategory.name}"></span><br />
+                                                           <span class="text-muted small">Manage procedures list under [[${dentalCategory.name}]] category</span>
+
+                                                           <div class="row mt-4">
+                                                               <div class="col-5">
+                                                                    <span class="text-muted">Description</span>
+                                                               </div>
+                                                               <div class="col-4">
+                                                                   <span class="text-muted">Cost</span>
+                                                               </div>
+                                                               <div class="col-3">
+                                                               </div>
+                                                           </div>
+
+                                                           <div class="row mt-2" th:each="procedure : ${dentalCategory.dentalProceduresDto}" th:id="${procedure.uuid}">
+                                                               <div class="col-5">
+                                                                   <span class="text-capitalize" th:text="${procedure.description}"></span>
+                                                               </div>
+                                                               <div class="col-4">
+                                                                   <span th:text="${procedure.cost}"></span>
+                                                               </div>
+                                                               <div class="col-3">
+                                                                   <i class="fa fa-edit icon-button"></i>
+                                                                   <i class="fa fa-trash icon-button"></i>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Your Profile</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="list-users" role="tabpanel" aria-labelledby="list-users-list">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>User Account Management</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="list-tooth" role="tabpanel" aria-labelledby="list-tooth-list">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>User Account Management</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/settings.js}"></script>
 </body>
 </html>

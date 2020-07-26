@@ -1,37 +1,13 @@
 
 
-// Small devices (landscape phones, 576px and down)
-@media only screen and(max-width: 576px) {
-     .categories {
-             grid-template-columns: repeat(2, 1fr);
-     }
- }
-
-// Medium devices (tablets, 768px and up)
-@media only screen and(max-width: 768px) {
-     .categories {
-             grid-template-columns: repeat(5, 1fr);
-     }
-}
-
-// Large devices (desktops, 992px and up)
-@media only screen and(max-width: 992px) {
-     .categories {
-             grid-template-columns: repeat(9, 1fr);
-     }
-}
-
-// Extra large devices (large desktops, 1200px and up)
-@media only screen and(max-width: 1200px) {
-         .categories {
-                 grid-template-columns: repeat(9, 1fr);
-         }
-}
-
 .categories {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.categories label {
+    width:100%;
+    margin: 0 0.4rem;
 }
 
 .category-toggle {

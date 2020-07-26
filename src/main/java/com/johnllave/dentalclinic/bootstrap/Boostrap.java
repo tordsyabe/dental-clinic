@@ -14,7 +14,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component
+//@Component
 public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 
 	private final ToothRepository toothRepository;

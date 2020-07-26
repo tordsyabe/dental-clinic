@@ -58,6 +58,7 @@ public class AWSS3ServiceImpl implements AWSS3Service {
 
     @Override
     public void uploadFile(MultipartFile multipartFile, String patientId) {
+        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
 
     }
 
