@@ -1,6 +1,7 @@
 package com.johnllave.dentalclinic.controllers;
 
 
+import com.johnllave.dentalclinic.dto.DentalProcedureCategoryDto;
 import com.johnllave.dentalclinic.services.DentalProcedureCategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ public class IndexController {
 	public String settingsPage(Model model) {
 
 		model.addAttribute("dentalCategories", dentalProcedureCategoryService.getCategories());
+		model.addAttribute("dentalCategoryDto", new DentalProcedureCategoryDto());
 
 		return "settings";
 	}

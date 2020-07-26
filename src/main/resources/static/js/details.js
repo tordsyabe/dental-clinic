@@ -231,7 +231,6 @@ $(document).ready(function() {
                    let endPoint = "";
 
                    const inputs = $(this).serializeArray();
-                   console.log("INPUTS", inputs);
                    $.each(inputs, function(i, input){
                         formObj[input.name] = input.value;
                    });

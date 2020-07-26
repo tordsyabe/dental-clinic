@@ -5,14 +5,12 @@
 }
 
 .settings-item-list {
-    padding: 0.6rem;
+    padding: 0.8rem;
     border-bottom: 1px solid #444;
     position: relative;
 }
 
 #categories-lists .settings-item-list {
-    padding: 0.6rem;
-    border-bottom: 1px solid #444;
     position: relative;
 }
 

@@ -15,6 +15,8 @@ public class DentalProcedureDto extends BaseDto {
 
     private String cost;
 
+    private String categoryId;
+
     @JsonIgnoreProperties("dentalProceduresDto")
     private DentalProcedureCategoryDto dentalProcedureCategoryDto;
 }

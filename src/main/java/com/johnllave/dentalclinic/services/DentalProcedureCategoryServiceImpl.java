@@ -1,6 +1,7 @@
 package com.johnllave.dentalclinic.services;
 
 import com.johnllave.dentalclinic.dto.DentalProcedureCategoryDto;
+import com.johnllave.dentalclinic.entity.DentalProcedure;
 import com.johnllave.dentalclinic.entity.DentalProcedureCategory;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.DentalProcedureCategoryMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DentalProcedureCategoryServiceImpl implements DentalProcedureCategoryService {
@@ -32,4 +34,13 @@ public class DentalProcedureCategoryServiceImpl implements DentalProcedureCatego
 
         return dentalProcedureCategoriesDto;
     }
+
+    @Override
+    public DentalProcedureCategoryDto getCategory(String id) {
+
+        DentalProcedureCategory dentalProcedureCategory = dentalCategoryRepo.findByUuid(id);
+
+        return dentalCategoryMapper.entityToDto(dentalProcedureCategory, new CycleAvoidingMappingContext());
+    }
+
 }

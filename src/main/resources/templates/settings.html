@@ -15,7 +15,7 @@
                         <li class="settings-item-list list-group-item-action" id="list-dental-list"
                             data-toggle="list" href="#list-dental" role="tab">
                             <span>Dental Procedures</span><br/>
-                            <span class="small text-muted">Manage categories and procedure list (add, edit, delete)</span>
+                            <span class="small text-muted">Dental categories and procedures</span>
                         </li>
                         <li class="settings-item-list list-group-item-action" id="list-profile-list"
                             data-toggle="list" href="#list-profile" role="tab">
@@ -24,17 +24,17 @@
                         </li>
                         <li class="settings-item-list list-group-item-action" id="list-users-list"
                             data-toggle="list" href="#list-users" role="tab">
-                            <span>User Account Management</span><br/>
-                            <span class="small text-muted">Manage categories and procedure list (add, edit, delete)</span>
+                            <span>User Accounts</span><br/>
+                            <span class="small text-muted">Give users roles and access</span>
                         </li>
                         <li class="settings-item-list list-group-item-action" id="list-tooth-list"
                             data-toggle="list" href="#list-tooth" role="tab">
                             <span>Tooth</span><br/>
-                            <span class="small text-muted">Manage details about tooth</span>
+                            <span class="small text-muted">Edit details about tooth</span>
                         </li>
                         <li class="settings-item-list">
                             <span>Theme</span><br/>
-                            <span class="small text-muted">Choose between dark or light mode</span>
+                            <span class="small text-muted">Choose between dark and light mode</span>
                         </li>
                         <li class="settings-item-list">
                             <span>Logout</span><br/>
@@ -65,12 +65,11 @@
 
                                                 </li>
                                             </ul>
-<!--                                            FORM FOR ADDING/ EDITING CATEGORIES GOES HERE-->
 
                                         </div>
 
                                         <div class="col-7">
-                                            <div class="tab-content">
+                                            <div class="tab-content" >
                                                 <div class="tab-pane categories-tab-pane"
                                                      th:each="dentalCategory : ${dentalCategories}"
                                                      th:id="${'list-' + dentalCategory.uuid}"
@@ -93,18 +92,38 @@
 
                                                            <div class="row mt-2" th:each="procedure : ${dentalCategory.dentalProceduresDto}" th:id="${procedure.uuid}">
                                                                <div class="col-5">
-                                                                   <span class="text-capitalize" th:text="${procedure.description}"></span>
+
+                                                                   <span class="text-capitalize procedure-description" th:text="${procedure.description}"></span>
                                                                </div>
                                                                <div class="col-4">
-                                                                   <span th:text="${procedure.cost}"></span>
+                                                                   <span class="procedure-cost" th:text="${procedure.cost}"></span>
                                                                </div>
                                                                <div class="col-3">
-                                                                   <i class="fa fa-edit icon-button"></i>
-                                                                   <i class="fa fa-trash icon-button"></i>
+                                                                   <i class="fa fa-edit icon-button" th:attr="onclick='handleEditDentalProcedure(\'' + ${procedure.uuid}+'\')'"></i>
+                                                                   <i class="fa fa-trash icon-button" th:attr="onclick='handleDeleteDentalProcedure(\'' + ${procedure.uuid}+'\')'"></i>
                                                                </div>
                                                            </div>
+
                                                        </div>
                                                    </div>
+
+                                                    <form class="mt-4 p-3 dental-procedure-form" th:data-dental-form="${dentalCategory.uuid}">
+                                                        <input type="hidden" th:value="${dentalCategory.uuid}" name="categoryId">
+                                                        <input type="hidden" value="" name="uuid">
+
+                                                        <div class="form-group">
+                                                            <input type="text" required class="form-control form-control-sm" placeholder="Procedure description" name="description">
+                                                        </div>
+                                                        <div class="form-group">
+
+                                                            <input type="text" required class="form-control form-control-sm" placeholder="Enter cost" name="cost">
+                                                        </div>
+
+
+                                                        <button class="btn btn-info btn-sm" type="submit">Save Procedure</button>
+
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -125,7 +144,7 @@
                         <div class="tab-pane" id="list-users" role="tabpanel" aria-labelledby="list-users-list">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5>User Account Management</h5>
+                                    <h5>User Accounts</h5>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +152,7 @@
                         <div class="tab-pane" id="list-tooth" role="tabpanel" aria-labelledby="list-tooth-list">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5>User Account Management</h5>
+                                    <h5>User Account</h5>
                                 </div>
                             </div>
                         </div>
@@ -147,5 +166,11 @@
 
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/settings.js}"></script>
+<script>
+    $(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
 </body>
 </html>
