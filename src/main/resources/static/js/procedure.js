@@ -305,11 +305,9 @@ $(document).mouseup(function(e){
 
     if(!contextMenu.is(e.target) && contextMenu.has(e.target).length === 0) {
         $("#context-menu").removeClass("show").hide();
+        closeSideProcedures();
     }
 
-//    if(!sideProcedures.is(e.target) && sideProcedures.has(e.target).length === 0) {
-//        closeSideProcedures();
-//    }
 });
 
 $(document).keyup(function(e){
@@ -318,6 +316,7 @@ $(document).keyup(function(e){
 
     if(e.key === "Escape") {
         $("#context-menu").removeClass("show").hide();
+        closeSideProcedures();
     }
 });
 

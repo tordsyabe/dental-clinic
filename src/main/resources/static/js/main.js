@@ -117,6 +117,8 @@ function closeSideProcedures(){
         $(".side-procedures .side-content").find("h5 + #tooth-number").remove();
     });
 
+//    TODO: on close side content must remove children div inside
+
 
 
 

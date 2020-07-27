@@ -3,28 +3,33 @@ package com.johnllave.dentalclinic.services;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.johnllave.dentalclinic.dto.ToothDto;
 import com.johnllave.dentalclinic.entity.Tooth;
+import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
+import com.johnllave.dentalclinic.mapper.ToothMapper;
 import com.johnllave.dentalclinic.repository.ToothRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class TeethServiceImpl implements ToothService {
+public class ToothServiceImpl implements ToothService {
 
 	private final ToothRepository toothRepository;
+	private final ToothMapper toothMapper;
 
 	@Autowired
-	public TeethServiceImpl(ToothRepository toothRepository) {
+	public ToothServiceImpl(ToothRepository toothRepository, ToothMapper toothMapper) {
 		this.toothRepository = toothRepository;
+		this.toothMapper = toothMapper;
 	}
 
 	@Override
-	public Set<Tooth> getTooth() {
+	public Set<ToothDto> getTeeth() {
 
-		Set<Tooth> teeth = new HashSet<>();
+		Set<ToothDto> teeth = new HashSet<>();
 
-		toothRepository.findAll().forEach(tooth -> teeth.add(tooth));
+		toothRepository.findAll().forEach(tooth -> teeth.add(toothMapper.teethToTeethDto(tooth, new CycleAvoidingMappingContext())));
 		return teeth;
 	}
 
