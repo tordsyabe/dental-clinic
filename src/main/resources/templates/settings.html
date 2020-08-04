@@ -101,7 +101,7 @@
                                                                </div>
                                                                <div class="col-3">
                                                                    <i class="fa fa-edit icon-button" th:attr="onclick='handleEditDentalProcedure(\'' + ${procedure.uuid}+'\')'"></i>
-                                                                   <i class="fa fa-trash icon-button" th:attr="onclick='handleDeleteDentalProcedure(\'' + ${procedure.uuid}+'\')'"></i>
+                                                                   <i class="fa fa-trash icon-button" th:attr="onclick='openDeleteModal(\'' + ${procedure.uuid}+'\')'"></i>
                                                                </div>
                                                            </div>
 
@@ -170,17 +170,25 @@
                 </div>
             </div>
         </div>
+        <div class="delete-modal">
+            <div class="delete-modal__content">
+                <p class="text-muted">Are you sure you want to delete?</p>
+                <div class="delete-modal__content-action mt-2">
+                    <a class="btn btn-secondary btn-sm" onclick="closeDeleteModal()">Cancel</a>
+                    <a class="btn btn-danger btn-sm" onclick="handleDeleteDentalProcedure()">Delete</a>
+                </div>
 
+            </div>
+        </div>
     </div>
+
+
 </div>
 
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/settings.js}"></script>
 <script>
-    $(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
+
 </script>
 </body>
 </html>

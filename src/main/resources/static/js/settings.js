@@ -48,7 +48,7 @@ $(".dental-procedure-form").submit(function(event) {
                                    </div>
                                    <div class="col-3">
                                        <i class="fa fa-edit icon-button" onclick="handleEditDentalProcedure('${data.uuid}')"></i>
-                                       <i class="fa fa-trash icon-button" onclick="handleDeleteDentalProcedure('${data.uuid}')"></i>
+                                       <i class="fa fa-trash icon-button" onclick="openDeleteModal('${data.uuid}')"></i>
                                    </div>
                                </div>
                         `);
@@ -72,24 +72,6 @@ $(".dental-procedure-form").submit(function(event) {
     });
 });
 
-
-function handleDeleteDentalProcedure(dentalProcedureId) {
-
-    $.ajax({
-        type: "DELETE",
-        url: "/api/dental-procedures/" + dentalProcedureId,
-        contentType: "application/json",
-        success: function() {
-            $(`div#${dentalProcedureId}`).remove();
-            toastr.success("Successfully delete dental procedure", "Success");
-        },
-        error: function(e) {
-            console.log(e);
-            toastr.error("Error deleting dental procedure", "Error");
-        }
-    });
-}
-
 function handleEditDentalProcedure(dentalProcedureId) {
 
 
@@ -104,4 +86,33 @@ function handleEditDentalProcedure(dentalProcedureId) {
     $(form).find("input[name=cost]").val(cost);
 
     console.log(description, cost);
+}
+
+//custome upload for bootstrap
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
+
+
+function handleDeleteDentalProcedure() {
+    const dentalProcedureId = document.querySelector(".delete-modal").getAttribute("data-delete-id");
+
+    if(!dentalProcedureId !== null) {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/dental-procedures/" + dentalProcedureId,
+            contentType: "application/json",
+            success: function() {
+                $(`div#${dentalProcedureId}`).remove();
+                toastr.success("Successfully delete dental procedure", "Success");
+                closeDeleteModal();
+            },
+            error: function(e) {
+                console.log(e);
+                toastr.error("Error deleting dental procedure", "Error");
+            }
+        });
+    }
 }

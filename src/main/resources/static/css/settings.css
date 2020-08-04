@@ -26,6 +26,5 @@
 
 .settings-lists .active{
      border-bottom: 1px solid #444 !important;
-     outline: 1px solid var(--info);
      background: rgba(0, 0, 0, 0.2) !important;
 }

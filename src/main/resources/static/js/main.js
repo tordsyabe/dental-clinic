@@ -127,4 +127,17 @@ function closeSideProcedures(){
 
 }
 
+function openDeleteModal(id) {
+    console.log(id);
+
+
+    $(".delete-modal").css("display", "flex");
+    document.querySelector(".delete-modal").setAttribute("data-delete-id", id);
+}
+
+function closeDeleteModal() {
+    $(".delete-modal").css("display", "none");
+    document.querySelector(".delete-modal").removeAttribute("data-delete-id");
+}
+
 

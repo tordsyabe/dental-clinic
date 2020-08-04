@@ -12,44 +12,29 @@
 			<div class="col-11 offset-1 my-4 pl-0 pr-5">
 
 				<!-- MAIN CONTENT HEADER -->
-				<h5>Patients</h5>
-				<div class="row mt-5">
-					<div class="col-10">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Search patient">
-							<div class="input-group-append">
-								<button class="btn"
-									style="background-color: #303030 !important; border-color: #222 !important"
-									type="button">
-									<i class="fa fa-search"></i>
-								</button>
-							</div>
+				<h5 class="mb-5">Patients</h5>
+				<div class="search-form mb-5">
+						<div class="form-group has-search mr-1">
+							<span class="fa fa-search form-control-feedback"></span>
+							<input type="text" class="form-control" placeholder="Search" id="searchPatient">
 						</div>
-					</div>
 
-					<div class="col-2">
-						<a class="btn btn-info" th:href="@{/patient/new}">
-							<i class="fa fa-plus mr-1"></i> Add Patient
-						</a>
-					</div>
-
-
+					<a class="btn btn-info pull-right" th:href="@{/patient/new}">
+						Add Patient
+					</a>
 				</div>
 
 				<!-- END MAIN CONTENT HEADER -->
 
 				<!-- MAIN CONTENT DETAILS -->
-				<table class="table table-hover mt-4">
+				<table class="table table-hover" id="patients-table">
 					<thead>
 						<tr>
-							<th scope="col"></th>
-							<th scope="col">Patient Name</th>
-							<th scope="col">Birthdate</th>
-							<th scope="col">Phone</th>
-							<th scope="col">Email</th>
-							<th scope="col">Age</th>
-							<th scope="col"></th>
+							<th>Patient Name</th>
+							<th>Birthdate</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Age</th>
 						</tr>
 
 
@@ -57,25 +42,25 @@
 
 					<tbody>
 						<tr th:each="patient : ${#lists.sort(patients, lastName)}" class="clickable-row" th:data-href="${'/patient/details/' + patient.uuid}">
-							<th scope="row">
-								<img th:if="${patient.image == null || patient.image == ''}"
-									 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}"
-									 class="avatar" alt="..." width="40" height="40">
-								<img th:unless="${patient.image == null || patient.image == ''}" th:src="${patient.image}" class="avatar" alt="..." width="40" height="40">
-							</th>
-							<td th:text="${patient.firstName + ' ' + patient.lastName}">Hillary
-								Joevette Tan</td>
-							<td th:text="${patient.birthDate}"
-								id="birthDate">03/01/1996</td>
-							<td th:text="${patient.phone}">09213481203</td>
-							<td th:text="${patient.email}">01/19/2020</td>
+<!--							<td>-->
+<!--								<img th:if="${patient.image == null || patient.image == ''}"-->
+<!--									 th:src="${patient.gender == 'male' ? '/images/male.svg' : '/images/female.svg'}"-->
+<!--									 class="avatar" alt="..." width="40" height="40">-->
+<!--								<img th:unless="${patient.image == null || patient.image == ''}" th:src="${patient.image}" class="avatar" alt="..." width="40" height="40">-->
+<!--							</td>-->
+							<td th:text="${patient.firstName + ' ' + patient.lastName}"></td>
+							<td th:text="${patient.birthDate}" id="birthDate"></td>
+							<td th:text="${patient.phone}"></td>
+							<td th:text="${patient.email}"></td>
 							<td th:text="${patient.age}"></td>
-							<td></td>
-							<td></td>
+<!--							<td></td>-->
+<!--							<td></td>-->
 
 						</tr>
 					<tbody>
 				</table>
+
+
 				<!-- END MAIN CONTENT DETAILS -->
 			</div>
 			<!-- MAIN CONTENT -->
@@ -83,7 +68,20 @@
 
 	</div>
 
-	<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+	<script>
+
+	$(document).ready( function () {
+    	$('#patients-table').DataTable();
+    	$('#searchPatient').keyup(function(){
+      		$('#patients-table').DataTable().search($(this).val()).draw() ;
+
+      		});
+	});
+</script>
 
 </body>
 </html>
