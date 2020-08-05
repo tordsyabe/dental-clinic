@@ -458,7 +458,6 @@ const deleteProcedure = (procedureId) => {
         url: "/api/procedures/" + procedureId,
         contentType: "application/json",
         success: function() {
-            console.log("Deleted");
             $(`*[data-procedure="${procedureId}"]`).remove();
 
             if($("#procedure-card-item").find(".card-body").children().length === 0) {
@@ -476,7 +475,6 @@ const deleteProcedure = (procedureId) => {
                `);
             }
 
-            console.log($("#procedure-card-item ").find(".card-body"));
 
             toastr.success("Procedure successfully deleted", "Success");
         },

@@ -24,7 +24,7 @@
 
             <div class="row mt-5 align-content-between" style="min-height: calc(100% - 70px);">
                 <div class="col-12" th:if="${!patient.patientDocumentsDto.isEmpty()}">
-                    <div class="row">
+                    <div class="row" id="patient-document-list">
                         <div class="col-3" id="patient-file" th:each="document : ${patient.patientDocumentsDto}"
                              th:data-patient-file="${document.uuid}">
                                 <div class="mb-3" style="height: 120px; width: 120px;" >
