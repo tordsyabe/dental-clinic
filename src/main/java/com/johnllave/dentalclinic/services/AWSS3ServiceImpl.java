@@ -50,15 +50,83 @@ public class AWSS3ServiceImpl implements AWSS3Service {
     @Override
     @Async
     public void uploadFile(MultipartFile multipartFile, String patientId, String filename) {
+
         try {
             File file = convertMultipartFile(multipartFile);
-            uploadFileToS3Bucket(bucketName, file, patientId, filename);
 
+            Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId),
+                    new CycleAvoidingMappingContext());
+
+            String fileType = file.getName().substring(file.getName().lastIndexOf('.') + 1);
+
+            String trimmedFilename = filename;
+
+            if(filename.contains(".")) {
+                trimmedFilename = filename.substring(0, filename.lastIndexOf('.'));
+
+            }
+
+            String uniqueFileName = patient.getUuid() + "/" + LocalDateTime.now() + "_" + trimmedFilename + "." + fileType;
+
+            String FinalFilename = trimmedFilename + "." + fileType;
+
+
+            PatientDocument patientDocument = new PatientDocument();
+
+            patientDocument.setLink(this.endPoint + uniqueFileName);
+            patientDocument.setFileName(FinalFilename);
+            patientDocument.setDateUploaded(LocalDate.now());
+            patientDocument.setFileType(fileType);
+
+            patient.addDocument(patientDocument);
+
+            patientService.savePatient(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext()));
+
+            uploadFileToS3Bucket(bucketName, file, uniqueFileName);
 
             file.delete();
         } catch (AmazonServiceException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void uploadFile(MultipartFile multipartFile, String patientId) {
+
+
+        try {
+            File file = convertMultipartFile(multipartFile);
+
+            Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId),
+                    new CycleAvoidingMappingContext());
+
+            String uniqueFileName = patient.getUuid() + "/" + "profile-image/" + LocalDateTime.now() + "_" +  file.getName();
+
+            patient.setImage(this.endPoint + uniqueFileName);
+
+            patientService.savePatient(patientMapper.patientToPatientDto(patient,
+                    new CycleAvoidingMappingContext()));
+
+            uploadFileToS3Bucket(bucketName, file, uniqueFileName);
+
+            file.delete();
+
+
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void uploadFileToS3Bucket(String bucketName, File file, String uniqueFileName) {
+
+
+
+        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, uniqueFileName, file).withCannedAcl(CannedAccessControlList.PublicRead);
+
+        amazonS3.putObject(putObjectRequest);
     }
 
     @Override
@@ -81,46 +149,6 @@ public class AWSS3ServiceImpl implements AWSS3Service {
         patientDocumentRepository.delete(patientDocument);
     }
 
-    @Override
-    public void uploadFile(MultipartFile multipartFile, String patientId) {
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
-
-    }
-
-
-    private void uploadFileToS3Bucket(String bucketName, File file, String patientId, String filename) {
-
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
-
-        String fileType = file.getName().substring(file.getName().lastIndexOf('.') + 1);
-
-        String trimmedFilename = filename;
-
-        if(filename.contains(".")) {
-            trimmedFilename = filename.substring(0, filename.lastIndexOf('.'));
-
-        }
-
-        String uniqueFileName = patient.getUuid() + "/" + LocalDateTime.now() + "_" + trimmedFilename + "." + fileType;
-
-        String FinalFilename = trimmedFilename + "." + fileType;
-
-
-        PatientDocument patientDocument = new PatientDocument();
-
-        patientDocument.setLink(this.endPoint + uniqueFileName);
-        patientDocument.setFileName(FinalFilename);
-        patientDocument.setDateUploaded(LocalDate.now());
-        patientDocument.setFileType(fileType);
-
-        patient.addDocument(patientDocument);
-
-        patientService.savePatient(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext()));
-
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, uniqueFileName, file).withCannedAcl(CannedAccessControlList.PublicRead);
-
-        amazonS3.putObject(putObjectRequest);
-    }
 
 
     private File convertMultipartFile(MultipartFile multipartFile) {

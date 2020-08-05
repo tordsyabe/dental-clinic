@@ -30,7 +30,6 @@
 				<table class="table table-hover" id="patients-table">
 					<thead>
 						<tr>
-							<th>Avatar</th>
 							<th>Patient Name</th>
 							<th>Birthdate</th>
 							<th>Phone</th>
@@ -50,7 +49,7 @@
 <!--									 class="avatar" alt="..." width="40" height="40">-->
 <!--								<img th:unless="${patient.image == null || patient.image == ''}" th:src="${patient.image}" class="avatar" alt="..." width="40" height="40">-->
 <!--							</td>-->
-							<td>avatar</td>
+
 							<td th:text="${patient.firstName + ' ' + patient.lastName}"></td>
 							<td th:text="${patient.birthDate}" id="birthDate"></td>
 							<td th:text="${patient.phone}"></td>
