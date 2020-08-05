@@ -25,7 +25,8 @@
             <div class="row mt-5 align-content-between" style="min-height: calc(100% - 70px);">
                 <div class="col-12" th:if="${!patient.patientDocumentsDto.isEmpty()}">
                     <div class="row">
-                        <div class="col-3" id="patient-file" th:each="document : ${patient.patientDocumentsDto}">
+                        <div class="col-3" id="patient-file" th:each="document : ${patient.patientDocumentsDto}"
+                             th:data-patient-file="${document.uuid}">
                                 <div class="mb-3" style="height: 120px; width: 120px;" >
                                     <img th:src="${document.link}" th:alt="${document.fileName}"
                                          th:if="${document.fileType == 'png' || document.fileType == 'jpg'}">
@@ -40,11 +41,12 @@
                                     <span id="file-date-uploaded" th:text="${document.dateUploaded}"></span>
                                 </span>
                             <div>
-                                <a href="#" class="small">Download</a>
-                                <span class="text-muted">|</span>
+<!--                                <a href="#" class="small">Download</a>-->
+<!--                                <span class="text-muted">|</span>-->
                                 <a th:href="${document.link}" class="small" target="_blank">View</a>
                                 <span class="text-muted">|</span>
-                                <a href="#" class="small">Remove</a>
+                                <a href="#" class="small"
+                                   th:attr="onclick='openDeleteModal(\'' + ${document.uuid}+'\')'">Remove</a>
                             </div>
 
                         </div>
@@ -103,7 +105,8 @@
                 <embed src="" id="for-upload">
 
 
-                <form  th:action="@{/uploadFile/}" method="post" enctype="multipart/form-data" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
+                <form id="uploadFileForm"  th:action="@{/uploadFile/}" method="post" enctype="multipart/form-data"
+                      accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
                     <input type="hidden" th:value="${patient.uuid}" name="patientId">
                     <input type="file" name="file" id="upload-file" accept="*" onchange="setImage(event)">
                     <div class="d-flex justify-content-between align-items-center">
@@ -115,7 +118,7 @@
 
 
                         </div>
-                        <input class="btn btn-info" type="submit" value="Upload">
+                        <input class="btn btn-info" type="submit" id="uploadFileBtn" value="Upload">
                     </div>
 
 
@@ -125,7 +128,16 @@
 
             </div>
         </div>
+        <div class="delete-modal">
+            <div class="delete-modal__content">
+                <p class="text-muted">Are you sure you want to delete?</p>
+                <div class="delete-modal__content-action mt-2">
+                    <a class="btn btn-secondary btn-sm" onclick="closeDeleteModal()">Cancel</a>
+                    <a class="btn btn-danger btn-sm" onclick="handleDeletePatientFile()">Delete</a>
+                </div>
 
+            </div>
+        </div>
     </div>
 
 </div>

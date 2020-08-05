@@ -3,11 +3,13 @@ package com.johnllave.dentalclinic.services;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.johnllave.dentalclinic.entity.Patient;
 import com.johnllave.dentalclinic.entity.PatientDocument;
 import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
 import com.johnllave.dentalclinic.mapper.PatientMapper;
+import com.johnllave.dentalclinic.repository.PatientDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -29,6 +31,8 @@ public class AWSS3ServiceImpl implements AWSS3Service {
 
     private final PatientMapper patientMapper;
 
+    private final PatientDocumentRepository patientDocumentRepository;
+
     @Value("${aws.s3.bucket}")
     private String bucketName;
 
@@ -36,10 +40,11 @@ public class AWSS3ServiceImpl implements AWSS3Service {
     private String endPoint;
 
     @Autowired
-    public AWSS3ServiceImpl(AmazonS3 amazonS3, PatientService patientService, PatientMapper patientMapper) {
+    public AWSS3ServiceImpl(AmazonS3 amazonS3, PatientService patientService, PatientMapper patientMapper, PatientDocumentRepository patientDocumentRepository) {
         this.amazonS3 = amazonS3;
         this.patientService = patientService;
         this.patientMapper = patientMapper;
+        this.patientDocumentRepository = patientDocumentRepository;
     }
 
     @Override
@@ -54,6 +59,26 @@ public class AWSS3ServiceImpl implements AWSS3Service {
         } catch (AmazonServiceException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    @Async
+    public void deleteFileFromS3Bucket(String fileId) {
+
+
+        PatientDocument patientDocument = patientDocumentRepository.findByUuid(fileId);
+
+        String[] link = patientDocument.getLink().split("/");
+
+        String fileName = link[link.length - 1];
+        String folderName = link[link.length - 2];
+
+
+
+
+        amazonS3.deleteObject(new DeleteObjectRequest(bucketName, folderName + "/" + fileName));
+
+        patientDocumentRepository.delete(patientDocument);
     }
 
     @Override
