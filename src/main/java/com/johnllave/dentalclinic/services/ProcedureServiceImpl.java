@@ -75,7 +75,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 
         Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId), new CycleAvoidingMappingContext());
 
-        procedureDto.setPaid(false);
+        procedureDto.setPaid("unpaid");
 
         Procedure procedure = procedureMapper.procedureDtoToProcedure(procedureDto, new CycleAvoidingMappingContext());
 

@@ -22,6 +22,12 @@
 //Handle delete complaint
 const handleDeleteComplaint = (id) => {
 
+    $(`[data-complaint-delete-form="${id}"]`).find(".btn-danger").addClass("disabled").html(`
+        <div class="spinner-border spinner-border-sm" role="status">
+          <span class="sr-only">Deleting</span>
+        </div>
+    `);
+
     $.ajax({
         type: "DELETE",
         url: "/api/complaints/" + id,
@@ -114,13 +120,24 @@ function closeProcedureInvoiceForm(formId) {
 const submitInvoiceProcedure = (event, formId) => {
     event.preventDefault();
 
-    const invoiceFormToSubmit = document.querySelector(`[data-invoice-form="${formId}"]`).firstElementChild;
 
-    console.log(invoiceFormToSubmit);
 
-    const invoiceCost = invoiceFormToSubmit.elements[1].value;
-    const invoiceDate = invoiceFormToSubmit.elements[2].value;
-    console.log(invoiceCost, invoiceDate);
+    var values = {};
+
+
+    const form = $(`[data-invoice-form="${formId}"]`).find("form").serializeArray();
+
+    $(`[data-invoice-form="${formId}"]`).find("form").find("#invoiceBtn").addClass("disabled").html(`
+        <div class="spinner-border spinner-border-sm" role="status">
+          <span class="sr-only">Invoicing</span>
+        </div>
+    `);
+
+   let formObj = {};
+
+   $.each(form, function(i, input){
+        formObj[input.name] = input.value;
+   });
 
 
         $.ajax({
@@ -129,29 +146,54 @@ const submitInvoiceProcedure = (event, formId) => {
             url: "/api/invoices",
             dataType: "json",
             data: JSON.stringify({
-                datePaid: invoiceDate,
-                cost: invoiceCost,
-                procedureId: formId
+                datePaid: formObj.paymentDate,
+                cost: formObj.cost,
+                procedureId: formId,
+                paymentType: formObj.paymentType
             }),
             success: function(result) {
-                console.log(result);
-                //remove invoice form from DOM
-                $(`*[data-invoice-form="${formId}"]`).remove();
-
 
                 const procedureCard = $(`*[data-procedure-card="${result.procedureDto.uuid}"]`);
 
-                    procedureCard.find("i#procedureIcon").removeClass("fa fa-circle fa-lg")
-                    .addClass("fa fa-check-circle fa-lg")
-                    .css("color", "#3498db");
+                    if(result.paymentType === 'full' || result.paymentType === 'discounted') {
+                        $(`*[data-invoice-form="${formId}"]`).remove();
+                        console.log($(".partial-payment").length > 0);
+                        if(procedureCard.find(".badge-warning").length > 0) {
+                            procedureCard.find(".badge-warning").remove();
 
-                    procedureCard.find(".col-3").addClass("d-flex justify-content-end align-items-center pr-4");
+                        }
 
-                    procedureCard.find("[data-create-invoice-btn]").replaceWith(`
-                        <i class="fa fa-print icon-button"></i>
-                    `);
+                         procedureCard.find("i#procedureIcon").removeClass("fa fa-circle fa-lg")
+                                .addClass("fa fa-check-circle fa-lg")
+                                .css("color", "#3498db");
 
-                    procedureCard.find("[data-delete-procedure-btn]").css("pointer-events", "auto");
+                                procedureCard.find(".col-3").addClass("d-flex justify-content-end align-items-center pr-4");
+
+                                procedureCard.find("[data-create-invoice-btn]").replaceWith(`
+                                    <i class="fa fa-print icon-button"></i>
+                                `);
+
+                                procedureCard.find("[data-delete-procedure-btn]").css("pointer-events", "auto");
+                    } else {
+                        closeProcedureInvoiceForm(result.procedureDto.uuid);
+                        procedureCard.find("form").trigger("reset");
+                        procedureCard.find("form").find("#invoiceBtn").removeClass("disabled").html("Invoice");
+                        procedureCard.find("#payment-details").append(`
+                            <small class="text-muted partial-payment">Partial payment: ${result.cost} as of ${result.datePaid}</small>
+
+                        `);
+
+                        procedureCard.find("#procedure-action").prepend(`
+                                <span class="badge badge-warning"
+                                      style="position: absolute; top: -35%; right: -10%">
+                                    partially paid
+                                </span>
+                        `);
+                    }
+
+
+
+
 
                 toastr.success("Procedure invoiced", "Success");
 
@@ -453,6 +495,13 @@ function showComplaintActionBtn() {
 
 //PROCEDURE DELETE AJAX
 const deleteProcedure = (procedureId) => {
+
+        $(`[data-procedure-delete-form="${procedureId}"]`).find(".btn-danger").addClass("disabled").html(`
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Deleting</span>
+            </div>
+        `);
+
     $.ajax({
         type: "DELETE",
         url: "/api/procedures/" + procedureId,
@@ -484,3 +533,8 @@ const deleteProcedure = (procedureId) => {
         }
     });
 }
+
+$("#uploadProfileForm").submit(function(){
+   $("input[type=submit]", this).attr("disabled", true);
+   $("#profileUploadBtn").text("Uploading...")
+});

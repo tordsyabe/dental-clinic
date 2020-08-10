@@ -20,6 +20,8 @@ public class InvoiceDto extends BaseDto{
 
     private String cost;
 
+    private String paymentType;
+
     private String dateCreated;
 
     private String procedureId;

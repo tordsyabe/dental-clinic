@@ -20,9 +20,9 @@ public class Procedure extends BaseEntity {
 	private LocalDate dateCreated;
 	private String description;
 	private Integer cost;
-	private Boolean paid;
+	private String paid = "unpaid";
 	private String category;
-	
+
 	@OneToOne
 	private Tooth tooth;
 

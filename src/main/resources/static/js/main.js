@@ -23,20 +23,6 @@
 })();
 
 
-// Making table row clickable and href to patients details
-(function(){
-
-const clickableRows = document.querySelectorAll('.clickable-row');
-
-    clickableRows.forEach(clickableRow => {
-        const link = clickableRow.getAttribute("data-href");
-
-        clickableRow.addEventListener('click', function() {
-            window.location = link;
-        });
-    });
-})();
-
 (function(){
     const sidebarLinks = document.querySelectorAll('#sticky-sidebar a');
 
@@ -96,9 +82,9 @@ const formatWeekDay = (dates) => {
 	});
 }
 
-function openSideProcedures(){
+function openSideSlider(){
 
-    $(".side-procedures").animate({
+    $(".side-slider").animate({
         "right": "0",
 
     });
@@ -107,14 +93,14 @@ function openSideProcedures(){
     $("#context-menu").removeClass("show").hide();
 }
 
-function closeSideProcedures(){
+function closeSideSlider(){
 
-    $(".side-procedures").animate({
+    $(".side-slider").animate({
         "right": "-450px",
     }, function() {
-        $(".side-procedures .side-content").find(".mt-3").remove();
-        $(".side-procedures .side-content").find("h5 + #tooth-desc").remove();
-        $(".side-procedures .side-content").find("h5 + #tooth-number").remove();
+        $(".side-slider .side-content").find(".mt-3").remove();
+        $(".side-slider .side-content").find("h5 + #tooth-desc").remove();
+        $(".side-slider .side-content").find("h5 + #tooth-number").remove();
     });
 
 //    TODO: on close side content must remove children div inside

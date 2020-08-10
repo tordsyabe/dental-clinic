@@ -35,3 +35,14 @@
     display: none;
 }
 
+    .page-item.active .page-link {
+        background-color: var(--info) !important;
+    }
+
+    .page-link {
+        background-color: var(--secondary) !important;
+    }
+
+    .page-link:hover {
+        background-color: var(--info) !important;
+    }

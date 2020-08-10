@@ -24,7 +24,7 @@ public class ProcedureDto extends BaseDto {
     @NotBlank
     private String cost;
 
-    private Boolean paid;
+    private String paid;
 
     @NotBlank
     private String category;

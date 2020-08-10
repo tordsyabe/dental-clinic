@@ -18,21 +18,31 @@
                             <div class="col-1">
                                 <i
                                         id="procedureIcon"
-                                        th:class="${procedure.paid == true ? 'fa fa-check-circle fa-lg' : 'fa fa-circle fa-lg'}"
-                                        th:style="${procedure.paid == false ? 'color: #222' : 'color: #3498db'}"></i>
+                                        th:class="${procedure.paid == 'full' || procedure.paid == 'discounted' ? 'fa fa-check-circle fa-lg' : 'fa fa-circle fa-lg'}"
+                                        th:style="${procedure.paid == 'unpaid' || procedure.paid == 'partial' ? 'color: #222' : 'color: #3498db'}"></i>
                             </div>
 
 
                             <div class="col-8">
-                                <div class="row" th:text="${procedure.description}"></div>
+                                <div class="row text-capitalize" th:text="${procedure.description}"></div>
 
                                 <div class="row">
-                                    <small class="text-muted" th:text="${procedure.category}"></small>
+                                    <small class="text-muted text-capitalize" th:text="${procedure.category}"></small>
 
                                 </div>
                             </div>
 
-                            <div class="col-3 d-flex justify-content-end align-items-center pr-4" th:if="${!procedure.paid}">
+
+
+                            <div class="col-3 d-flex justify-content-end align-items-center pr-4" id="procedure-action" th:if="${procedure.paid == 'unpaid' || procedure.paid == 'partial'}">
+
+                                <span class="badge badge-warning"
+                                      style="position: absolute; top: -35%; right: -10%"
+                                      th:if="${procedure.paid == 'partial'}">
+                                    partially paid
+                                </span>
+
+
                                 <i class="fa fa-files-o icon-button"
                                    th:data-create-invoice-btn="${procedure.uuid}"
                                    th:attr="onclick='showProcedureInvoiceForm(\'' + ${procedure.uuid}+'\')'"
@@ -43,7 +53,7 @@
                                    data-toggle="tooltip" data-placement="top" title="Delete procedure"></i>
                             </div>
 
-                            <div class="col-3 d-flex justify-content-end align-items-center pr-4" th:if="${procedure.paid}">
+                            <div class="col-3 d-flex justify-content-end align-items-center pr-4" th:if="${procedure.paid == 'full' || procedure.paid == 'discounted'}">
                                 <i class="fa fa-print icon-button"
                                    th:data-print-invoice-btn="${procedure.uuid}"
                                    data-toggle="tooltip" data-placement="top" title="Print invoice"></i>
@@ -52,6 +62,7 @@
                                    th:attr="onclick='showProcedureDeleteForm(\'' + ${procedure.uuid}+'\')'"
                                    data-toggle="tooltip" data-placement="top" title="Create invoice"></i>
                             </div>
+
 
 
                             <div class="col-11 offset-1 pl-0" id="procedure-delete-form" th:data-procedure-delete-form="${procedure.uuid}">
@@ -67,15 +78,15 @@
 
 
                             <div class="col-11 offset-1 pl-0" th:data-invoice-form="${procedure.uuid}">
+
                                 <form class="d-flex justify-content-between" style="width: 100%;">
                                             <input type="hidden" th:value="${patient.uuid}" id="comPatientId">
                                             <div class="form-group input-group-sm pr-1 d-flex justify-content-between align-items-center">
-                                                <label class="text-muted small pr-1" for="payment">Amount</label>
                                                 <input type="text" class="form-control"
                                                        required
-                                                       placeholder="Amount"
-                                                       id="amount"
-                                                       name="amount"
+                                                       placeholder="Payment Amount"
+                                                       id="cost"
+                                                       name="cost"
                                                        th:value="${procedure.cost}"
                                                        style="background-color: #393939 !important"
                                                 >
@@ -84,7 +95,6 @@
 
 
                                         <div class="form-group input-group-sm pr-1 d-flex justify-content-between align-items-center">
-                                            <label class="text-muted small pr-1 mb-0" for="paymentDate">Date</label>
                                             <input type="date" class="form-control"
                                                    required
                                                    id="paymentDate"
@@ -93,13 +103,32 @@
                                             >
 
                                         </div>
+
+                                    <div class="form-group input-group-sm pr-1 d-flex justify-content-between align-items-center">
+                                        <select class="form-control" id="paymentType" name="paymentType" style="background-color: #393939 !important">
+                                            <option value="full">Full Payment</option>
+                                            <option value="partial">Partial Payment</option>
+                                            <option value="discounted">Discounted</option>
+                                        </select>
+                                    </div>
                                     <div>
                                         <a class="btn btn-secondary btn-sm" th:attr="onclick='closeProcedureInvoiceForm(\'' + ${procedure.uuid}+'\')'">Cancel</a>
-                                        <a class="btn btn-info btn-sm" th:attr="onclick='submitInvoiceProcedure(event, \'' + ${procedure.uuid}+'\')'">Invoice</a>
+                                        <a class="btn btn-info btn-sm" id="invoiceBtn" th:attr="onclick='submitInvoiceProcedure(event, \'' + ${procedure.uuid}+'\')'">Invoice</a>
                                     </div>
 
 
+
+
+
                                 </form>
+
+                                <div class="row mt-3 pl-3 d-flex flex-column align-items-start" id="payment-details">
+
+                                    <small class="text-muted procedure-cost">Procedure cost: [[${procedure.cost}]]</small>
+                                    <small class="text-muted partial-payment" th:if="${procedure.invoiceDto != null}">Partial payment: [[${procedure.invoiceDto.cost}]] as of [[${procedure.invoiceDto.datePaid}]]</small>
+
+                                </div>
+
                             </div>
 
                         </div>

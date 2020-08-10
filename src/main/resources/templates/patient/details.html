@@ -28,7 +28,7 @@
                 <div class="col-sm-3">
                     <div th:replace="fragments/forms/patient-form :: patientForm"></div>
 
-                    <form th:action="@{/uploadProfileImage/}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{/uploadProfileImage/}" method="post" enctype="multipart/form-data" id="uploadProfileForm">
                         <input type="hidden" th:value="${patient.uuid}" name="patientId">
                         <input type="file" name="file" id="upload-image" accept="image/*"
                                onchange="loadFile(event)">

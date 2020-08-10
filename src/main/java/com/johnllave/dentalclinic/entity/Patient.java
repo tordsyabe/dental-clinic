@@ -26,8 +26,6 @@ public class Patient extends Person {
 	private String city;
 	private String province;
 
-	private int age;
-
 	private LocalDate dateCreated;
 	private LocalDate dateUpdated;
 

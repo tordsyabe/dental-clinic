@@ -6,7 +6,7 @@ const setImage = (event) => {
 	file.src = URL.createObjectURL(event.target.files[0]);
 
 	$("#filename").val(event.target.files[0].name);
-	openSideProcedures();
+	openSideSlider();
 
 
 };

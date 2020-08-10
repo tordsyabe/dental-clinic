@@ -251,7 +251,6 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure1.setCategory("Surgery");
 		procedure1.setCost(960);
 		procedure1.setDescription("Permanent tooth extraction");
-		procedure1.setPaid(false);
 		procedure1.setTooth(upperRight3rdMolar.orElse(null));
 		procedure1.setDateCreated(LocalDate.of(2020, 3, 2));
 
@@ -260,7 +259,6 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure2.setCategory("Restoration");
 		procedure2.setCost(960);
 		procedure2.setDescription("Restoration of teeth");
-		procedure2.setPaid(false);
 		procedure2.setTooth(upperLeftCentralIncisor.orElse(null));
 		procedure2.setDateCreated(LocalDate.now());
 
@@ -271,7 +269,6 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure3.setCategory("Root Canal");
 		procedure3.setCost(960);
 		procedure3.setDescription("Canalization of the teeth");
-		procedure3.setPaid(true);
 		procedure3.setTooth(lowerright2ndBicuspid.orElse(null));
 		procedure3.setDateCreated(LocalDate.of(2020, 1, 1));
 
@@ -280,7 +277,6 @@ public class Boostrap implements ApplicationListener<ContextRefreshedEvent> {
 		procedure4.setCategory("Prosthetics");
 		procedure4.setCost(3000);
 		procedure4.setDescription("Compisite veneers");
-		procedure4.setPaid(true);
 		procedure4.setTooth(lowerright2ndBicuspid.orElse(null));
 		procedure4.setDateCreated(LocalDate.of(2020, 4, 1));
 

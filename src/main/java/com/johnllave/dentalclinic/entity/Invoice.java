@@ -20,6 +20,8 @@ public class Invoice extends BaseEntity {
 
     private Integer cost;
 
+    private String paymentType;
+
     private LocalDate dateCreated;
 
     @OneToOne

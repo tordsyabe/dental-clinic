@@ -38,11 +38,13 @@ public class PatientServiceImpl implements PatientService {
 	public List<PatientDto> getPatients() {
 		
 		List<PatientDto> patientsDto = new ArrayList<>();
-		
+
+
 		patientRepository.findAll().forEach(patient -> patientsDto.add(patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext())));
 
 		patientsDto.forEach(patient -> patient.setAge(Period.between(LocalDate.parse(patient.getBirthDate()), LocalDate.now()).getYears()));
-		
+
+
 		return patientsDto;
 	}
 
@@ -52,12 +54,10 @@ public class PatientServiceImpl implements PatientService {
 
 		Patient patient = patientRepository.findByUuid(id);
 
-		if(patient != null) {
-			patient.setAge(Period.between(patient.getBirthDate(), LocalDate.now()).getYears());
-		}
 
 		PatientDto patientDto = patientMapper.patientToPatientDto(patient, new CycleAvoidingMappingContext());
 
+		patientDto.setAge(Period.between(LocalDate.parse(patientDto.getBirthDate()), LocalDate.now()).getYears());
 
 		return patientDto;
 
