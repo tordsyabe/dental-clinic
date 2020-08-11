@@ -38,12 +38,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         Procedure procedure = procedureMapper.procedureDtoToProcedure(procedureService.getProcedureById(id), new CycleAvoidingMappingContext());
 
-
-
-
         Invoice invoice = invoiceMapper.invoiceDtoToInvoice(invoiceDto, new CycleAvoidingMappingContext());
-
-        invoice.setProcedure(procedure);
 
         invoice.setUuid(UUID.randomUUID().toString());
 
@@ -67,6 +62,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             procedure.setPaid("full");
         }
 
+        invoice.setProcedure(procedure);
 
         procedureRepository.save(procedure);
 

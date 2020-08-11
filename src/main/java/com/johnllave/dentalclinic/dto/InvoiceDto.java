@@ -26,6 +26,6 @@ public class InvoiceDto extends BaseDto{
 
     private String procedureId;
 
-    @JsonIgnoreProperties("invoiceDto")
+    @JsonIgnoreProperties("invoicesDto")
     private ProcedureDto procedureDto;
 }

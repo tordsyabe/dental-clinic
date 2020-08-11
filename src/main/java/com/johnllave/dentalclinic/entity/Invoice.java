@@ -24,7 +24,7 @@ public class Invoice extends BaseEntity {
 
     private LocalDate dateCreated;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "procedure_id")
     private Procedure procedure;
 

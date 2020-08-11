@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,7 +39,7 @@ public class ProcedureDto extends BaseDto {
     private ToothDto toothDto;
 
     @JsonIgnoreProperties("proceduresDto")
-    private InvoiceDto invoiceDto;
+    private List<InvoiceDto> invoicesDto = new ArrayList<>();
 
     @JsonIgnoreProperties("proceduresDto")
     private PatientDto patientDto;

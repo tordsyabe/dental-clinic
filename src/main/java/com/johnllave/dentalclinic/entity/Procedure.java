@@ -1,6 +1,8 @@
 package com.johnllave.dentalclinic.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import lombok.Getter;
@@ -26,11 +28,18 @@ public class Procedure extends BaseEntity {
 	@OneToOne
 	private Tooth tooth;
 
-	@OneToOne(cascade = ALL, mappedBy = "procedure")
-	private Invoice invoice;
+	@OneToMany(cascade = REMOVE, mappedBy = "procedure", orphanRemoval = true)
+	private List<Invoice> invoices = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
+
+	public Procedure addInvoice(Invoice invoice) {
+		invoice.setProcedure(this);
+		this.invoices.add(invoice);
+
+		return this;
+	}
 
 }

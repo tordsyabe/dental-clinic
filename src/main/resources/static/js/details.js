@@ -176,7 +176,6 @@ const submitInvoiceProcedure = (event, formId) => {
                                 procedureCard.find("[data-delete-procedure-btn]").css("pointer-events", "auto");
                     } else {
                         closeProcedureInvoiceForm(result.procedureDto.uuid);
-                        procedureCard.find("form").trigger("reset");
                         procedureCard.find("form").find("#invoiceBtn").removeClass("disabled").html("Invoice");
                         procedureCard.find("#payment-details").append(`
                             <small class="text-muted partial-payment">Partial payment: ${result.cost} as of ${result.datePaid}</small>

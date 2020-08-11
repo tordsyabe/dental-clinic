@@ -125,7 +125,7 @@
                                 <div class="row mt-3 pl-3 d-flex flex-column align-items-start" id="payment-details">
 
                                     <small class="text-muted procedure-cost">Procedure cost: [[${procedure.cost}]]</small>
-                                    <small class="text-muted partial-payment" th:if="${procedure.invoiceDto != null}">Partial payment: [[${procedure.invoiceDto.cost}]] as of [[${procedure.invoiceDto.datePaid}]]</small>
+                                    <small class="text-muted partial-payment" th:each="invoice : ${procedure.invoicesDto}">Partial payment: [[${invoice.cost}]] as of [[${invoice.datePaid}]]</small>
 
                                 </div>
 
