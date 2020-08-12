@@ -58,4 +58,5 @@ public class DentalProcedureServiceImpl implements DentalProcedureService {
 
         dentalProcedureRepository.delete(dentalProcedure);
     }
+
 }

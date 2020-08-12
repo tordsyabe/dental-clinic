@@ -120,17 +120,21 @@ html {
   --thumbBG: #303030;
 }
 
-.card::-webkit-scrollbar {
+.card::-webkit-scrollbar,
+#procedure-items-list::-webkit-scrollbar{
   width: 11px;
 }
-.card {
+.card,
+#procedure-items-list{
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
-.card::-webkit-scrollbar-track {
+.card::-webkit-scrollbar-track,
+#procedure-items-list::-webkit-scrollbar-track{
   background: var(--scrollbarBG);
 }
-.card::-webkit-scrollbar-thumb {
+.card::-webkit-scrollbar-thumb,
+#procedure-items-list::-webkit-scrollbar-thumb {
   background-color: var(--thumbBG) ;
   border-radius: 20px;
   border: 3px solid var(--scrollbarBG);

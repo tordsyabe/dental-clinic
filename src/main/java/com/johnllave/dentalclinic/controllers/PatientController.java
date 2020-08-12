@@ -3,10 +3,7 @@ package com.johnllave.dentalclinic.controllers;
 import com.johnllave.dentalclinic.dto.ComplaintDto;
 import com.johnllave.dentalclinic.dto.PatientDto;
 import com.johnllave.dentalclinic.dto.ProcedureDto;
-import com.johnllave.dentalclinic.entity.Complaint;
-import com.johnllave.dentalclinic.entity.Patient;
-import com.johnllave.dentalclinic.entity.Procedure;
-import com.johnllave.dentalclinic.mapper.CycleAvoidingMappingContext;
+import com.johnllave.dentalclinic.services.DentalProcedureCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +21,14 @@ public class PatientController {
 
 	private final PatientMapper patientMapper;
 
+	private final DentalProcedureCategoryService dentalProcedureCategoryService;
+
 	@Autowired
-	public PatientController(PatientService patientService, PatientMapper patientMapper) {
+	public PatientController(PatientService patientService, PatientMapper patientMapper, DentalProcedureCategoryService dentalProcedureCategoryService) {
 
 		this.patientService = patientService;
 		this.patientMapper = patientMapper;
+		this.dentalProcedureCategoryService = dentalProcedureCategoryService;
 	}
 
 
@@ -76,6 +76,7 @@ public class PatientController {
 		model.addAttribute("patient", patientDto);
 		model.addAttribute("procedureDate", Comparator.comparing(ProcedureDto::getDateCreated).reversed());
 		model.addAttribute("procedureDto", new ProcedureDto());
+		model.addAttribute("categoriesCount", dentalProcedureCategoryService.getCategoriesCount());
 
 		return "patient/procedures";
 	}

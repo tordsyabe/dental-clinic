@@ -7,5 +7,4 @@ public interface DentalProcedureService {
     DentalProcedureDto saveDentalProcedure(DentalProcedureDto dentalProcedureDto);
 
     void deleteDentalProcedure(String id);
-
 }

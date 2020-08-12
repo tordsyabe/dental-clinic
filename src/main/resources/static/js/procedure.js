@@ -319,6 +319,8 @@ $(document).keyup(function(e){
     }
 });
 
+
+//GETTING PROCEDURE CATEGORIES
 (function(){
 
     $.ajax({
@@ -329,22 +331,29 @@ $(document).keyup(function(e){
         success: function(data) {
             procedureItems = data;
 
-            data.forEach(dentalProcedure => {
-                $(".categories").append(`
-                    <input type="radio" id=${dentalProcedure.name} name="category" value=${dentalProcedure.name} class="category-toggle">
-                        <label class="text-center" for=${dentalProcedure.name} onclick="handleChangeProcedureOptions('${dentalProcedure.name}')">
-                            <div class="card text-center">
-                                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+            data.forEach((dentalProcedure, index) => {
 
-                                    <img src="/images/dental.svg" width="50px" />
-                                    <span class="small text-capitalize mt-2">${dentalProcedure.name}</span>
 
-                                </div>
-                            </div>
-                        </label>
 
+                $(".categories").find("label").eq(index).attr("for", dentalProcedure.name);
+
+                 $(".categories").find("label").eq(index).on("click",function(){
+                    handleChangeProcedureOptions(dentalProcedure.name);
+                 });
+
+            });
+
+            $(".categories").find(".spinner-grow").each(function(i, spinner){
+                console.log(spinner);
+                $(this).replaceWith(`
+                    <img src="/images/dental.svg" width="50px" />
+                    <span class="small text-capitalize mt-2">${data[i].name}</span>
                 `);
+            });
 
+            $(".categories").find("input[name=category]").each(function(x, input){
+                $(this).attr("id", data[x].name);
+                $(this).attr("value", data[x].name);
             });
 
                 const firstCategory = procedureItems[0].dentalProceduresDto;
@@ -406,5 +415,16 @@ function selectCost(costId, cost) {
     $("#procedure-items-list").find(`#${costId}-${cost}`).attr("checked", true);
 
 }
+
+$(".procedureForm").on("submit", function(){
+
+
+       $("input[type=submit]", this).addClass("disabled").html(`
+                <div class="spinner-border spinner-border-sm" role="status">
+                  <span class="sr-only">Deleting</span>
+                </div>
+                Saving Procedure
+            `);
+});
 
 

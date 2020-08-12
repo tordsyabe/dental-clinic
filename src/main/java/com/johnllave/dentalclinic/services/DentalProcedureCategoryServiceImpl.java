@@ -43,4 +43,9 @@ public class DentalProcedureCategoryServiceImpl implements DentalProcedureCatego
         return dentalCategoryMapper.entityToDto(dentalProcedureCategory, new CycleAvoidingMappingContext());
     }
 
+    @Override
+    public Long getCategoriesCount() {
+        return dentalCategoryRepo.count();
+    }
+
 }

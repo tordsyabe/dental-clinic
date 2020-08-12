@@ -14,7 +14,7 @@
     display: none;
 }
 
-.category-toggle:checked + label .card {
+.category-toggle:checked + .card {
     background-color: #3498db;
 }
 
@@ -292,6 +292,11 @@ input[id="tooth32"]:checked ~ svg #tooth32n {
 
 #with__procedure {
     display: none;
+}
+
+#procedure-items-list {
+    height: 120px;
+    overflow-y: scroll;
 }
 
 
